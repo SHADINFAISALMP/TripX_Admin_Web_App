@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "104318694544",
+    "project_id": "tripxtravelagencyuserapp",
+    "storage_bucket": "tripxtravelagencyuserapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104318694544:android:a44c93a883fe2984271415",
+        "android_client_info": {
+          "package_name": "com.example.tripx_admin_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ0LyymwIRIm7wCCkd_tjeQkKF7wnGxa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104318694544-8e9vm06r4ohpvga4h3fhmmg5lhpvbrmd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tripxUserApplication"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104318694544:android:f351b5599fc2b6ee271415",
+        "android_client_info": {
+          "package_name": "com.example.tripx_user_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104318694544-0vlibf9c8gpsopgimp3g8bt4f4c61hha.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripx_user_application",
+            "certificate_hash": "61cb14c37595846aceae51b07b99ec75884b0549"
+          }
+        },
+        {
+          "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ0LyymwIRIm7wCCkd_tjeQkKF7wnGxa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104318694544-8e9vm06r4ohpvga4h3fhmmg5lhpvbrmd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tripxUserApplication"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
