@@ -22,7 +22,7 @@ class ResendEmail extends StatelessWidget {
             : context.read<SignupBloc>().add(ResendEmailButtonPressed());
       },
       child: Text(
-        "haven't recieved the verification email? \n                      resend email",
+        "haven't recieved the verification code? \n                      resend code",
         textAlign: TextAlign.start,
         style: TextStyle(
             fontFamily: 'sedan',

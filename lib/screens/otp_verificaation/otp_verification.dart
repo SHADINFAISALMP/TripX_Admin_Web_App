@@ -12,8 +12,8 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 class OtpVerification extends StatelessWidget {
   final bool fromlogin;
-  const OtpVerification({super.key, required this.fromlogin});
-
+  OtpVerification({super.key, required this.fromlogin});
+  final TextEditingController otpcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -22,8 +22,8 @@ class OtpVerification extends StatelessWidget {
           listener: (context, state) {
             if (state is NavigateHomePage) {
               Navigator.pop(context);
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const Bottomnavigation()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Bottomnavigation()));
               ScaffoldMessenger.of(context)
                   .showSnackBar(const SnackBar(content: Text("Login Success")));
             }
@@ -67,8 +67,8 @@ class OtpVerification extends StatelessWidget {
           listener: (context, state) {
             if (state is NavigateHomePage) {
               Navigator.pop(context);
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                   const Bottomnavigation()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const Bottomnavigation()));
               ScaffoldMessenger.of(context)
                   .showSnackBar(const SnackBar(content: Text("Login Success")));
             }
@@ -123,7 +123,7 @@ class OtpVerification extends StatelessWidget {
                       top: mediaqueryheight(.05, context),
                     ),
                     child: mytext(
-                      "Please Verify your Email",
+                      "Verify your Phone number",
                       fontFamily: 'sedan',
                       fontSize: mediaqueryheight(.034, context),
                       color: white70,
@@ -133,7 +133,7 @@ class OtpVerification extends StatelessWidget {
                     height: mediaqueryheight(.09, context),
                   ),
                   Text(
-                    "we just sent an email to ${emailcontroller.text}.\nClick the link in the email to verify your account",
+                    "we just sent an code to ${phonecontroller.text}\nEnter code to verify your account",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'sedan',
@@ -144,49 +144,59 @@ class OtpVerification extends StatelessWidget {
                   SizedBox(
                     height: mediaqueryheight(.041, context),
                   ),
+                  // Form(
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         border: Border.all(color: blackcolor, width: 2)),
+                  //     width: mediaquerywidht(0.23, context),
+                  //     child: TextFormField(
+                  //       validator: (value) {
+                  //         if (value == "") {
+                  //           return "please enter the otp";
+                  //         } else if (value!.length < 6) {
+                  //           return "otp must contian 6 digits";
+                  //         } else {
+                  //           return null;
+                  //         }
+                  //       },
+                  //       enableInteractiveSelection: false,
+                  //       cursorColor: Colors.blueGrey,
+                  //       maxLength: 6,
+                  //       controller: otpcontroller,
+                  //       textAlign: TextAlign.center,
+                  //       keyboardType: TextInputType.number,
+                  //       style: TextStyle(
+                  //           fontFamily: sedan,
+                  //           fontSize: mediaqueryheight(0.027, context)),
+                  //       decoration: InputDecoration(
+                  //           counterText: "",
+                  //           contentPadding: EdgeInsets.symmetric(
+                  //               horizontal: mediaquerywidht(0.02, context)),
+                  //           border: InputBorder.none,
+                  //           focusedBorder: InputBorder.none),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(
+                    height: mediaqueryheight(.041, context),
+                  ),
                   SubmitButtonVerify(
                     fromlogin: fromlogin,
                   ),
                   SizedBox(
-                    height: mediaqueryheight(.021, context),
+                    height: mediaqueryheight(.091, context),
                   ),
                   ResendEmail(
                     fromlogin: fromlogin,
                   ),
                   SizedBox(
-                    height: mediaqueryheight(.041, context),
+                    height: mediaqueryheight(.031, context),
                   ),
                 ],
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class OtpBox extends StatelessWidget {
-  const OtpBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: mediaquerywidht(.17, context),
-      child: TextFormField(
-        maxLength: 1,
-        showCursor: false,
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          counterText: '',
-          filled: true,
-          fillColor: white70,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              mediaqueryheight(.011, context),
-            ),
-            borderSide: BorderSide.none,
           ),
         ),
       ),

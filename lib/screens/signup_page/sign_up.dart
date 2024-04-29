@@ -40,7 +40,7 @@ class _SignupState extends State<Signup> {
                 if (state is NavigateToEmailVerficationPage) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                        builder: (context) => const OtpVerification(
+                        builder: (context) =>  OtpVerification(
                               fromlogin: false,
                             )),
                   );
@@ -110,14 +110,14 @@ class _SignupState extends State<Signup> {
                       mytext(
                         "CREATE AN ACCOUNT",
                         fontSize: mediaqueryheight(.030, context),
-                        color: white70,
+                        color: whitecolor,
                         fontFamily: 'sedan',
                       ),
                       SizedBox(
                         height: mediaqueryheight(.011, context),
                       ),
                       customtextformfieild(
-                        'Enter Your Name',
+                        'Enter Your Company Name',
                         Icons.person,
                         context,
                         controller: namecontroller,
@@ -128,7 +128,7 @@ class _SignupState extends State<Signup> {
                         height: mediaqueryheight(.015, context),
                       ),
                       customtextformfieild(
-                        "Enter Your Email",
+                        "Enter Email",
                         Icons.email,
                         context,
                         validator: emailValidator,
@@ -144,7 +144,7 @@ class _SignupState extends State<Signup> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
                       customtextformfiledpassword(
-                        "Enter Your Password",
+                        "Enter Password",
                         context,
                         controller: passwordcontroller,
                         validator: passwordValidator,

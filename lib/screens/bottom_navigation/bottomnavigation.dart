@@ -6,7 +6,6 @@ import 'package:tripx_admin_application/utils/bottomnavigation_list.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
-
 class Bottomnavigation extends StatefulWidget {
   const Bottomnavigation({super.key});
 
@@ -53,25 +52,25 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                 ),
                 BottomBarItem(
                   inActiveItem: Icon(
-                    Icons.search,
+                    Icons.add,
                     color: whitecolor,
                   ),
                   activeItem: Icon(
-                    Icons.search,
+                    Icons.add,
                     color: colorteal,
                   ),
-                  itemLabel: 'SEARCH',
+                  itemLabel: 'ADD PACKAGES',
                 ),
                 BottomBarItem(
                   inActiveItem: Icon(
-                    Icons.airplane_ticket,
+                    Icons.person,
                     color: whitecolor,
                   ),
                   activeItem: Icon(
-                    Icons.airplane_ticket,
+                    Icons.person_2_sharp,
                     color: colorteal,
                   ),
-                  itemLabel: 'MY BOOKINGS',
+                  itemLabel: 'PROFILE',
                 ),
               ],
               notchBottomBarController: _pageController,

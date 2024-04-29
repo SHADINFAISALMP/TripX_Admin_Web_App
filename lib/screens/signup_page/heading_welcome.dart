@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
-
 
 class HeadingWelcom extends StatelessWidget {
   const HeadingWelcom({
@@ -16,7 +16,7 @@ class HeadingWelcom extends StatelessWidget {
       ),
       child: mytext(
         "WELCOME",
-        color: Colors.white70,
+        color: whitecolor,
         fontFamily: 'sedan',
         fontSize: mediaqueryheight(.030, context),
       ),

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
@@ -54,7 +52,7 @@ class _LoginState extends State<Login> {
               if (state is NavigateToOtpPage) {
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const OtpVerification(
+                    builder: (context) =>  OtpVerification(
                           fromlogin: true,
                         )));
               }
@@ -157,12 +155,12 @@ class _LoginState extends State<Login> {
                         "TRIPX",
                         fontFamily: 'sedan',
                         fontSize: mediaqueryheight(.05, context),
-                        color: white70,
+                        color: whitecolor,
                       ),
                     ),
                     mytext(
                       "WELCOME AGAIN",
-                      color: white70,
+                      color: whitecolor,
                       fontFamily: 'sedan',
                       fontSize: mediaqueryheight(.03, context),
                     ),
@@ -180,15 +178,14 @@ class _LoginState extends State<Login> {
                     SizedBox(
                       height: mediaqueryheight(.031, context),
                     ),
-                    customtextformfieild(
-                        "Enter your Email", Icons.email, context,
+                    customtextformfieild("Enter Email", Icons.email, context,
                         controller: emailcontrollerlog,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: emailValidator),
                     SizedBox(
                       height: mediaqueryheight(.05, context),
                     ),
-                    customtextformfiledpassword('Enter Your Password', context,
+                    customtextformfiledpassword('Enter Password', context,
                         controller: passwordcontrollerlog,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         validator: passwordValidator),
@@ -199,7 +196,7 @@ class _LoginState extends State<Login> {
                       height: mediaqueryheight(.07, context),
                       width: mediaquerywidht(.4, context),
                       decoration: BoxDecoration(
-                        color: white70,
+                        color: whitecolor,
                         borderRadius: BorderRadius.circular(
                           mediaqueryheight(.011, context),
                         ),
@@ -225,7 +222,7 @@ class _LoginState extends State<Login> {
                             mytext('Log in',
                                 color: black54,
                                 fontSize: mediaqueryheight(.029, context),
-                                fontWeight: FontWeight.normal,
+                                fontWeight: FontWeight.w300,
                                 fontFamily: sedan),
                           ],
                         ),

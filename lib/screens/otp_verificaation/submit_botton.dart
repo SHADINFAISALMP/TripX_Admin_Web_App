@@ -6,7 +6,6 @@ import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
-
 class SubmitButtonVerify extends StatelessWidget {
   final bool fromlogin;
   const SubmitButtonVerify({
@@ -57,7 +56,9 @@ class SubmitButtonVerify extends StatelessWidget {
 
 submitButton(BuildContext context, bool fromLogin) {
   fromLogin
-      ? context.read<SignupBloc>().add(VerifyEmailPressed(context))//here i changed
+      ? context
+          .read<SignupBloc>()
+          .add(VerifyEmailPressed(context)) //here i changed
       : context.read<SignupBloc>().add(VerifyEmailPressed(context));
   return null;
 }

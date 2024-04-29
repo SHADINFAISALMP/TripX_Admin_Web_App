@@ -7,9 +7,6 @@ import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
-
-
-
 SizedBox customtextformfieild(
   String hinttext,
   IconData icon,
@@ -26,13 +23,13 @@ SizedBox customtextformfieild(
       validator: validator,
       decoration: InputDecoration(
         filled: true,
-        fillColor: white70,
+        fillColor: whitecolor,
         prefixIcon: Icon(icon, color: blackcolor),
         hintText: hinttext,
         hintStyle: TextStyle(
             color: black54,
             fontSize: mediaqueryheight(.021, context),
-            fontWeight: FontWeight.w200,
+            fontWeight: FontWeight.w300,
             fontFamily: sedan),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
@@ -68,7 +65,7 @@ customtextformfiledpassword(
           obscureText: isObscured,
           decoration: InputDecoration(
             filled: true,
-            fillColor: white70,
+            fillColor: whitecolor,
             prefixIcon: const Icon(Icons.password_sharp, color: blackcolor),
             suffixIcon: GestureDetector(
               onTap: () {
@@ -84,7 +81,7 @@ customtextformfiledpassword(
             hintStyle: TextStyle(
                 color: black54,
                 fontSize: mediaqueryheight(.021, context),
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w300,
                 fontFamily: sedan),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
@@ -98,6 +95,7 @@ customtextformfiledpassword(
     },
   );
 }
+
 customtextformfiledconfirmpassword(
   String hinttext,
   context, {
@@ -121,11 +119,11 @@ customtextformfiledconfirmpassword(
           obscureText: isObscured,
           decoration: InputDecoration(
             filled: true,
-            fillColor: white70,
+            fillColor: whitecolor,
             prefixIcon: const Icon(Icons.password_sharp, color: blackcolor),
             suffixIcon: GestureDetector(
               onTap: () {
-                 BlocProvider.of<SignupBloc>(context)
+                BlocProvider.of<SignupBloc>(context)
                     .add(Confirmpassword(isconfirmpassword: !isObscured));
               },
               child: Icon(
@@ -137,7 +135,7 @@ customtextformfiledconfirmpassword(
             hintStyle: TextStyle(
                 color: black54,
                 fontSize: mediaqueryheight(.021, context),
-                fontWeight: FontWeight.normal,
+                fontWeight: FontWeight.w300,
                 fontFamily: sedan),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(
@@ -151,6 +149,7 @@ customtextformfiledconfirmpassword(
     },
   );
 }
+
 class Textformfieldphonenumber extends StatelessWidget {
   const Textformfieldphonenumber(
       {Key? key,
@@ -174,13 +173,13 @@ class Textformfieldphonenumber extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           filled: true,
-          fillColor: white70,
+          fillColor: whitecolor,
           prefixIcon: const Icon(Icons.phone, color: blackcolor),
-          hintText: 'Enter your phone number',
+          hintText: 'Enter phone number',
           hintStyle: TextStyle(
             color: black54,
             fontSize: mediaqueryheight(.021, context),
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.w300,
             fontFamily: sedan,
           ),
           border: OutlineInputBorder(

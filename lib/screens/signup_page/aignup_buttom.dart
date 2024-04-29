@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +6,6 @@ import 'package:tripx_admin_application/screens/signup_page/sign_up.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
-
 
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
@@ -21,7 +18,7 @@ class SignUpButton extends StatelessWidget {
       height: mediaqueryheight(.07, context),
       width: mediaquerywidht(.5, context),
       decoration: BoxDecoration(
-        color: white70,
+        color: whitecolor,
         borderRadius: BorderRadius.circular(
           mediaqueryheight(.011, context),
         ),
@@ -29,10 +26,7 @@ class SignUpButton extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           if (formKeyy.currentState!.validate()) {
-           
-            context
-                .read<SignupBloc>()
-                .add(Signupbuttonpress(context));
+            context.read<SignupBloc>().add(Signupbuttonpress(context));
           }
         },
         child: Row(
@@ -50,7 +44,7 @@ class SignUpButton extends StatelessWidget {
               'Sign Up',
               color: black54,
               fontSize: mediaqueryheight(.021, context),
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.w400,
               fontFamily: 'sedan',
             ),
           ],

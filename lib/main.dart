@@ -1,7 +1,7 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tripx_admin_application/blocs/bottomnavigation/bottomnavigation_bloc.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
@@ -10,7 +10,7 @@ import 'package:tripx_admin_application/firebase_options.dart';
 import 'package:tripx_admin_application/screens/splash_screen.dart';
 
 Future<void> main() async {
- WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiBlocProvider(
     providers: [
@@ -25,6 +25,9 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (context) => LoginBloc(),
+      ),
+      BlocProvider(
+        create: (context) => BottomnavigationBloc(),
       ),
     ],
     child: const MyApp(),

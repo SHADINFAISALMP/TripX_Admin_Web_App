@@ -15,6 +15,19 @@ final class Signupbuttonpress extends SignupEvent {
   Signupbuttonpress(this.context);
 }
 
+final class Otpvalidation extends SignupEvent {
+  final BuildContext context;
+
+  Otpvalidation({required this.context});
+}
+
+final class SubmitotpbuttonPressed extends SignupEvent {
+  final String verificationID;
+  final context;
+
+  SubmitotpbuttonPressed(this.context, {required this.verificationID});
+}
+
 final class AuthenticateAdminDetails extends SignupEvent {
   final BuildContext context;
 
@@ -27,6 +40,4 @@ final class VerifyEmailPressed extends SignupEvent {
   VerifyEmailPressed(this.context);
 }
 
-final class ResendEmailButtonPressed extends SignupEvent{
-  
-}
+final class ResendEmailButtonPressed extends SignupEvent {}
