@@ -55,14 +55,48 @@ class _SignupState extends State<Signup> {
           );
         }
         if (state is RegisterFailure) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("registration failed")));
+          ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "Registration Failed",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
         }
         if (state is Phonenumberalreadyregistered) {
           phonecontroller.clear();
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Phone Number ALready registered")));
+           ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "Phone Number Already Registered",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
         }
       },
       child: Scaffold(

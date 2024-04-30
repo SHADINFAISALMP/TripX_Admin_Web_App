@@ -20,13 +20,11 @@ class _BottomnavigationState extends State<Bottomnavigation> {
     super.initState();
     _pageController = NotchBottomBarController();
   }
-
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(
     BuildContext context,
@@ -46,7 +44,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                   ),
                   activeItem: Icon(
                     Icons.home_filled,
-                    color: colorteal,
+                    color: blackcolor,
                   ),
                   itemLabel: 'HOME',
                 ),
@@ -57,7 +55,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                   ),
                   activeItem: Icon(
                     Icons.add,
-                    color: colorteal,
+                    color: blackcolor,
                   ),
                   itemLabel: 'ADD PACKAGES',
                 ),
@@ -68,7 +66,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                   ),
                   activeItem: Icon(
                     Icons.person_2_sharp,
-                    color: colorteal,
+                    color: blackcolor,
                   ),
                   itemLabel: 'PROFILE',
                 ),
@@ -79,11 +77,11 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                     .read<BottomnavigationBloc>()
                     .add(ChangeTabEvent(pageIndex: value));
               },
-              kIconSize: mediaqueryheight(.03, context),
+              kIconSize: mediaqueryheight(.029, context),
               kBottomRadius: mediaqueryheight(.02, context),
               notchColor: whitecolor,
-              color: colorteal,
-              itemLabelStyle: const TextStyle(color: white70, fontSize: 8),
+              color: orangecolor,
+              itemLabelStyle: const TextStyle(color: whitecolor, fontSize: 9),
               bottomBarHeight: mediaqueryheight(.04, context),
             ));
       },

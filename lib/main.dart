@@ -8,7 +8,7 @@ import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart
 import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupimage/profileimage_bloc.dart';
 import 'package:tripx_admin_application/firebase_options.dart';
-import 'package:tripx_admin_application/screens/splash_screen.dart';
+import 'package:tripx_admin_application/screens/splash_screen/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

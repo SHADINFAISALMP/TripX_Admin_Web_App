@@ -41,13 +41,47 @@ class _LoginState extends State<Login> {
               if (state is IncorrectDetails) {
                 emailcontrollerlog.clear();
                 passwordcontrollerlog.clear();
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("incorrect email or password")));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "Incorrect Email or PAssword",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
                 Navigator.pop(context);
               }
               if (state is EmailNotVerified) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("please verify your email")));
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "PLease Verify Your Email",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
               }
               if (state is NavigateToOtpPage) {
                 Navigator.pop(context);
@@ -95,7 +129,24 @@ class _LoginState extends State<Login> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const Bottomnavigation()));
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Google Sign In Success")));
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "Google Sign In Success",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
               }
               if (state is GoogleLoadingstate) {
                 showDialog(
@@ -127,8 +178,25 @@ class _LoginState extends State<Login> {
                 );
               }
               if (state is GoogleFailureState) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text("Failed Logging in. Please try again ")));
+                 ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(
+                      child: Text(
+                        "Failed Log In , Please Try Again",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: sedan,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w300),
+                      ),
+                    ),
+                    backgroundColor: colorteal,
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                );
                 Navigator.pop(context);
               }
             },

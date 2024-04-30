@@ -172,22 +172,26 @@ class _ProfileState extends State<Profile> {
                             height: mediaqueryheight(0.05, context),
                           ),
                           Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.logout,
-                                  color: Colors.red,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  width: mediaquerywidht(0.05, context),
-                                ),
-                                mytext("Log Out",
-                                    fontFamily: sedan,
-                                    fontSize: 22,
-                                    color: Colors.red),
-                              ],
+                            child: GestureDetector(onTap: () {
+                              
+                            },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.logout,
+                                    color: Colors.red,
+                                    size: 30,
+                                  ),
+                                  SizedBox(
+                                    width: mediaquerywidht(0.05, context),
+                                  ),
+                                  mytext("Log Out",
+                                      fontFamily: sedan,
+                                      fontSize: 22,
+                                      color: Colors.red),
+                                ],
+                              ),
                             ),
                           ),
                         ],

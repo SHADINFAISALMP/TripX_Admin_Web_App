@@ -4,7 +4,6 @@ import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
-
 class DontHaveAccountText extends StatelessWidget {
   const DontHaveAccountText({
     super.key,
@@ -17,20 +16,22 @@ class DontHaveAccountText extends StatelessWidget {
         left: mediaquerywidht(.1, context),
       ),
       child: GestureDetector(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const Signup())),
+        onTap: () => Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Signup())),
         child: Row(
           children: [
             mytext(
               "DON'T HAVE AN ACCOUNT?",
-              color: colorteal,
+              color: whitecolor,
               fontFamily: sedan,
+              fontWeight: FontWeight.bold,
               fontSize: mediaqueryheight(.019, context),
             ),
             mytext(
               "SIGN UP",
-              color: white70,
+              color: orangecolor,
               fontFamily: sedan,
+              fontWeight: FontWeight.bold,
               fontSize: mediaqueryheight(.019, context),
             ),
           ],

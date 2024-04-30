@@ -26,7 +26,24 @@ class OtpVerification extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const Bottomnavigation()));
           ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("sucessfully loged in")));
+            SnackBar(
+              content: Center(
+                child: Text(
+                  "Successfully Logged In",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: sedan,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300),
+                ),
+              ),
+              backgroundColor: colorteal,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
         }
       },
       child: Scaffold(
