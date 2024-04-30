@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
+import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
+
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 class SubmitButtonVerify extends StatelessWidget {
-  final bool fromlogin;
+  final String verificationId;
   const SubmitButtonVerify({
-    super.key,
-    required this.fromlogin,
+    super.key, required this.verificationId,
   });
 
   @override
@@ -25,10 +25,10 @@ class SubmitButtonVerify extends StatelessWidget {
         ),
       ),
       child: GestureDetector(
-        onTap: () {
+        onTap: () async {
+          submitButton(context, verificationId);
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const Bottomnavigation()));
-          submitButton(context, fromlogin);
         },
         child: Row(
           children: [
@@ -54,11 +54,9 @@ class SubmitButtonVerify extends StatelessWidget {
   }
 }
 
-submitButton(BuildContext context, bool fromLogin) {
-  fromLogin
-      ? context
-          .read<SignupBloc>()
-          .add(VerifyEmailPressed(context)) //here i changed
-      : context.read<SignupBloc>().add(VerifyEmailPressed(context));
+submitButton(BuildContext context, String verificationId) {
+  context
+      .read<RegisterBloc>()
+      .add(SubmitOtpButtonpressed(context, verificationId: verificationId));
   return null;
 }

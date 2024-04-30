@@ -33,7 +33,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: whitecolor,
-      body: Text("home"),
+      body: const Text("home"),
     );
   }
 }

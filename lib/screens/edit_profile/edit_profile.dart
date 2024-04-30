@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
-import 'package:tripx_admin_application/screens/profile.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';

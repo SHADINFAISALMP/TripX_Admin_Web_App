@@ -52,8 +52,9 @@ class _LoginState extends State<Login> {
               if (state is NavigateToOtpPage) {
                 Navigator.pop(context);
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>  OtpVerification(
-                          fromlogin: true,
+                    builder: (context) => const OtpVerification(
+                          // fromlogin: true,
+                          verificationId: '',
                         )));
               }
               if (state is AuthenicatingUser) {

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/bottomnavigation/bottomnavigation_bloc.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
+import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupimage/profileimage_bloc.dart';
 import 'package:tripx_admin_application/firebase_options.dart';
@@ -16,6 +17,9 @@ Future<void> main() async {
     providers: [
       BlocProvider(
         create: (context) => SignupBloc(),
+      ),
+      BlocProvider(
+        create: (context) => RegisterBloc(),
       ),
       BlocProvider(
         create: (context) => GoogleBloc(),

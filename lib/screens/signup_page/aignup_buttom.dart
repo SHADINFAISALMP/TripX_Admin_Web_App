@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
 
-import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
-import 'package:tripx_admin_application/screens/signup_page/sign_up.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
@@ -25,9 +24,12 @@ class SignUpButton extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          if (formKeyy.currentState!.validate()) {
-            context.read<SignupBloc>().add(Signupbuttonpress(context));
-          }
+          // if (formKeyy.currentState!.validate()) {
+
+          // }
+          context
+              .read<RegisterBloc>()
+              .add(RegisterButtonPressed(context: context));
         },
         child: Row(
           children: [
