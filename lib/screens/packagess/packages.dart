@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tripx_admin_application/screens/packagess/packageimages.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
@@ -11,6 +12,7 @@ class Packages extends StatefulWidget {
 }
 
 class _SearchpageState extends State<Packages> {
+  List<String> selectedTransportOptions = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,126 +29,253 @@ class _SearchpageState extends State<Packages> {
                 bottomRight: Radius.circular(30))),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: mediaqueryheight(0.01, context),
-            ),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    color: colorteal, borderRadius: BorderRadius.circular(20)),
-                height: mediaqueryheight(0.76, context),
-                width: mediaquerywidht(0.95, context),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(children: [
+        SizedBox(
+          height: mediaqueryheight(0.01, context),
+        ),
+        Center(
+          child: Container(
+            decoration: BoxDecoration(
+                color: colorteal, borderRadius: BorderRadius.circular(20)),
+            height: mediaqueryheight(0.76, context),
+            width: mediaquerywidht(0.95, context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: mediaqueryheight(0.02, context),
+                ),
+                const TopName(
+                  text: "PACKAGE NAME",
+                ),
+                const PackageFields(
+                  hinttext: "Package Name",
+                  prefixicon: Icon(Icons.abc),
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                const TopName(
+                  text: "DESTINATION",
+                ),
+                const PackageFields(
+                  hinttext: "Destination",
+                  prefixicon: Icon(Icons.place),
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    SizedBox(
-                      height: mediaqueryheight(0.02, context),
+                    TopName(
+                      text: "DAYS",
                     ),
-                    const TopName(
-                      text: "PACKAGE NAME",
+                    TopName(
+                      text: "NIGHTS",
                     ),
-                    const PackageFields(
-                      hinttext: "Package Name",
-                      prefixicon: Icon(Icons.abc),
+                    TopName(
+                      text: "COUNTRY",
                     ),
-                    SizedBox(
-                      height: mediaqueryheight(0.01, context),
+                    TopName(
+                      text: "CITIES",
                     ),
-                    const TopName(
-                      text: "DESTINATION",
-                    ),
-                    const PackageFields(
-                      hinttext: "Destination",
-                      prefixicon: Icon(Icons.place),
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(0.01, context),
-                    ),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        TopName(
-                          text: "DAYS",
-                        ),
-                        TopName(
-                          text: "NIGHTS",
-                        ),
-                        TopName(
-                          text: "COUNTRY",
-                        ),
-                        TopName(
-                          text: "CITIES",
-                        ),
-                      ],
-                    ),
-                    const Row(
-                      children: [
-                        PackageFieldsdayandnights(
-                          prefixicon: Icon(Icons.sunny),
-                        ),
-                        PackageFieldsdayandnights(
-                          prefixicon: Icon(Icons.night_shelter),
-                        ),
-                        PackageFieldsdayandnights(
-                          prefixicon: Icon(Icons.location_city),
-                        ),
-                        PackageFieldsdayandnights(
-                          prefixicon: Icon(Icons.location_city),
-                        ),
-                      ],
-                    ),
-                    const TopName(
-                      text: "START DATE",
-                    ),
-                    const PackageFields(
-                      hinttext: "Start Date",
-                      prefixicon: Icon(Icons.date_range),
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(0.01, context),
-                    ),
-                    const TopName(
-                      text: "END DATE",
-                    ),
-                    const PackageFields(
-                      hinttext: "End Date",
-                      prefixicon: Icon(Icons.date_range_sharp),
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(0.07, context),
-                    ),
-                    Center(
-                      
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: orangecolor,
-                              borderRadius: BorderRadius.circular(10)),
-                          height: mediaqueryheight(0.05, context),
-                          width: mediaquerywidht(0.5, context),
-                          child: Center(
-                            child: Text(
-                              "NEXT",
-                              style: TextStyle(
-                                  fontFamily: sedan,
-                                  fontSize: 24,
-                                  color: whitecolor,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
-              ),
+                const Row(
+                  children: [
+                    PackageFieldsdayandnights(
+                      prefixicon: Icon(Icons.sunny),
+                    ),
+                    PackageFieldsdayandnights(
+                      prefixicon: Icon(Icons.night_shelter),
+                    ),
+                    PackageFieldsdayandnights(
+                      prefixicon: Icon(Icons.location_city),
+                    ),
+                    PackageFieldsdayandnights(
+                      prefixicon: Icon(Icons.location_city),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                const TopName(
+                  text: "START DATE",
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Container(
+                      height: mediaqueryheight(0.065, context),
+                      width: mediaquerywidht(0.89, context),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: whitecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: blackcolor.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: const Offset(2, 5),
+                          ),
+                        ],
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              color: colorteal,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "Start Date",
+                              style: TextStyle(
+                                  color: colorteal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.02, context),
+                ),
+                const TopName(
+                  text: "END DATE",
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Container(
+                      height: mediaqueryheight(0.065, context),
+                      width: mediaquerywidht(0.89, context),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: whitecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: blackcolor.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: const Offset(2, 5),
+                          ),
+                        ],
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              color: colorteal,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "End Date",
+                              style: TextStyle(
+                                  color: colorteal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.02, context),
+                ),
+                const TopName(
+                  text: "TRANSPORTATION",
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Container(
+                      height: mediaqueryheight(0.065, context),
+                      width: mediaquerywidht(0.89, context),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: whitecolor,
+                        boxShadow: [
+                          BoxShadow(
+                            color: blackcolor.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 10,
+                            offset: const Offset(2, 5),
+                          ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.directions_car,
+                              color: colorteal,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              selectedTransportOptions.isNotEmpty
+                                  ? selectedTransportOptions.join(', ')
+                                  : 'Select Transportation',
+                              style: const TextStyle(
+                                  color: colorteal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.02, context),
+                ),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PackageImage()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: orangecolor,
+                          borderRadius: BorderRadius.circular(10)),
+                      height: mediaqueryheight(0.05, context),
+                      width: mediaquerywidht(0.5, context),
+                      child: Center(
+                        child: Text(
+                          "NEXT",
+                          style: TextStyle(
+                              fontFamily: sedan,
+                              fontSize: 24,
+                              color: whitecolor,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
-          ],
+          ),
         ),
-      ),
+      ])),
     );
   }
 }

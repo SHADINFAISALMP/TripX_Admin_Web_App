@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
@@ -157,20 +158,23 @@ class _LoginState extends State<Login> {
                       backgroundColor: Colors.transparent,
                       content: Container(
                         decoration: BoxDecoration(
-                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Transform.scale(
-                              scale: 1.5,
-                              child: Image.asset(
-                                'assets/image/circle.gif',
-                                color: whitecolor,
-                              ),
-                            ),
-                          ],
+                        child: Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Transform.scale(
+                                  scale: 1,
+                                  child: LoadingAnimationWidget.dotsTriangle(
+                                      color: whitecolor, size: 60)
+                                  // Image.asset(
+                                  //   'assets/image/circle.gif',
+                                  //   color: whitecolor,
+                                  // ),
+                                  ),
+                            ],
+                          ),
                         ),
                       ),
                     );
@@ -178,7 +182,7 @@ class _LoginState extends State<Login> {
                 );
               }
               if (state is GoogleFailureState) {
-                 ScaffoldMessenger.of(context).showSnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Center(
                       child: Text(
