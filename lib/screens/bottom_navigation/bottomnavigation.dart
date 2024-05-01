@@ -20,20 +20,21 @@ class _BottomnavigationState extends State<Bottomnavigation> {
     super.initState();
     _pageController = NotchBottomBarController();
   }
+
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(
     BuildContext context,
   ) {
-    // final itemposition = bottombarcolor(context ?? 0);
-    // final isselected = itemposition == state.currentpageindex;
     return BlocBuilder<BottomnavigationBloc, BottomnavigationState>(
       builder: (context, state) {
         return Scaffold(
+            // backgroundColor: colorteal,
             body: pages[state.currentpageindex],
             bottomNavigationBar: AnimatedNotchBottomBar(
               bottomBarItems: const [
