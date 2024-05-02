@@ -41,11 +41,11 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                 BottomBarItem(
                   inActiveItem: Icon(
                     Icons.home_filled,
-                    color: whitecolor,
+                    color: colorteal,
                   ),
                   activeItem: Icon(
                     Icons.home_filled,
-                    color: blackcolor,
+                    color: colorteal,
                   ),
                   itemLabel: 'HOME',
                 ),
@@ -56,7 +56,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                   ),
                   activeItem: Icon(
                     Icons.add,
-                    color: blackcolor,
+                    color: colorteal,
                   ),
                   itemLabel: 'ADD PACKAGES',
                 ),
@@ -67,7 +67,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                   ),
                   activeItem: Icon(
                     Icons.person_2_sharp,
-                    color: blackcolor,
+                    color: colorteal,
                   ),
                   itemLabel: 'PROFILE',
                 ),
@@ -81,7 +81,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
               kIconSize: mediaqueryheight(.029, context),
               kBottomRadius: mediaqueryheight(.02, context),
               notchColor: whitecolor,
-              color: orangecolor,
+              color: colorteal,
               itemLabelStyle: const TextStyle(color: whitecolor, fontSize: 9),
               bottomBarHeight: mediaqueryheight(.04, context),
             ));

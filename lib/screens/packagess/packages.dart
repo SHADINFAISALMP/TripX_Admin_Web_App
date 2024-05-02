@@ -241,9 +241,9 @@ class _SearchpageState extends State<Packages> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: mediaqueryheight(0.02, context),
-                ),
+                // SizedBox(
+                //   height: mediaqueryheight(0.01, context),
+                // ),
                 Center(
                   child: GestureDetector(
                     onTap: () {
@@ -365,7 +365,7 @@ class PackageFieldsdayandnights extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: mediaquerywidht(0.20, context),
+        width: mediaquerywidht(0.197, context),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: whitecolor,
