@@ -1,6 +1,8 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/screens/homescreen/home_carousel.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
@@ -96,19 +98,24 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 
-  Widget buildCarousel() => CarouselSlider.builder(
-      itemCount: images.length,
-      itemBuilder: (context, index, realindex) {
-        final imagess = images[index];
-        return buildImage(imagess, index);
-      },
-      options: CarouselOptions(
-          viewportFraction: 0.72,
-          enlargeCenterPage: true,
-          height: mediaqueryheight(0.45, context),
-          autoPlayCurve: Curves.linear,
-          onPageChanged: (index, reason) => setState(() => activeindex = index),
-          autoPlay: true));
+  Widget buildCarousel() => BlocBuilder<AddpackageBloc, AddpackageState>(
+        builder: (context, state) {
+          return CarouselSlider.builder(
+              itemCount: images.length,
+              itemBuilder: (context, index, realindex) {
+                final imagess = images[index];
+                return buildImage(imagess, index);
+              },
+              options: CarouselOptions(
+                  viewportFraction: 0.72,
+                  enlargeCenterPage: true,
+                  height: mediaqueryheight(0.45, context),
+                  autoPlayCurve: Curves.linear,
+                  onPageChanged: (index, reason) =>
+                      setState(() => activeindex = index),
+                  autoPlay: true));
+        },
+      );
 
   Widget buildImage(String imagess, int index) => GestureDetector(
         onTap: () {

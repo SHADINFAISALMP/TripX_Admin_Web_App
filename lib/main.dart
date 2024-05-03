@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/blocs/bottomnavigation/bottomnavigation_bloc.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
@@ -17,6 +18,9 @@ Future<void> main() async {
     providers: [
       BlocProvider(
         create: (context) => SignupBloc(),
+      ),
+      BlocProvider(
+        create: (context) => AddpackageBloc(),
       ),
       BlocProvider(
         create: (context) => RegisterBloc(),

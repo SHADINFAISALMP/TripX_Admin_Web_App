@@ -41,7 +41,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                 BottomBarItem(
                   inActiveItem: Icon(
                     Icons.home_filled,
-                    color: colorteal,
+                    color: whitecolor,
                   ),
                   activeItem: Icon(
                     Icons.home_filled,

@@ -2,19 +2,14 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/screens/packagess/packages.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
+import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
-
-final TextEditingController photoController = TextEditingController();
-final TextEditingController accomadtionController = TextEditingController();
-final TextEditingController mealsController = TextEditingController();
-final TextEditingController activitieswController = TextEditingController();
-final TextEditingController priceController = TextEditingController();
-final TextEditingController bookingController = TextEditingController();
-final TextEditingController additionalController = TextEditingController();
 
 class PackageImage extends StatefulWidget {
   const PackageImage({super.key});
@@ -24,16 +19,6 @@ class PackageImage extends StatefulWidget {
 }
 
 class _PackageImageState extends State<PackageImage> {
-//change to bloc
-  final _imageFiles = [];
-  Future<void> _pickImages() async {
-    final picker = ImagePicker();
-    final pickedImages = await picker.pickMultiImage();
-    setState(() {
-      _imageFiles.addAll(pickedImages);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +58,14 @@ class _PackageImageState extends State<PackageImage> {
                       ),
                       const TopName(text: "PACKAGE PHOTOS"),
                       GestureDetector(
-                        onTap: () {
-                          _pickImages();
+                        onTap: () async {
+                          final picker = ImagePicker();
+                          final List<XFile> pickedImages =
+                              await picker.pickMultiImage();
+                          // ignore: use_build_context_synchronously
+                          context
+                              .read<AddpackageBloc>()
+                              .add(Multipleimageselected(pickedImages));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -92,52 +83,77 @@ class _PackageImageState extends State<PackageImage> {
                           height: mediaqueryheight(0.2, context),
                           width: mediaquerywidht(0.84, context),
                           //change to bloc
-                          child: _imageFiles.isEmpty
-                              ? Center(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Icon(
-                                        Icons.photo_library_sharp,
-                                        color: colorteal,
-                                        size: 35,
-                                      ),
-                                      SizedBox(
-                                        width: mediaquerywidht(0.03, context),
-                                      ),
-                                      mytext(
-                                        "ADD PHOTOS",
-                                        fontFamily: sedan,
-                                        fontSize: 25,
-                                        color: colorteal,
-                                      ),
-                                    ],
+                          child: BlocBuilder<AddpackageBloc, AddpackageState>(
+                            builder: (context, state) => state.images != null
+                                ? CarouselSlider.builder(
+                                    itemCount:
+                                        (state.images!.length / 6).ceil(),
+                                    itemBuilder: (context, index, realIndex) {
+                                      return GridView.builder(
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 8,
+                                        ),
+                                        itemCount: state.images!.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: FileImage(
+                                                  File(state
+                                                      .images![index].path),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    options: CarouselOptions(
+                                      aspectRatio: 16 / 9,
+                                      viewportFraction: 1,
+                                      initialPage: 0,
+                                      enableInfiniteScroll: false,
+                                      reverse: false,
+                                      autoPlay: false,
+                                      autoPlayInterval:
+                                          const Duration(seconds: 4),
+                                      autoPlayAnimationDuration:
+                                          const Duration(milliseconds: 800),
+                                      autoPlayCurve: Curves.fastOutSlowIn,
+                                      enlargeCenterPage: false,
+                                      scrollDirection: Axis.horizontal,
+                                    ),
+                                  )
+                                : Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.photo_library_sharp,
+                                          color: colorteal,
+                                          size: 35,
+                                        ),
+                                        SizedBox(
+                                          width: mediaquerywidht(0.03, context),
+                                        ),
+                                        mytext(
+                                          "ADD PHOTOS",
+                                          fontFamily: sedan,
+                                          fontSize: 25,
+                                          color: colorteal,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                )
-                              : CarouselSlider.builder(
-                                  itemCount: _imageFiles.length,
-                                  itemBuilder: (context, index, realIndex) {
-                                    return Image.file(
-                                      File(_imageFiles[index].path),
-                                      fit: BoxFit.cover,
-                                    );
-                                  },
-                                  options: CarouselOptions(
-                                    aspectRatio: 16 / 9,
-                                    viewportFraction: 1,
-                                    initialPage: 0,
-                                    enableInfiniteScroll: false,
-                                    reverse: false,
-                                    autoPlay: false,
-                                    autoPlayInterval:
-                                        const Duration(seconds: 4),
-                                    autoPlayAnimationDuration:
-                                        const Duration(milliseconds: 800),
-                                    autoPlayCurve: Curves.fastOutSlowIn,
-                                    enlargeCenterPage: false,
-                                    scrollDirection: Axis.horizontal,
-                                  ),
-                                ),
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -160,7 +176,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: accomadtionController,
+                          controller: accomodationcontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -190,7 +206,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: mealsController,
+                          controller: mealscontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -220,7 +236,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: activitieswController,
+                          controller: activitescontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -250,7 +266,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: priceController,
+                          controller: pricecontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -280,7 +296,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: bookingController,
+                          controller: bookingcontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -310,7 +326,7 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: additionalController,
+                          controller: additionalinforamtioncontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
@@ -324,37 +340,48 @@ class _PackageImageState extends State<PackageImage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 25),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: orangecolor,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: blackcolor
-                                      .withOpacity(0.5), // Shadow color
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  offset: const Offset(2, 5),
+                        child: GestureDetector(
+                          onTap: () {
+                            final images =
+                                context.read<AddpackageBloc>().state.images;
+                            if (images != null) {
+                              context
+                                  .read<AddpackageBloc>()
+                                  .add(UploadimageEvent(images));
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: orangecolor,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: blackcolor
+                                        .withOpacity(0.5), // Shadow color
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    offset: const Offset(2, 5),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(10)),
+                            height: mediaqueryheight(0.05, context),
+                            width: mediaquerywidht(0.7, context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.save,
+                                  color: whitecolor,
+                                  size: 25,
                                 ),
+                                SizedBox(
+                                  width: mediaquerywidht(0.02, context),
+                                ),
+                                mytext("ADD PACKAGE",
+                                    fontFamily: sedan,
+                                    fontSize: 20,
+                                    color: whitecolor)
                               ],
-                              borderRadius: BorderRadius.circular(10)),
-                          height: mediaqueryheight(0.05, context),
-                          width: mediaquerywidht(0.7, context),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.save,
-                                color: whitecolor,
-                                size: 25,
-                              ),
-                              SizedBox(
-                                width: mediaquerywidht(0.02, context),
-                              ),
-                              mytext("ADD PACKAGE",
-                                  fontFamily: sedan,
-                                  fontSize: 20,
-                                  color: whitecolor)
-                            ],
+                            ),
                           ),
                         ),
                       ),

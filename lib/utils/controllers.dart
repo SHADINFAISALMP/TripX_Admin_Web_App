@@ -9,6 +9,25 @@ TextEditingController confirmpasswordcontroler = TextEditingController();
 TextEditingController emailcontrollerlog = TextEditingController();
 TextEditingController passwordcontrollerlog = TextEditingController();
 
+//package controllers
+DateTime? startDate;
+ DateTime? endDate;
+TextEditingController packagenamecontroller = TextEditingController();
+TextEditingController placenamecontroller = TextEditingController();
+TextEditingController startdatecontroller = TextEditingController();
+TextEditingController enddatecontroller = TextEditingController();
+TextEditingController transportationcontroller = TextEditingController();
+TextEditingController accomodationcontroller = TextEditingController();
+TextEditingController mealscontroller = TextEditingController();
+TextEditingController activitescontroller = TextEditingController();
+TextEditingController pricecontroller = TextEditingController();
+TextEditingController bookingcontroller = TextEditingController();
+TextEditingController additionalinforamtioncontroller = TextEditingController();
+TextEditingController dayscontroller = TextEditingController();
+TextEditingController nightscontroller = TextEditingController();
+TextEditingController countrycontroller = TextEditingController();
+TextEditingController citycontroller = TextEditingController();
+
 
 String? confirmPasswordValidator(String? value) {
   if (value == null || value.isEmpty) {
@@ -65,4 +84,3 @@ String? phoneValidator(String? value) {
   }
   return null;
 }
-

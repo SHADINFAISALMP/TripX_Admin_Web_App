@@ -1,11 +1,23 @@
+
+
+
 class PackageDetailsModel {
   final List<String> imagepath;
   final String accomodation;
+  final String packagename;
+  final String placenames;
+  final String transportation;
   final String meals;
   final String activities;
   final String pricedetails;
   final String bookingdetails;
   final String additionaldetails;
+  final String day;
+  final String night;
+  final String country;
+  final String city;
+  final String startdate;
+  final String enddate;
 
   PackageDetailsModel(
       {required this.imagepath,
@@ -14,5 +26,35 @@ class PackageDetailsModel {
       required this.activities,
       required this.pricedetails,
       required this.bookingdetails,
-      required this.additionaldetails});
+      required this.additionaldetails,
+      required this.packagename,
+      required this.placenames,
+      required this.transportation,
+      required this.day,
+      required this.night,
+      required this.country,
+      required this.city,
+      required this.startdate,
+      required this.enddate, });
+
+  Map<String, dynamic> toMap() {
+    return {
+      "packagename": packagename,
+      'placenames': placenames,
+      "days": day,
+      "night": night,
+      "country": country,
+      "imagepath": imagepath,
+      "transportation": transportation,
+      "city": city,
+      "startdate": startdate,
+      "enddate": enddate,
+      "accodamotion": accomodation,
+      "meals": meals,
+      "activity": activities,
+      "price": pricedetails,
+      "booking": bookingdetails,
+      "additional": additionaldetails,
+    };
+  }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/screens/packagess/packageimages.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
+import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
+import 'package:intl/intl.dart';
 
 class Packages extends StatefulWidget {
   const Packages({super.key});
@@ -12,7 +14,16 @@ class Packages extends StatefulWidget {
 }
 
 class _SearchpageState extends State<Packages> {
+  DateTime? startDate;
+  DateTime? endDate;
   List<String> selectedTransportOptions = [];
+  List<String> allTransportOptions = [
+    'Car',
+    'Bus',
+    'Train',
+    'Flight',
+    'Cruise',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,9 +59,9 @@ class _SearchpageState extends State<Packages> {
                 const TopName(
                   text: "PACKAGE NAME",
                 ),
-                const PackageFields(
+                 PackageFields(controller: packagenamecontroller,
                   hinttext: "Package Name",
-                  prefixicon: Icon(Icons.abc),
+                  prefixicon: const Icon(Icons.abc),
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
@@ -58,9 +69,9 @@ class _SearchpageState extends State<Packages> {
                 const TopName(
                   text: "DESTINATION",
                 ),
-                const PackageFields(
+                 PackageFields(controller: placenamecontroller,
                   hinttext: "Destination",
-                  prefixicon: Icon(Icons.place),
+                  prefixicon: const Icon(Icons.place),
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
@@ -82,19 +93,19 @@ class _SearchpageState extends State<Packages> {
                     ),
                   ],
                 ),
-                const Row(
+                 Row(
                   children: [
-                    PackageFieldsdayandnights(
-                      prefixicon: Icon(Icons.sunny),
+                    PackageFieldsdayandnights(controller: dayscontroller,
+                      prefixicon: const Icon(Icons.sunny),
                     ),
-                    PackageFieldsdayandnights(
-                      prefixicon: Icon(Icons.night_shelter),
+                    PackageFieldsdayandnights(controller: nightscontroller,
+                      prefixicon: const Icon(Icons.night_shelter),
                     ),
-                    PackageFieldsdayandnights(
-                      prefixicon: Icon(Icons.location_city),
+                    PackageFieldsdayandnights(controller: countrycontroller,
+                      prefixicon: const Icon(Icons.location_city),
                     ),
-                    PackageFieldsdayandnights(
-                      prefixicon: Icon(Icons.location_city),
+                    PackageFieldsdayandnights(controller: citycontroller,
+                      prefixicon: const Icon(Icons.location_city),
                     ),
                   ],
                 ),
@@ -105,7 +116,9 @@ class _SearchpageState extends State<Packages> {
                   text: "START DATE",
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _selectStartDate(context);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Container(
@@ -123,18 +136,20 @@ class _SearchpageState extends State<Packages> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.calendar_month,
                               color: colorteal,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
-                              "Start Date",
-                              style: TextStyle(
+                              startDate != null
+                                  ? DateFormat('dd-MM-yyyy').format(startDate!)
+                                  : "Start Date",
+                              style: const TextStyle(
                                   color: colorteal,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600),
@@ -152,7 +167,9 @@ class _SearchpageState extends State<Packages> {
                   text: "END DATE",
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _selectEndDate(context);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Container(
@@ -170,18 +187,20 @@ class _SearchpageState extends State<Packages> {
                           ),
                         ],
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.calendar_month,
                               color: colorteal,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
-                              "End Date",
-                              style: TextStyle(
+                              endDate != null
+                                  ? DateFormat('dd-MM-yyyy').format(endDate!)
+                                  : "End Date",
+                              style: const TextStyle(
                                   color: colorteal,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600),
@@ -199,7 +218,9 @@ class _SearchpageState extends State<Packages> {
                   text: "TRANSPORTATION",
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _showTransportationOptionsDialog(context);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Container(
@@ -241,9 +262,9 @@ class _SearchpageState extends State<Packages> {
                     ),
                   ),
                 ),
-                // SizedBox(
-                //   height: mediaqueryheight(0.01, context),
-                // ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
                 Center(
                   child: GestureDetector(
                     onTap: () {
@@ -278,6 +299,108 @@ class _SearchpageState extends State<Packages> {
       ])),
     );
   }
+
+  Future<void> _showTransportationOptionsDialog(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Transportation'),
+          content: SingleChildScrollView(
+            child: Column(
+              children: allTransportOptions.map((option) {
+                return CheckboxListTile(
+                  title: Text(option),
+                  value: selectedTransportOptions.contains(option),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      if (value != null) {
+                        if (value) {
+                          selectedTransportOptions.add(option);
+                        } else {
+                          selectedTransportOptions.remove(option);
+                        }
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _selectStartDate(BuildContext context) async {
+    final ThemeData themeData = Theme.of(context);
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: startDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: themeData.copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: colorteal,
+              onPrimary: whitecolor,
+              onSurface: colorteal,
+            ),
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            dialogBackgroundColor: whitecolor,
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null && picked != startDate) {
+      setState(() {
+        startDate = picked;
+      });
+    }
+  }
+
+  void _selectEndDate(BuildContext context) async {
+    final ThemeData themeData = Theme.of(context);
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: endDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: themeData.copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: colorteal,
+              onPrimary: whitecolor,
+              onSurface: colorteal,
+            ),
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            dialogBackgroundColor: whitecolor,
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null && picked != endDate) {
+      setState(() {
+        endDate = picked;
+      });
+    }
+  }
 }
 
 class TopName extends StatelessWidget {
@@ -303,10 +426,11 @@ class TopName extends StatelessWidget {
 class PackageFields extends StatelessWidget {
   final String hinttext;
   final prefixicon;
+  final  TextEditingController controller;
   const PackageFields({
     super.key,
     required this.hinttext,
-    required this.prefixicon,
+    required this.prefixicon, required this.controller,
   });
 
   @override
@@ -327,7 +451,7 @@ class PackageFields extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(
+        child: TextField(controller: controller,
           cursorColor: whitecolor,
           style: const TextStyle(color: colorteal),
           decoration: InputDecoration(
@@ -355,9 +479,11 @@ class PackageFields extends StatelessWidget {
 
 class PackageFieldsdayandnights extends StatelessWidget {
   final prefixicon;
+  final  TextEditingController controller;
   const PackageFieldsdayandnights({
     super.key,
     required this.prefixicon,
+    required this.controller,
   });
 
   @override
@@ -378,7 +504,7 @@ class PackageFieldsdayandnights extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(
+        child: TextField(controller: controller,
           keyboardType: TextInputType.number,
           cursorColor: whitecolor,
           style: const TextStyle(color: colorteal),

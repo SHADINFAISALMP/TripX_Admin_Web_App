@@ -25,21 +25,5 @@ class Addimagetofirebase {
       print("$e");
       return null;
     }
-
-    // try {
-    //   await FirebaseFirestore.instance.collection('userdetails').add({
-    //     'name': namecontroller.text.trim(),
-    //     'email': emailcontroller.text.trim(),
-    //     'phonenumber': phonecontroller.text.trim(),
-    //     'password': passwordcontroller.text.trim(),
-    //     'confirmpassword': confirmpasswordcontroler.text.trim(),
-    //     'image': url
-    //   });
-    //   return url;
-
-    // } catch (e) {
-    //  print("Error uploading image: $e");
-    // return null;
-    // }
   }
 }
