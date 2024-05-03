@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
-import 'package:tripx_admin_application/screens/packagess/packages.dart';
+
+import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
@@ -347,7 +348,7 @@ class _PackageImageState extends State<PackageImage> {
                             if (images != null) {
                               context
                                   .read<AddpackageBloc>()
-                                  .add(UploadimageEvent(images));
+                                  .add(UploadimageEvent(images,context));
                             }
                           },
                           child: Container(

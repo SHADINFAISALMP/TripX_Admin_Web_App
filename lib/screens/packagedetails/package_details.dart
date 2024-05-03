@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/screens/packagedetails/edit_package.dart';
-import 'package:tripx_admin_application/screens/packagess/packages.dart';
+
+import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';

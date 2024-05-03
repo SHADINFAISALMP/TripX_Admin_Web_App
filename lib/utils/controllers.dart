@@ -10,8 +10,7 @@ TextEditingController emailcontrollerlog = TextEditingController();
 TextEditingController passwordcontrollerlog = TextEditingController();
 
 //package controllers
-DateTime? startDate;
- DateTime? endDate;
+
 TextEditingController packagenamecontroller = TextEditingController();
 TextEditingController placenamecontroller = TextEditingController();
 TextEditingController startdatecontroller = TextEditingController();

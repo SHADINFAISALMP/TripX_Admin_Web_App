@@ -3,46 +3,70 @@ part of 'addpackage_bloc.dart';
 @immutable
 class AddpackageState {
   final List<XFile>? images;
+   final DateTime? startDate;
+ final DateTime? endDate;
+   const AddpackageState({this.startDate, this.endDate, this.images});
 
-  const AddpackageState({this.images});
-
-  AddpackageState copywith({List<XFile>? images}) =>
-      AddpackageState(images: images ?? this.images);
+  AddpackageState copywith({List<XFile>? images , DateTime? startDate, DateTime? endDate}) =>
+      AddpackageState(images: images ?? this.images ,startDate: startDate ?? this.startDate, endDate: endDate ?? this.endDate);
 }
 
 class ImageUploadSuccess extends AddpackageState {
-   final Map<String, String> packageimages;
+ final Map<String, String> packageImages;
 
-  const ImageUploadSuccess({super.images, required this.packageimages});
-  
-  
-  // final List<String> imageUrls;
-
- 
+ const ImageUploadSuccess({List<XFile>? images, DateTime? startDate, DateTime? endDate, required this.packageImages, required Map<String, String> packageimages})
+      : super(images: images, startDate: startDate, endDate: endDate);
 }
 
 class ImageUploadError extends AddpackageState {
-  final String errorMessage;
+ final String errorMessage;
 
-  const ImageUploadError(this.errorMessage);
+ const ImageUploadError(String string, {List<XFile>? images, DateTime? startDate, DateTime? endDate, required this.errorMessage})
+      : super(images: images, startDate: startDate, endDate: endDate);
 }
 
-final class AddpackageInitial extends AddpackageState {}
-
-final class Packageloading extends AddpackageState {}
-
-final class PackageSUccess extends AddpackageState {}
-
-final class PackageError extends AddpackageState {}
-
-final class ImageLoaded extends AddpackageState {
-  final List<String> imageUrls;
-
-  const ImageLoaded(this.imageUrls);
+class AddpackageInitial extends AddpackageState {
+ const AddpackageInitial({List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
 }
 
-final class ImageLoading extends AddpackageState {}
+class Packageloading extends AddpackageState {
+ const Packageloading({List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
 
-final class ImageLoadingError extends AddpackageState {}
+class PackageSuccess extends AddpackageState {
+ const PackageSuccess({List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
 
-final class StartDateChanged extends AddpackageState{}
+class PackageError extends AddpackageState {
+ final String errorMessage;
+
+ const PackageError({List<XFile>? images, DateTime? startDate, DateTime? endDate, required this.errorMessage})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
+
+class ImageLoaded extends AddpackageState {
+ final List<String> imageUrls;
+
+ const ImageLoaded({List<XFile>? images, DateTime? startDate, DateTime? endDate, required this.imageUrls})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
+
+class ImageLoading extends AddpackageState {
+ const ImageLoading({List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
+
+class ImageLoadingError extends AddpackageState {
+ final String errorMessage;
+
+ const ImageLoadingError({List<XFile>? images, DateTime? startDate, DateTime? endDate, required this.errorMessage})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
+
+class StartDateChanged extends AddpackageState {
+ const StartDateChanged({List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}

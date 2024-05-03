@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/screens/homescreen/home_carousel.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
-import 'package:tripx_admin_application/screens/packagess/packages.dart';
+
+import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 

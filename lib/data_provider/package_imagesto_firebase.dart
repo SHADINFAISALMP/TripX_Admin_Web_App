@@ -31,9 +31,9 @@ class AddPackageimagetofirebase {
         // Add the image name and URL to the map
         packageImages[fileName] = url;
       } catch (e) {
-        emit(ImageUploadError(e.toString()));
+        emit(ImageUploadError(e.toString(), errorMessage: ''));
       }
     }
-    emit(ImageUploadSuccess(packageimages: packageImages));
+    emit(ImageUploadSuccess(packageimages: packageImages, packageImages: const {},));
   }
 }

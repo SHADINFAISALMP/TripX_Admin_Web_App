@@ -10,20 +10,28 @@ class AddImagesEvent extends AddpackageEvent {
 }
 
 class UploadimageEvent extends AddpackageEvent {
+  final BuildContext context;
   final List<XFile> images;
 
-  UploadimageEvent(this.images);
+  UploadimageEvent(this.images, this.context);
 }
 
-final class Startdatepressed extends AddpackageEvent {}
+final class Startdatepressed extends AddpackageEvent {
+  final BuildContext context;
 
-final class EndDatePressed extends AddpackageEvent {}
+  Startdatepressed(this.context);
+}
+
+final class EndDatePressed extends AddpackageEvent {
+   final BuildContext context;
+
+  EndDatePressed(this.context);
+}
 
 final class Transportationpressed extends AddpackageEvent {}
 
-final class ImageSelected extends AddpackageEvent {}
-
 final class PackageDetailsSaved extends AddpackageEvent {}
+
 
 final class Multipleimageselected extends AddpackageEvent {
   final List<XFile>? images;
