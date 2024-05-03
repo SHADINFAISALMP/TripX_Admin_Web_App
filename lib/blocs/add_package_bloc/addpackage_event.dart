@@ -28,8 +28,6 @@ final class EndDatePressed extends AddpackageEvent {
   EndDatePressed(this.context);
 }
 
-final class Transportationpressed extends AddpackageEvent {}
-
 final class PackageDetailsSaved extends AddpackageEvent {}
 
 

@@ -5,6 +5,7 @@ class AddpackageState {
   final List<XFile>? images;
    final DateTime? startDate;
  final DateTime? endDate;
+ 
    const AddpackageState({this.startDate, this.endDate, this.images});
 
   AddpackageState copywith({List<XFile>? images , DateTime? startDate, DateTime? endDate}) =>

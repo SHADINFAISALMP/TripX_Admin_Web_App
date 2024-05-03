@@ -4,8 +4,7 @@ import 'package:tripx_admin_application/models/package_details.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 
 class PackagedetailsData {
-  List<String> selectedTransportOptions = [];
- BuildContext context;
+  BuildContext context;
 
   PackagedetailsData(this.context);
   Map<String, dynamic> userData(List<String> imageUrls,
@@ -23,7 +22,7 @@ class PackagedetailsData {
       night: nightscontroller.text.trim(),
       country: countrycontroller.text.trim(),
       imagepath: imageUrls,
-      transportation: selectedTransportOptions.toString(),
+      transportation: transportationcontroller.text.trim(),
       city: citycontroller.text.trim(),
       startdate: formattedStartDate,
       enddate: formattedEndDate,
@@ -37,3 +36,4 @@ class PackagedetailsData {
     return data;
   }
 }
+

@@ -56,6 +56,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
         print(" urls $url");
       } catch (e) {
         emit(ImageUploadError(e.toString(), errorMessage: ''));
+        return;
       }
     }
     print("package $packageImages");
@@ -69,20 +70,27 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     try {
       // ignore: use_build_context_synchronously
       PackagedetailsData packagedetailsData = PackagedetailsData(event.context);
-    getStartDate(context) {
-     return BlocProvider.of<AddpackageBloc>(event.context).state.startDate;
-   }
-   getEndDate(context) {
-    return BlocProvider.of<AddpackageBloc>(event.context).state.endDate;
-        }
-      
-      Map<String, dynamic> packageDetailsMap = packagedetailsData.userData(img , getStartDate:getStartDate, getEndDate: getEndDate);
+      getStartDate(context) {
+        return BlocProvider.of<AddpackageBloc>(event.context).state.startDate;
+      }
+
+      getEndDate(context) {
+        return BlocProvider.of<AddpackageBloc>(event.context).state.endDate;
+      }
+
+      Map<String, dynamic> packageDetailsMap = packagedetailsData.userData(img,
+          getStartDate: getStartDate, getEndDate: getEndDate);
       await packageDetails.add(packageDetailsMap);
     } catch (e) {
       print("error on full details");
+      emit(PackageError(
+          errorMessage:
+              e.toString())); // Emit an error state if there's an error
+      return;
     }
-    emit(ImageUploadSuccess(packageimages: packageImages, packageImages: const {}));
-    return;
+    emit(ImageUploadSuccess(
+        packageimages: packageImages, packageImages: const {}));
+   
   }
 
   _startdatepressed(
