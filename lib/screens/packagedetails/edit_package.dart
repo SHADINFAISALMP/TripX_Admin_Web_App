@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tripx_admin_application/screens/homescreen/home_carousel.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 
 import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
@@ -9,7 +9,8 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 import '../../utils/fonts.dart';
 
 class EditPackage extends StatelessWidget {
-  const EditPackage({super.key});
+  final QueryDocumentSnapshot<Object?> itemslists;
+  const EditPackage({super.key, required this.itemslists});
 
   @override
   Widget build(BuildContext context) {
@@ -84,39 +85,39 @@ class EditPackage extends StatelessWidget {
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "KASHMIR PACKAGE",
+                PackageDetailsContainers(
+                  text: itemslists['packagename'],
                   topname: 'PACKAGE NAME',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "KASMIR , MANALI , ETC ",
+                PackageDetailsContainers(
+                  text: itemslists['placenames'],
                   topname: 'DESTINATION NAMES',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 35),
+                Padding(
+                  padding: const EdgeInsets.only(right: 35),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Daysnightsrow(
-                        text: "3",
+                        text: itemslists['days'],
                         topname: "DAYS",
                       ),
                       Daysnightsrow(
-                        text: "4",
+                        text: itemslists['night'],
                         topname: "NIGHTS",
                       ),
                       Daysnightsrow(
-                        text: "2",
+                        text: itemslists['country'],
                         topname: "COUNTRIES",
                       ),
                       Daysnightsrow(
-                        text: "5",
+                        text: itemslists['city'],
                         topname: "CITIES",
                       ),
                     ],
@@ -125,50 +126,50 @@ class EditPackage extends StatelessWidget {
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "FLIGHT , BUS ",
+                PackageDetailsContainers(
+                  text: itemslists['transportation'],
                   topname: 'TRANSPORTAION TYPES',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: " WE PROVING HOTEL",
+                PackageDetailsContainers(
+                  text: itemslists['accodamotion'],
                   topname: 'ACCOMODATION',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "BREAKFAST AND DINNER",
+                PackageDetailsContainers(
+                  text: itemslists['meals'],
                   topname: 'MEALS ',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "JUMPING , HORSE RIDING",
+                PackageDetailsContainers(
+                  text: itemslists['activity'],
                   topname: 'ACTIVITIES',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "25000RS",
+                PackageDetailsContainers(
+                  text: itemslists['price'],
                   topname: 'PRICE DETAILS',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "INFORMATIONS",
+                PackageDetailsContainers(
+                  text: itemslists['booking'],
                   topname: 'BOOKING INFORMATION & POLICIES',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                const PackageDetailsContainers(
-                  text: "ADITIONALSSS",
+                PackageDetailsContainers(
+                  text: itemslists['additional'],
                   topname: 'ADDITIONAL INFORMATIONS',
                 ),
                 SizedBox(
@@ -181,8 +182,9 @@ class EditPackage extends StatelessWidget {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  PackageDetails(images: images)),
+                              builder: (context) => PackageDetails(
+                                    itemslists: itemslists,
+                                  )),
                           (route) => false);
                     },
                     child: Container(

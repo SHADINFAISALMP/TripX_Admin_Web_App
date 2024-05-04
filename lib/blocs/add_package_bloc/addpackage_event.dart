@@ -38,3 +38,9 @@ final class Multipleimageselected extends AddpackageEvent {
 }
 
 final class UnMultipleimageselected extends AddpackageEvent {}
+//fetching 
+final class FetchingpackageDetalsEvent extends AddpackageEvent{
+ 
+  
+}
+

@@ -1,9 +1,8 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
-import 'package:tripx_admin_application/screens/homescreen/home_carousel.dart';
+import 'package:tripx_admin_application/firebase_collection_refernce/package_information.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
@@ -87,7 +86,6 @@ class _HomescreenState extends State<Homescreen> {
               SizedBox(
                 height: mediaqueryheight(0.02, context),
               ),
-              buildindicator(),
               SizedBox(
                 height: mediaqueryheight(0.02, context),
               ),
@@ -98,32 +96,43 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 
-  Widget buildCarousel() => BlocBuilder<AddpackageBloc, AddpackageState>(
-        builder: (context, state) {
+  Widget buildCarousel() {
+    return StreamBuilder(
+        stream: packageDetails.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          }
+          final querySnapshot = snapshot.data as QuerySnapshot;
+          final packageCount = querySnapshot.docs.length;
           return CarouselSlider.builder(
-              itemCount: images.length,
+              itemCount: packageCount,
               itemBuilder: (context, index, realindex) {
-                final imagess = images[index];
-                return buildImage(imagess, index);
+                final items = snapshot.data!.docs[index];
+                List<String> imagess =
+                    (items['imagepath'] as List<dynamic>).cast<String>();
+                return buildImage(imagess.first, index, items);
               },
               options: CarouselOptions(
                   viewportFraction: 0.72,
                   enlargeCenterPage: true,
                   height: mediaqueryheight(0.45, context),
                   autoPlayCurve: Curves.linear,
-                  onPageChanged: (index, reason) =>
-                      setState(() => activeindex = index),
+                  onPageChanged: (index, reason) => null,
                   autoPlay: true));
-        },
-      );
+        });
+  }
 
-  Widget buildImage(String imagess, int index) => GestureDetector(
+  Widget buildImage(
+          String imagess, int index, QueryDocumentSnapshot<Object?> items) =>
+      GestureDetector(
         onTap: () {
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => PackageDetails(
-                      images: [imagess],
+                    
+                      itemslists: items,
                     )),
           );
         },
@@ -137,7 +146,7 @@ class _HomescreenState extends State<Homescreen> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(25),
-                child: Image.asset(
+                child: Image.network(
                   imagess,
                   height: 300,
                   width: mediaquerywidht(0.75, context),
@@ -151,14 +160,18 @@ class _HomescreenState extends State<Homescreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.location_on),
-                  mytext(locations[index],
-                      fontFamily: sedan,
-                      fontSize: mediaqueryheight(0.027, context),
-                      color: whitecolor),
+                  Locationame(index, items),
                 ],
               )
             ],
           ),
         ),
       );
+
+  Locationame(int index, item) {
+    return mytext(item['packagename']!,
+        fontFamily: sedan,
+        fontSize: mediaqueryheight(0.027, context),
+        color: whitecolor);
+  }
 }

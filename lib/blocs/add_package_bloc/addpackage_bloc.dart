@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/data_provider/package_data.dart';
 import 'package:tripx_admin_application/firebase_collection_refernce/package_information.dart';
+import 'package:tripx_admin_application/models/package_details.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 
 part 'addpackage_event.dart';
@@ -17,6 +19,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     on<UploadimageEvent>(_uploadImages);
     on<Startdatepressed>(_startdatepressed);
     on<EndDatePressed>(_enddatepressed);
+    on<FetchingpackageDetalsEvent>(_fetchPackageDetails);
   }
 
   Future<void> _multipleimageselection(
@@ -90,7 +93,6 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     }
     emit(ImageUploadSuccess(
         packageimages: packageImages, packageImages: const {}));
-   
   }
 
   _startdatepressed(
@@ -150,5 +152,25 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     if (picked != null && picked != state.endDate) {
       emit(state.copywith(endDate: picked));
     }
+  }
+
+  Future<void> _fetchPackageDetails(
+      FetchingpackageDetalsEvent event, Emitter<AddpackageState> emit) async {
+    emit(FetchingPackageLoading());
+    try {
+      // Fetch package details from Firebase
+      final packageDetails = await fetchPackageDetailsFromFirebase();
+      emit(FetchingPackageDetailsSucess(packageDetails));
+    } catch (e) {
+      emit(FetchPackageDetailsFailure(e.toString()));
+    }
+  }
+
+  Future<List<PackageDetailsModel>> fetchPackageDetailsFromFirebase() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('packagedetails').get();
+    return snapshot.docs
+        .map((doc) => PackageDetailsModel.fromSnapshot(doc))
+        .toList();
   }
 }

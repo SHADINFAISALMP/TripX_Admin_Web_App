@@ -20,3 +20,4 @@ final class SubmitOtpButtonpressed extends RegisterEvent {
   final context;
   SubmitOtpButtonpressed(this.context, {required this.verificationId});
 }
+

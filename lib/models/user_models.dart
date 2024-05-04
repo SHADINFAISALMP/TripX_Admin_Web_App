@@ -1,4 +1,9 @@
+
+
+
+
 class Usermodel {
+  final id;
   final String name;
   final String email;
   final String phonenumber;
@@ -7,7 +12,8 @@ class Usermodel {
   final String imagepath;
 
   Usermodel(
-      {required this.name,
+      {this.id,
+      required this.name,
       required this.email,
       required this.phonenumber,
       required this.password,
@@ -24,4 +30,17 @@ class Usermodel {
       "imagepath": imagepath
     };
   }
+
+  // factory Usermodel.fromSnapshot(
+  //     QueryDocumentSnapshot<Object?> document) {
+  //   Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+  //   return Usermodel(
+  //     id : document.id,
+  //       name: data['name'] ?? '',
+  //       email: data['email'] ?? '',
+  //       phonenumber: data['phonenumber'] ?? '',
+  //       password: data['password'],
+  //       confirmpassword: data['confirmpassword'],
+  //       imagepath: data['imagepath'] ?? '');
+  // }
 }
