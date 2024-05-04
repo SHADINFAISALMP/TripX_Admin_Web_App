@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
-
-import 'package:tripx_admin_application/screens/log_in_screen/donthave_account.dart';
-import 'package:tripx_admin_application/screens/log_in_screen/google_sign.dart';
+import 'package:tripx_admin_application/screens/log_in_screen/widgets/login_heading_extfiled.dart';
 import 'package:tripx_admin_application/screens/otp_verificaation/otp_verification.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
-import 'package:tripx_admin_application/utils/mediaquery.dart';
-import 'package:tripx_admin_application/utils/textformfields.dart';
+import 'package:tripx_admin_application/utils/loadingindicator.dart';
 
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -93,33 +89,7 @@ class _LoginState extends State<Login> {
                         )));
               }
               if (state is AuthenicatingUser) {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.transparent,
-                      content: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Transform.scale(
-                              scale: 1.5,
-                              child: Image.asset(
-                                'assets/image/circle.gif',
-                                color: whitecolor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                DialogUtils.showLoadingDialog(context);
               }
             },
           ),
@@ -150,36 +120,7 @@ class _LoginState extends State<Login> {
                 );
               }
               if (state is GoogleLoadingstate) {
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      backgroundColor: Colors.transparent,
-                      content: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Transform.scale(
-                                  scale: 1,
-                                  child: LoadingAnimationWidget.dotsTriangle(
-                                      color: whitecolor, size: 60)
-                                  // Image.asset(
-                                  //   'assets/image/circle.gif',
-                                  //   color: whitecolor,
-                                  // ),
-                                  ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                DialogUtils.showLoadingDialog(context);
               }
               if (state is GoogleFailureState) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -218,95 +159,7 @@ class _LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: mediaqueryheight(.026, context),
-                      ),
-                      child: mytext(
-                        "TRIPX",
-                        fontFamily: 'sedan',
-                        fontSize: mediaqueryheight(.05, context),
-                        color: whitecolor,
-                      ),
-                    ),
-                    mytext(
-                      "WELCOME AGAIN",
-                      color: whitecolor,
-                      fontFamily: 'sedan',
-                      fontSize: mediaqueryheight(.03, context),
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(.16, context),
-                    ),
-                    const GoogleSignin(),
-                    SizedBox(
-                      height: mediaqueryheight(.021, context),
-                    ),
-                    mytext("------------------OR------------------",
-                        fontSize: mediaqueryheight(.031, context),
-                        color: white70,
-                        fontFamily: sedan),
-                    SizedBox(
-                      height: mediaqueryheight(.031, context),
-                    ),
-                    customtextformfieild("Enter Email", Icons.email, context,
-                        controller: emailcontrollerlog,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: emailValidator),
-                    SizedBox(
-                      height: mediaqueryheight(.05, context),
-                    ),
-                    customtextformfiledpassword('Enter Password', context,
-                        controller: passwordcontrollerlog,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: passwordValidator),
-                    SizedBox(
-                      height: mediaqueryheight(.05, context),
-                    ),
-                    Container(
-                      height: mediaqueryheight(.07, context),
-                      width: mediaquerywidht(.4, context),
-                      decoration: BoxDecoration(
-                        color: whitecolor,
-                        borderRadius: BorderRadius.circular(
-                          mediaqueryheight(.011, context),
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          () {
-                            context.read<LoginBloc>().add(LoginEventButton());
-                            return null;
-                          }();
-                        },
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: mediaquerywidht(.03, context),
-                              ),
-                              child: const Icon(Icons.login, color: blackcolor),
-                            ),
-                            SizedBox(
-                              width: mediaquerywidht(.04, context),
-                            ),
-                            mytext('Log in',
-                                color: black54,
-                                fontSize: mediaqueryheight(.029, context),
-                                fontWeight: FontWeight.w300,
-                                fontFamily: sedan),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(.1, context),
-                    ),
-                    const DontHaveAccountText()
-                  ],
-                ),
+                child: const loginheadingandTextfiled(),
               ),
             ),
           ),
@@ -315,3 +168,5 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
+

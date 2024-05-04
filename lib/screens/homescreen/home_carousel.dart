@@ -26,4 +26,5 @@ class _CaroselState extends State<Carosel> {
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+  
 }

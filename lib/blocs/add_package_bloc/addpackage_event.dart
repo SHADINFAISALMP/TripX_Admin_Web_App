@@ -27,10 +27,6 @@ final class EndDatePressed extends AddpackageEvent {
 
   EndDatePressed(this.context);
 }
-
-final class PackageDetailsSaved extends AddpackageEvent {}
-
-
 final class Multipleimageselected extends AddpackageEvent {
   final List<XFile>? images;
 
@@ -38,9 +34,5 @@ final class Multipleimageselected extends AddpackageEvent {
 }
 
 final class UnMultipleimageselected extends AddpackageEvent {}
-//fetching 
-final class FetchingpackageDetalsEvent extends AddpackageEvent{
- 
-  
-}
 
+final class PackageDetailsSaved extends AddpackageEvent {}

@@ -73,7 +73,7 @@ class EditPackage extends StatelessWidget {
                               width: mediaquerywidht(0.03, context),
                             ),
                             mytext(
-                              "ADD PHOTOS",
+                              itemslists[''],
                               fontFamily: sedan,
                               fontSize: 25,
                               color: colorteal,

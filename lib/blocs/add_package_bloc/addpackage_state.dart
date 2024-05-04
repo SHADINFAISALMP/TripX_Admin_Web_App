@@ -73,17 +73,17 @@ class StartDateChanged extends AddpackageState {
 }
 
 
- class FetchingPackageLoading extends AddpackageState{
+//  class FetchingPackageLoading extends AddpackageState{
 
-}
+// }
 
- class FetchingPackageDetailsSucess extends AddpackageState{
-  final List<PackageDetailsModel> packageDetails;
+//  class FetchingPackageDetailsSucess extends AddpackageState{
+//   final List<PackageDetailsModel> packageDetails;
 
-  FetchingPackageDetailsSucess(this.packageDetails);
-}
-  class FetchPackageDetailsFailure extends AddpackageState {
- final String errorMessage;
+//   FetchingPackageDetailsSucess(this.packageDetails);
+// }
+//   class FetchPackageDetailsFailure extends AddpackageState {
+//  final String errorMessage;
 
- const FetchPackageDetailsFailure(this.errorMessage);
-}
+//  const FetchPackageDetailsFailure(this.errorMessage);
+// }

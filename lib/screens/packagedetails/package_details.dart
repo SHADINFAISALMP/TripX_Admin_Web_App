@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/screens/packagedetails/edit_package.dart';
-
+import 'package:tripx_admin_application/screens/packagedetails/package_detIails_image_carosel.dart';
 import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
-import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 class PackageDetails extends StatelessWidget {
@@ -56,35 +54,7 @@ class PackageDetails extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 300,
-                  decoration: const BoxDecoration(
-                    color: whitecolor,
-                  ),
-                  child: CarouselSlider.builder(
-                    itemCount: itemslists['imagepath'].length,
-                    itemBuilder: (context, index, realIndex) {
-
-                      List<String> imagess =
-                          (itemslists['imagepath'] as List<dynamic>).cast<String>();
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
-                          imagess[index],
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                    options: CarouselOptions(
-                      height: 300,
-                      autoPlay: true,
-                      viewportFraction: 0.4,
-                      enlargeCenterPage: true,
-                    ),
-                  ),
-                ),
+                PackageDetailsImageCarosel(itemslists: itemslists),
                 Container(
                   decoration: const BoxDecoration(
                       color: colorteal,
@@ -207,83 +177,6 @@ class PackageDetails extends StatelessWidget {
   }
 }
 
-class Daysnightsrow extends StatelessWidget {
-  final String text;
-  final String topname;
 
-  const Daysnightsrow({
-    super.key,
-    required this.text,
-    required this.topname,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TopName(text: topname),
-        Container(
-          width: mediaquerywidht(0.18, context),
-          decoration: BoxDecoration(
-            color: whitecolor,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: blackcolor.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 10,
-                offset: const Offset(2, 5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
-            child:
-                mytext(text, fontFamily: sedan, fontSize: 17, color: colorteal),
-          ),
-        )
-      ],
-    );
-  }
-}
 
-class PackageDetailsContainers extends StatelessWidget {
-  final String text;
-  final String topname;
-
-  const PackageDetailsContainers({
-    super.key,
-    required this.text,
-    required this.topname,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TopName(text: topname),
-        Container(
-          width: mediaquerywidht(0.84, context),
-          decoration: BoxDecoration(
-            color: whitecolor,
-            borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: blackcolor.withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 10,
-                offset: const Offset(2, 5),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child:
-                mytext(text, fontFamily: sedan, fontSize: 17, color: colorteal),
-          ),
-        ),
-      ],
-    );
-  }
-}
