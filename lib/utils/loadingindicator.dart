@@ -10,21 +10,15 @@ class DialogUtils {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.transparent,
-          content: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Transform.scale(
+          content: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Transform.scale(
                     scale: 1,
                     child: LoadingAnimationWidget.dotsTriangle(
-                      color: whitecolor, size: 60)
-                  ),
-                ],
-              ),
+                        color: whitecolor, size: 60)),
+              ],
             ),
           ),
         );

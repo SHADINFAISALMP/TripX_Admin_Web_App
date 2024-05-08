@@ -8,7 +8,7 @@ class Usermodel {
   final String email;
   final String phonenumber;
   final String password;
-  final String confirmpassword;
+  final String place;
   final String imagepath;
 
   Usermodel(
@@ -17,7 +17,7 @@ class Usermodel {
       required this.email,
       required this.phonenumber,
       required this.password,
-      required this.confirmpassword,
+      required this.place,
       required this.imagepath});
 
   Map<String, dynamic> toMap() {
@@ -26,7 +26,7 @@ class Usermodel {
       'email': email,
       "phonenumber": phonenumber,
       "password": password,
-      "confirmpassword": confirmpassword,
+      "place": place,
       "imagepath": imagepath
     };
   }

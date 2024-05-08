@@ -9,7 +9,7 @@ class UserdetailsData {
             email: emailcontroller.text.trim(),
             phonenumber: phonecontroller.text.trim(),
             password: passwordcontroller.text.trim(),
-            confirmpassword: confirmpasswordcontroler.text.trim(),
+            place: placecontroller.text.trim(),
             imagepath: downloadURL)
         .toMap();
     return data;

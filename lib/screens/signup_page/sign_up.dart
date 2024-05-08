@@ -56,47 +56,47 @@ class _SignupState extends State<Signup> {
         }
         if (state is RegisterFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Center(
-                      child: Text(
-                        "Registration Failed",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: sedan,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    backgroundColor: colorteal,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
+            SnackBar(
+              content: Center(
+                child: Text(
+                  "Registration Failed",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: sedan,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300),
+                ),
+              ),
+              backgroundColor: colorteal,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
         }
         if (state is Phonenumberalreadyregistered) {
           phonecontroller.clear();
           Navigator.pop(context);
-           ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Center(
-                      child: Text(
-                        "Phone Number Already Registered",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: sedan,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    backgroundColor: colorteal,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Center(
+                child: Text(
+                  "Phone Number Already Registered",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: sedan,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300),
+                ),
+              ),
+              backgroundColor: colorteal,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
         }
       },
       child: Scaffold(
@@ -109,9 +109,9 @@ class _SignupState extends State<Signup> {
             ),
           ),
           child: Center(
-            child: SingleChildScrollView(
-              child: Form(
-                key: formKeyy,
+            child: Form(
+              key: formKeyy,
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     const HeadingWelcom(),
@@ -162,18 +162,22 @@ class _SignupState extends State<Signup> {
                       controller: phonecontroller,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
+                    customtextformfieild(
+                      'Enter Your place',
+                      Icons.place,
+                      context,
+                      controller: placecontroller,
+                      validator: nameValidator,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                    ),
+                    SizedBox(
+                      height: mediaqueryheight(.015, context),
+                    ),
                     customtextformfiledpassword(
                       "Enter Password",
                       context,
                       controller: passwordcontroller,
                       validator: passwordValidator,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    customtextformfiledconfirmpassword(
-                      "Confirm Password",
-                      context,
-                      controller: confirmpasswordcontroler,
-                      validator: confirmPasswordValidator,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     SizedBox(

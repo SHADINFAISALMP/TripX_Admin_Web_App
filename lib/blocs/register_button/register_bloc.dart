@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/firebase_auth/phone_auth_otp.dart';
+import 'package:tripx_admin_application/repository/user_registration.dart';
 import 'package:tripx_admin_application/screens/signup_page/sign_up.dart';
 
 part 'register_event.dart';
@@ -19,6 +20,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     if ((formKeyy.currentState!.validate())) {
       // emit(Networkerror(buttonpressed: state.buttonpressed));
       // return;
+       await AddUserDetailstoFirebase().addDataToFirebase(event.context);
       emit(LoadingState(buttonpressed: state.buttonpressed));
       add(Otpvalidation(context: event.context));
     } else {

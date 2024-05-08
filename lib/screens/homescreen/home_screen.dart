@@ -18,7 +18,7 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   late NotchBottomBarController _pageController;
   late List<Widget> pages;
-
+  late Stream<DocumentSnapshot> profileStream;
   final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>(); // Define a GlobalKey
 
@@ -26,6 +26,11 @@ class _HomescreenState extends State<Homescreen> {
   void initState() {
     super.initState();
     _pageController = NotchBottomBarController();
+
+    profileStream = FirebaseFirestore.instance
+        .collection('admindetails')
+        .doc("yxp3McgTwhqPv0A70iXx")
+        .snapshots();
   }
 
   @override
@@ -38,14 +43,25 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Padding(
-          padding: EdgeInsets.only(
-            bottom: 15,
+        title: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 20,
           ),
-          child: Text(
-            "WELCOME AGAIN \n TRIPX...",
-            style: TextStyle(color: whitecolor),
-          ),
+          child: StreamBuilder<DocumentSnapshot>(
+              stream: profileStream,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                var profileData =
+                    snapshot.data!.data() as Map<String, dynamic>?;
+                return Text(
+                  "WELCOME AGAIN \n     ${profileData!['name'].toString().toUpperCase()}",
+                  style: const TextStyle(color: whitecolor),
+                );
+              }),
         ),
         automaticallyImplyLeading: false,
         toolbarHeight: 120,
@@ -54,13 +70,16 @@ class _HomescreenState extends State<Homescreen> {
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(50),
                 bottomRight: Radius.circular(50))),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(bottom: 50, right: 20),
-            child: Icon(
-              Icons.menu,
-              size: 40,
-              color: whitecolor,
+            padding: const EdgeInsets.only(bottom: 50, right: 20),
+            child: IconButton(
+              icon: const Icon(
+                Icons.menu,
+                size: 40,
+                color: whitecolor,
+              ),
+              onPressed: () {},
             ),
           )
         ],
@@ -131,14 +150,14 @@ class _HomescreenState extends State<Homescreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => PackageDetails(
-                    
                       itemslists: items,
                     )),
           );
         },
         child: Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(25)),
+            border: Border.all(color: colorteal),
             color: colorteal,
           ),
           width: mediaquerywidht(0.75, context),
@@ -160,7 +179,7 @@ class _HomescreenState extends State<Homescreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Icon(Icons.location_on),
-                  Locationame(index, items),
+                  locationame(index, items),
                 ],
               )
             ],
@@ -168,7 +187,7 @@ class _HomescreenState extends State<Homescreen> {
         ),
       );
 
-  Locationame(int index, item) {
+  locationame(int index, item) {
     return mytext(item['packagename']!,
         fontFamily: sedan,
         fontSize: mediaqueryheight(0.027, context),

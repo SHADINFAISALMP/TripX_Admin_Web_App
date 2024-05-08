@@ -4,7 +4,7 @@ TextEditingController namecontroller = TextEditingController();
 TextEditingController emailcontroller = TextEditingController();
 TextEditingController phonecontroller = TextEditingController();
 TextEditingController passwordcontroller = TextEditingController();
-TextEditingController confirmpasswordcontroler = TextEditingController();
+TextEditingController placecontroller = TextEditingController();
 
 TextEditingController emailcontrollerlog = TextEditingController();
 TextEditingController passwordcontrollerlog = TextEditingController();
