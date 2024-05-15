@@ -60,7 +60,6 @@ customtextformfiledpassword(
           autovalidateMode: autovalidateMode,
           validator: validator,
           controller: controller,
-          maxLength: 6,
           obscureText: isObscured,
           decoration: InputDecoration(
             filled: true,

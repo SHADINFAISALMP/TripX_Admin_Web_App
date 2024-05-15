@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/screens/log_in_screen/widgets/login_heading_extfiled.dart';
@@ -93,59 +92,6 @@ class _LoginState extends State<Login> {
               }
             },
           ),
-          BlocListener<GoogleBloc, GoogleState>(
-            listener: (context, state) {
-              if (state is GoogleSuccessState) {
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Bottomnavigation()));
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Center(
-                      child: Text(
-                        "Google Sign In Success",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: sedan,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    backgroundColor: colorteal,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
-              }
-              if (state is GoogleLoadingstate) {
-                DialogUtils.showLoadingDialog(context);
-              }
-              if (state is GoogleFailureState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Center(
-                      child: Text(
-                        "Failed Log In , Please Try Again",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: sedan,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    backgroundColor: colorteal,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
-                Navigator.pop(context);
-              }
-            },
-          )
         ],
         child: Container(
           decoration: const BoxDecoration(
@@ -159,7 +105,7 @@ class _LoginState extends State<Login> {
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
-                child: const loginheadingandTextfiled(),
+                child: const LoginheadingandTextfiled(),
               ),
             ),
           ),
@@ -168,5 +114,3 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-

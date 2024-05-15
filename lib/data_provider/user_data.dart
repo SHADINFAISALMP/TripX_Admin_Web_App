@@ -8,7 +8,6 @@ class UserdetailsData {
             name: namecontroller.text.trim(),
             email: emailcontroller.text.trim(),
             phonenumber: phonecontroller.text.trim(),
-            password: passwordcontroller.text.trim(),
             place: placecontroller.text.trim(),
             imagepath: downloadURL)
         .toMap();

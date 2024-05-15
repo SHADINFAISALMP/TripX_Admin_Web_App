@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 TextEditingController namecontroller = TextEditingController();
 TextEditingController emailcontroller = TextEditingController();
 TextEditingController phonecontroller = TextEditingController();
@@ -27,7 +28,6 @@ TextEditingController nightscontroller = TextEditingController();
 TextEditingController countrycontroller = TextEditingController();
 TextEditingController citycontroller = TextEditingController();
 
-
 String? confirmPasswordValidator(String? value) {
   if (value == null || value.isEmpty) {
     return 'Please confirm your password';
@@ -40,15 +40,11 @@ String? confirmPasswordValidator(String? value) {
 
 String? emailValidator(String? value) {
   if (value == null || value.isEmpty) {
-    return 'Please enter your email';
+    return 'Please enter your Admin name';
   }
-  if (!value.contains('@')) {
-    return 'Email must contain "@" symbol';
-  }
-  final RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  if (!emailRegExp.hasMatch(value)) {
-    return 'Please enter a valid email';
-  }
+  // if (!adminname.) {
+  //   return 'Please enter a valid email';
+  // }
   return null;
 }
 

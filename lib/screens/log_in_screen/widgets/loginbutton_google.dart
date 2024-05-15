@@ -1,14 +1,58 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
+import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
+import 'package:tripx_admin_application/screens/signup_page/sign_up.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
+import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
+
+const String adminname = 'namotravels';
+const String adminpassword = 'namo1234';
 
 class LoginButtonGoogle extends StatelessWidget {
   const LoginButtonGoogle({
     super.key,
   });
+  void handleLogin(BuildContext context) async {
+    String enteredUsername = emailcontrollerlog.text.trim();
+    String enteredPassword = passwordcontrollerlog.text.trim();
+
+    if (enteredUsername == adminname && enteredPassword == adminpassword) {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('admindetails')
+          .doc('admin')
+          .get();
+      if (snapshot.exists) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const Bottomnavigation()));
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Signup()));
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Login Failed'),
+            content:
+                const Text('Incorrect username or password. Please try again.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +67,7 @@ class LoginButtonGoogle extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          () {
-            context.read<LoginBloc>().add(LoginEventButton());
-            return null;
-          }();
+          handleLogin(context);
         },
         child: Row(
           children: [

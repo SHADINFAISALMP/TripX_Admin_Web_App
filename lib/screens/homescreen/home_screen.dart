@@ -18,7 +18,6 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> {
   late NotchBottomBarController _pageController;
   late List<Widget> pages;
-  late Stream<DocumentSnapshot> profileStream;
   final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>(); // Define a GlobalKey
 
@@ -26,11 +25,6 @@ class _HomescreenState extends State<Homescreen> {
   void initState() {
     super.initState();
     _pageController = NotchBottomBarController();
-
-    profileStream = FirebaseFirestore.instance
-        .collection('admindetails')
-        .doc("yxp3McgTwhqPv0A70iXx")
-        .snapshots();
   }
 
   @override
@@ -48,17 +42,19 @@ class _HomescreenState extends State<Homescreen> {
             bottom: 20,
           ),
           child: StreamBuilder<DocumentSnapshot>(
-              stream: profileStream,
+              stream: FirebaseFirestore.instance
+                  .collection('admindetails')
+                  .doc('admin')
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                var profileData =
-                    snapshot.data!.data() as Map<String, dynamic>?;
+                var userData = snapshot.data!.data() as Map<String, dynamic>;
                 return Text(
-                  "WELCOME AGAIN \n     ${profileData!['name'].toString().toUpperCase()}",
+                  "WELCOME AGAIN \n  ${userData['name'].toString().toUpperCase()}",
                   style: const TextStyle(color: whitecolor),
                 );
               }),

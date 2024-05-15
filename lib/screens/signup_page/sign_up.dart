@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
+import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 
 import 'package:tripx_admin_application/screens/signup_page/aignup_buttom.dart';
 import 'package:tripx_admin_application/screens/signup_page/create_account_image.dart';
-import 'package:tripx_admin_application/screens/signup_page/heading_welcome.dart';
+
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
@@ -52,6 +53,14 @@ class _SignupState extends State<Signup> {
                 ),
               );
             },
+          );
+        }
+        if (state is NavigateToprofile) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("succesfully added profile")));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Bottomnavigation()),
           );
         }
         if (state is RegisterFailure) {
@@ -114,7 +123,6 @@ class _SignupState extends State<Signup> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const HeadingWelcom(),
                     SizedBox(
                       height: mediaqueryheight(.011, context),
                     ),
@@ -172,16 +180,6 @@ class _SignupState extends State<Signup> {
                     ),
                     SizedBox(
                       height: mediaqueryheight(.015, context),
-                    ),
-                    customtextformfiledpassword(
-                      "Enter Password",
-                      context,
-                      controller: passwordcontroller,
-                      validator: passwordValidator,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                    SizedBox(
-                      height: mediaqueryheight(.011, context),
                     ),
                     const SignUpButton(),
                   ],

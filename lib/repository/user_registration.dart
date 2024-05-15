@@ -8,7 +8,7 @@ class AddUserDetailstoFirebase {
       final profileImageUrl =
           await Addimagetofirebase().addprofileimagetofirebase(context);
       final data = UserdetailsData().userData(profileImageUrl!);
-      await userDetails.add(data);
+      await userDetails.doc('admin').set(data);
     } catch (e) {
       print("error $e");
     }

@@ -11,8 +11,8 @@ final class RegisterInitial extends RegisterState {
   const RegisterInitial({required super.buttonpressed});
 }
 
-final class NavigateToOtp extends RegisterState {
-  const NavigateToOtp({required super.buttonpressed});
+final class NavigateToprofile extends RegisterState {
+  const NavigateToprofile({required super.buttonpressed});
 }
 
 final class RegisterFailure extends RegisterState {

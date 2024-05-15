@@ -24,9 +24,6 @@ class SignUpButton extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          // if (formKeyy.currentState!.validate()) {
-
-          // }
           context
               .read<RegisterBloc>()
               .add(RegisterButtonPressed(context: context));
@@ -43,7 +40,7 @@ class SignUpButton extends StatelessWidget {
               width: mediaquerywidht(.04, context),
             ),
             mytext(
-              'Sign Up',
+              'Add Profile',
               color: black54,
               fontSize: mediaqueryheight(.021, context),
               fontWeight: FontWeight.w400,
