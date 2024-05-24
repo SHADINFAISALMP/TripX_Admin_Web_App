@@ -17,7 +17,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     on<UploadimageEvent>(_uploadImages);
     on<Startdatepressed>(_startdatepressed);
     on<EndDatePressed>(_enddatepressed);
-    // on<FetchingpackageDetalsEvent>(_fetchPackageDetails);
+
   }
 
   Future<void> _multipleimageselection(
@@ -154,24 +154,4 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
       emit(state.copywith(endDate: picked, formattedEndDate: formattedDate));
     }
   }
-
-  // Future<void> _fetchPackageDetails(
-  //     FetchingpackageDetalsEvent event, Emitter<AddpackageState> emit) async {
-  //   emit(FetchingPackageLoading());
-  //   try {
-  //     // Fetch package details from Firebase
-  //     final packageDetails = await fetchPackageDetailsFromFirebase();
-  //     emit(FetchingPackageDetailsSucess(packageDetails));
-  //   } catch (e) {
-  //     emit(FetchPackageDetailsFailure(e.toString()));
-  //   }
-  // }
-
-  // Future<List<PackageDetailsModel>> fetchPackageDetailsFromFirebase() async {
-  //   final snapshot =
-  //       await FirebaseFirestore.instance.collection('packagedetails').get();
-  //   return snapshot.docs
-  //       .map((doc) => PackageDetailsModel.fromSnapshot(doc))
-  //       .toList();
-  // }
 }

@@ -24,16 +24,13 @@ class PackageDetails extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => EditPackage(
-                                  itemslists: itemslists,
+                                  itemslists: itemslists, startdate: itemslists['startdate'], enddate: itemslists["enddate"],
                                 )));
                   },
                   child: const Icon(
                     Icons.edit,
                     color: whitecolor,
                   )),
-
-
-                  
             )
           ],
           leading: GestureDetector(
@@ -88,6 +85,25 @@ class PackageDetails extends StatelessWidget {
                           PackageDetailsContainers(
                             text: itemslists['placenames'],
                             topname: 'DESTINATION NAMES',
+                          ),
+                          SizedBox(
+                            height: mediaqueryheight(0.01, context),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 35),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Startdateandenddate(
+                                  topname: 'START DATE',
+                                  text: itemslists['startdate'],
+                                ),
+                                Startdateandenddate(
+                                  topname: 'END DATE',
+                                  text: itemslists['enddate'],
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: mediaqueryheight(0.01, context),

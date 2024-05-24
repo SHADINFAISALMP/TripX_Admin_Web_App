@@ -221,6 +221,45 @@ class NextButton extends StatelessWidget {
     );
   }
 }
+class Startdateandenddate extends StatelessWidget {
+  final String text;
+  final String topname;
+  const Startdateandenddate({
+    super.key,
+    required this.text,
+    required this.topname,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        TopName(text: topname),
+        Container(
+          width: mediaquerywidht(0.38, context),
+          decoration: BoxDecoration(
+            color: whitecolor,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: blackcolor.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 10,
+                offset: const Offset(2, 5),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20, top: 10, bottom: 10),
+            child:
+                mytext(text, fontFamily: sedan, fontSize: 17, color: colorteal),
+          ),
+        )
+      ],
+    );
+  }
+}
+
 class PackageDetailsContainers extends StatelessWidget {
   final String text;
   final String topname;
@@ -229,6 +268,7 @@ class PackageDetailsContainers extends StatelessWidget {
     super.key,
     required this.text,
     required this.topname,
+    
   });
 
   @override

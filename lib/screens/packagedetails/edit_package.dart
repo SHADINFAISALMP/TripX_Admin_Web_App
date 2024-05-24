@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,13 +9,130 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 import '../../utils/fonts.dart';
 
-class EditPackage extends StatelessWidget {
+class EditPackage extends StatefulWidget {
   final QueryDocumentSnapshot<Object?> itemslists;
-  const EditPackage({super.key, required this.itemslists});
+  final String startdate;
+  final String enddate;
+  const EditPackage(
+      {super.key,
+      required this.itemslists,
+      required this.startdate,
+      required this.enddate});
+
+  @override
+  State<EditPackage> createState() => _EditPackageState();
+}
+
+class _EditPackageState extends State<EditPackage> {
+  TextEditingController packagenamecontroller = TextEditingController();
+  TextEditingController placenamecontroller = TextEditingController();
+  TextEditingController transportationcontroller = TextEditingController();
+  TextEditingController accomodationcontroller = TextEditingController();
+  TextEditingController mealscontroller = TextEditingController();
+  TextEditingController activitescontroller = TextEditingController();
+  TextEditingController adultcontroller = TextEditingController();
+  TextEditingController hotelpricecontroller = TextEditingController();
+  TextEditingController childrencontroller = TextEditingController();
+  TextEditingController bookingcontroller = TextEditingController();
+  TextEditingController additionalinforamtioncontroller =
+      TextEditingController();
+  TextEditingController dayscontroller = TextEditingController();
+  TextEditingController nightscontroller = TextEditingController();
+  TextEditingController countrycontroller = TextEditingController();
+  TextEditingController citycontroller = TextEditingController();
+  TextEditingController packageamountcontroller = TextEditingController();
+  TextEditingController companaychargecontroller = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    // Assign initial values to the controllers
+    packagenamecontroller.text = widget.itemslists['packagename'];
+    placenamecontroller.text = widget.itemslists['placenames'];
+    transportationcontroller.text = widget.itemslists['transportation'];
+    accomodationcontroller.text = widget.itemslists['accodamotion'];
+    mealscontroller.text = widget.itemslists['meals'];
+    activitescontroller.text = widget.itemslists['activity'];
+    adultcontroller.text = widget.itemslists['adult'];
+    hotelpricecontroller.text = widget.itemslists['hotelper'];
+    childrencontroller.text = widget.itemslists['childper'];
+    bookingcontroller.text = widget.itemslists['booking'];
+    additionalinforamtioncontroller.text = widget.itemslists['additional'];
+    dayscontroller.text = widget.itemslists['days'];
+    nightscontroller.text = widget.itemslists['night'];
+    countrycontroller.text = widget.itemslists['country'];
+    citycontroller.text = widget.itemslists['city'];
+    packageamountcontroller.text = widget.itemslists['packageamount'];
+    companaychargecontroller.text = widget.itemslists['companycharge'];
+    startDateController.text = widget.startdate;
+    endDateController.text = widget.enddate;
+  }
+
+  void _saveChanges() async {
+    await FirebaseFirestore.instance
+        .collection('packagedetails')
+        .doc(widget.itemslists.id)
+        .update({
+      'packagename': packagenamecontroller.text,
+      'placenames': placenamecontroller.text,
+      'transportation': transportationcontroller.text,
+      'accodamotion': accomodationcontroller.text,
+      'meals': mealscontroller.text,
+      'activity': activitescontroller.text,
+      'adult': adultcontroller.text,
+      'hotelper': hotelpricecontroller.text,
+      'childper': childrencontroller.text,
+      'booking': bookingcontroller.text,
+      'additional': additionalinforamtioncontroller.text,
+      'days': dayscontroller.text,
+      'night': nightscontroller.text,
+      'country': countrycontroller.text,
+      'city': citycontroller.text,
+      'packageamount': packageamountcontroller.text,
+      'companycharge': companaychargecontroller.text,
+      'startDate': startDateController.text,
+      'endDate': endDateController.text,
+    });
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PackageDetails(
+                  itemslists: widget.itemslists,
+                )),
+        (route) => false);
+  }
+
+  Widget buildTextField(String labelText, TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(labelText,
+            style:
+                TextStyle(color: whitecolor, fontFamily: bodoni, fontSize: 16)),
+        const SizedBox(height: 8),
+        SizedBox(
+          width: mediaquerywidht(0.84, context),
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final List<dynamic> imagepaths = itemslists['imagepath'];
+    final List<dynamic> imagepaths = widget.itemslists['imagepath'];
     return Scaffold(
       backgroundColor: colorteal,
       appBar: AppBar(
@@ -115,121 +231,53 @@ class EditPackage extends StatelessWidget {
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                PackageDetailsContainers(
-                  text: itemslists['packagename'],
-                  topname: 'PACKAGE NAME',
-                ),
+                buildTextField('PACKAGE NAME', packagenamecontroller),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                PackageDetailsContainers(
-                  text: itemslists['placenames'],
-                  topname: 'DESTINATION NAMES',
-                ),
+                buildTextField('DESTINATION NAMES', placenamecontroller),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
+                buildTextField('START DATE', startDateController),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                buildTextField('END DATE', endDateController),
                 Padding(
-                  padding: const EdgeInsets.only(right: 35),
+                  padding: const EdgeInsets.only(right: 40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Daysnightsrow(
-                        text: itemslists['days'],
-                        topname: "DAYS",
-                      ),
-                      Daysnightsrow(
-                        text: itemslists['night'],
-                        topname: "NIGHTS",
-                      ),
-                      Daysnightsrow(
-                        text: itemslists['country'],
-                        topname: "COUNTRIES",
-                      ),
-                      Daysnightsrow(
-                        text: itemslists['city'],
-                        topname: "CITIES",
-                      ),
+                      Expanded(child: buildTextField('DAYS', dayscontroller)),
+                      SizedBox(width: mediaquerywidht(0.02, context)),
+                      Expanded(
+                          child: buildTextField('NIGHTS', nightscontroller)),
+                      SizedBox(width: mediaquerywidht(0.02, context)),
+                      Expanded(
+                          child: buildTextField('COUNTRY', countrycontroller)),
+                      SizedBox(width: mediaquerywidht(0.02, context)),
+                      Expanded(child: buildTextField('CITY', citycontroller)),
                     ],
                   ),
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
-                PackageDetailsContainers(
-                  text: itemslists['transportation'],
-                  topname: 'TRANSPORTAION TYPES',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['accodamotion'],
-                  topname: 'ACCOMODATION',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['meals'],
-                  topname: 'MEALS ',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['activity'],
-                  topname: 'ACTIVITIES',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['adult'],
-                  topname: 'PER ADULT',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['childper'],
-                  topname: 'PER CHILDREN',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['hotelper'],
-                  topname: 'PER NIGHT HOTEL',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['companycharge'],
-                  topname: 'COMPANY CHARGE',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['packageamount'],
-                  topname: 'PACKAGE AMOUNT',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['booking'],
-                  topname: 'BOOKING INFORMATION & POLICIES',
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                PackageDetailsContainers(
-                  text: itemslists['additional'],
-                  topname: 'ADDITIONAL INFORMATIONS',
-                ),
+                buildTextField(
+                    'TRANSPORTATION TYPES', transportationcontroller),
+                buildTextField('ACCOMODATION', accomodationcontroller),
+                buildTextField('MEALS', mealscontroller),
+                buildTextField('ACTIVITIES', activitescontroller),
+                buildTextField('PER ADULT', adultcontroller),
+                buildTextField('PER CHILDREN', childrencontroller),
+                buildTextField('PER NIGHT HOTEL', hotelpricecontroller),
+                buildTextField('COMPANY CHARGE', companaychargecontroller),
+                buildTextField('PACKAGE AMOUNT', packageamountcontroller),
+                buildTextField(
+                    'BOOKING INFORMATION & POLICIES', bookingcontroller),
+                buildTextField(
+                    'ADDITIONAL INFORMATION', additionalinforamtioncontroller),
                 SizedBox(
                   height: mediaqueryheight(0.03, context),
                 ),
@@ -237,13 +285,7 @@ class EditPackage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 25),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PackageDetails(
-                                    itemslists: itemslists,
-                                  )),
-                          (route) => false);
+                      _saveChanges();
                     },
                     child: Container(
                       decoration: BoxDecoration(
