@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 
 import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
@@ -70,37 +72,28 @@ class _EditPackageState extends State<EditPackage> {
   }
 
   void _saveChanges() async {
-    await FirebaseFirestore.instance
-        .collection('packagedetails')
-        .doc(widget.itemslists.id)
-        .update({
-      'packagename': packagenamecontroller.text,
-      'placenames': placenamecontroller.text,
-      'transportation': transportationcontroller.text,
-      'accodamotion': accomodationcontroller.text,
-      'meals': mealscontroller.text,
-      'activity': activitescontroller.text,
-      'adult': adultcontroller.text,
-      'hotelper': hotelpricecontroller.text,
-      'childper': childrencontroller.text,
-      'booking': bookingcontroller.text,
-      'additional': additionalinforamtioncontroller.text,
-      'days': dayscontroller.text,
-      'night': nightscontroller.text,
-      'country': countrycontroller.text,
-      'city': citycontroller.text,
-      'packageamount': packageamountcontroller.text,
-      'companycharge': companaychargecontroller.text,
-      'startDate': startDateController.text,
-      'endDate': endDateController.text,
-    });
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PackageDetails(
-                  itemslists: widget.itemslists,
-                )),
-        (route) => false);
+    BlocProvider.of<AddpackageBloc>(context).add(Updatepackagedetails(
+      itemslists: widget.itemslists,
+      packagename: packagenamecontroller.text,
+      placenames: placenamecontroller.text,
+      transportation: transportationcontroller.text,
+      accodamotion: accomodationcontroller.text,
+      meals: mealscontroller.text,
+      activity: activitescontroller.text,
+      adult: adultcontroller.text,
+      hotelper: hotelpricecontroller.text,
+      childper: childrencontroller.text,
+      booking: bookingcontroller.text,
+      additional: additionalinforamtioncontroller.text,
+      days: dayscontroller.text,
+      night: nightscontroller.text,
+      country: countrycontroller.text,
+      city: citycontroller.text,
+      packageamount: packageamountcontroller.text,
+      companycharge: companaychargecontroller.text,
+      startDate: startDateController.text,
+      endDate: endDateController.text,
+    ));
   }
 
   Widget buildTextField(String labelText, TextEditingController controller) {
@@ -150,182 +143,202 @@ class _EditPackageState extends State<EditPackage> {
         centerTitle: true,
         backgroundColor: Colors.teal,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: mediaqueryheight(0.02, context),
-                ),
-                const TopName(text: "PACKAGE PHOTOS"),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                      decoration: BoxDecoration(
-                          color: whitecolor,
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  blackcolor.withOpacity(0.5), // Shadow color
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(2, 5),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(15)),
-                      height: mediaqueryheight(0.2, context),
-                      width: mediaquerywidht(0.84, context),
-                      //change to blo
-                      child: imagepaths.isEmpty
-                          ? Center(
-                              child: Text(
-                              'no images available',
-                              style: TextStyle(
-                                fontFamily: sedan,
-                                fontSize: 20,
-                                color: colorteal,
-                              ),
-                            ))
-                          : CarouselSlider.builder(
-                              itemCount: imagepaths.length,
-                              itemBuilder: (context, index, realIndex) {
-                                return GridView.builder(
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 8,
-                                      mainAxisSpacing: 8,
-                                    ),
-                                    itemCount: imagepaths.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                    imagepaths[index]))),
-                                      );
-                                    });
-                              },
-                              options: CarouselOptions(
-                                aspectRatio: 16 / 9,
-                                viewportFraction: 1,
-                                initialPage: 0,
-                                enableInfiniteScroll: false,
-                                reverse: false,
-                                autoPlay: false,
-                                autoPlayInterval: const Duration(seconds: 4),
-                                autoPlayAnimationDuration:
-                                    const Duration(milliseconds: 800),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                enlargeCenterPage: false,
-                                scrollDirection: Axis.horizontal,
-                              ),
-                            )),
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                buildTextField('PACKAGE NAME', packagenamecontroller),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                buildTextField('DESTINATION NAMES', placenamecontroller),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                buildTextField('START DATE', startDateController),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                buildTextField('END DATE', endDateController),
-                Padding(
-                  padding: const EdgeInsets.only(right: 40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildTextField('DAYS', dayscontroller)),
-                      SizedBox(width: mediaquerywidht(0.02, context)),
-                      Expanded(
-                          child: buildTextField('NIGHTS', nightscontroller)),
-                      SizedBox(width: mediaquerywidht(0.02, context)),
-                      Expanded(
-                          child: buildTextField('COUNTRY', countrycontroller)),
-                      SizedBox(width: mediaquerywidht(0.02, context)),
-                      Expanded(child: buildTextField('CITY', citycontroller)),
-                    ],
+      body: BlocListener<AddpackageBloc, AddpackageState>(
+        listener: (context, state) {
+       if (state is PackageUpdateSuccess) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PackageDetails(
+                    itemslists: widget.itemslists,
                   ),
                 ),
-                SizedBox(
-                  height: mediaqueryheight(0.01, context),
-                ),
-                buildTextField(
-                    'TRANSPORTATION TYPES', transportationcontroller),
-                buildTextField('ACCOMODATION', accomodationcontroller),
-                buildTextField('MEALS', mealscontroller),
-                buildTextField('ACTIVITIES', activitescontroller),
-                buildTextField('PER ADULT', adultcontroller),
-                buildTextField('PER CHILDREN', childrencontroller),
-                buildTextField('PER NIGHT HOTEL', hotelpricecontroller),
-                buildTextField('COMPANY CHARGE', companaychargecontroller),
-                buildTextField('PACKAGE AMOUNT', packageamountcontroller),
-                buildTextField(
-                    'BOOKING INFORMATION & POLICIES', bookingcontroller),
-                buildTextField(
-                    'ADDITIONAL INFORMATION', additionalinforamtioncontroller),
-                SizedBox(
-                  height: mediaqueryheight(0.03, context),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: GestureDetector(
-                    onTap: () {
-                      _saveChanges();
-                    },
+                (route) => false,
+              );
+            } else if (state is PackageError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.errorMessage)),
+              );
+            }
+          },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: mediaqueryheight(0.02, context),
+                  ),
+                  const TopName(text: "PACKAGE PHOTOS"),
+                  GestureDetector(
+                    onTap: () {},
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: orangecolor,
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  blackcolor.withOpacity(0.5), // Shadow color
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(2, 5),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(10)),
-                      height: mediaqueryheight(0.05, context),
-                      width: mediaquerywidht(0.7, context),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.save,
+                        decoration: BoxDecoration(
                             color: whitecolor,
-                            size: 25,
-                          ),
-                          SizedBox(
-                            width: mediaquerywidht(0.02, context),
-                          ),
-                          mytext("SAVE CHANGES",
-                              fontFamily: sedan,
-                              fontSize: 20,
-                              color: whitecolor)
-                        ],
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    blackcolor.withOpacity(0.5), // Shadow color
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: const Offset(2, 5),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15)),
+                        height: mediaqueryheight(0.2, context),
+                        width: mediaquerywidht(0.84, context),
+                        //change to blo
+                        child: imagepaths.isEmpty
+                            ? Center(
+                                child: Text(
+                                'no images available',
+                                style: TextStyle(
+                                  fontFamily: sedan,
+                                  fontSize: 20,
+                                  color: colorteal,
+                                ),
+                              ))
+                            : CarouselSlider.builder(
+                                itemCount: imagepaths.length,
+                                itemBuilder: (context, index, realIndex) {
+                                  return GridView.builder(
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 8,
+                                        mainAxisSpacing: 8,
+                                      ),
+                                      itemCount: imagepaths.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      imagepaths[index]))),
+                                        );
+                                      });
+                                },
+                                options: CarouselOptions(
+                                  aspectRatio: 16 / 9,
+                                  viewportFraction: 1,
+                                  initialPage: 0,
+                                  enableInfiniteScroll: false,
+                                  reverse: false,
+                                  autoPlay: false,
+                                  autoPlayInterval: const Duration(seconds: 4),
+                                  autoPlayAnimationDuration:
+                                      const Duration(milliseconds: 800),
+                                  autoPlayCurve: Curves.fastOutSlowIn,
+                                  enlargeCenterPage: false,
+                                  scrollDirection: Axis.horizontal,
+                                ),
+                              )),
+                  ),
+                  SizedBox(
+                    height: mediaqueryheight(0.01, context),
+                  ),
+                  buildTextField('PACKAGE NAME', packagenamecontroller),
+                  SizedBox(
+                    height: mediaqueryheight(0.01, context),
+                  ),
+                  buildTextField('DESTINATION NAMES', placenamecontroller),
+                  SizedBox(
+                    height: mediaqueryheight(0.01, context),
+                  ),
+                  buildTextField('START DATE', startDateController),
+                  SizedBox(
+                    height: mediaqueryheight(0.01, context),
+                  ),
+                  buildTextField('END DATE', endDateController),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(child: buildTextField('DAYS', dayscontroller)),
+                        SizedBox(width: mediaquerywidht(0.02, context)),
+                        Expanded(
+                            child: buildTextField('NIGHTS', nightscontroller)),
+                        SizedBox(width: mediaquerywidht(0.02, context)),
+                        Expanded(
+                            child:
+                                buildTextField('COUNTRY', countrycontroller)),
+                        SizedBox(width: mediaquerywidht(0.02, context)),
+                        Expanded(child: buildTextField('CITY', citycontroller)),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: mediaqueryheight(0.01, context),
+                  ),
+                  buildTextField(
+                      'TRANSPORTATION TYPES', transportationcontroller),
+                  buildTextField('ACCOMODATION', accomodationcontroller),
+                  buildTextField('MEALS', mealscontroller),
+                  buildTextField('ACTIVITIES', activitescontroller),
+                  buildTextField('PER ADULT', adultcontroller),
+                  buildTextField('PER CHILDREN', childrencontroller),
+                  buildTextField('PER NIGHT HOTEL', hotelpricecontroller),
+                  buildTextField('COMPANY CHARGE', companaychargecontroller),
+                  buildTextField('PACKAGE AMOUNT', packageamountcontroller),
+                  buildTextField(
+                      'BOOKING INFORMATION & POLICIES', bookingcontroller),
+                  buildTextField('ADDITIONAL INFORMATION',
+                      additionalinforamtioncontroller),
+                  SizedBox(
+                    height: mediaqueryheight(0.03, context),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 25),
+                    child: GestureDetector(
+                      onTap: () {
+                        _saveChanges();
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: orangecolor,
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    blackcolor.withOpacity(0.5), // Shadow color
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                offset: const Offset(2, 5),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10)),
+                        height: mediaqueryheight(0.05, context),
+                        width: mediaquerywidht(0.7, context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.save,
+                              color: whitecolor,
+                              size: 25,
+                            ),
+                            SizedBox(
+                              width: mediaquerywidht(0.02, context),
+                            ),
+                            mytext("SAVE CHANGES",
+                                fontFamily: sedan,
+                                fontSize: 20,
+                                color: whitecolor)
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: mediaqueryheight(0.03, context),
-                ),
-              ],
+                  SizedBox(
+                    height: mediaqueryheight(0.03, context),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

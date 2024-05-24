@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     on<UploadimageEvent>(_uploadImages);
     on<Startdatepressed>(_startdatepressed);
     on<EndDatePressed>(_enddatepressed);
+    on<Updatepackagedetails>(_updatePackageDetails);
 
   }
 
@@ -152,6 +154,38 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     if (picked != null && picked != state.endDate) {
       final formattedDate = DateFormat('dd-MM-yyyy').format(picked);
       emit(state.copywith(endDate: picked, formattedEndDate: formattedDate));
+    }
+  }
+   Future<void> _updatePackageDetails(
+      Updatepackagedetails event, Emitter<AddpackageState> emit) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('packagedetails')
+          .doc(event.itemslists.id)
+          .update({
+        'packagename': event.packagename,
+        'placenames': event.placenames,
+        'transportation': event.transportation,
+        'accodamotion': event.accodamotion,
+        'meals': event.meals,
+        'activity': event.activity,
+        'adult': event.adult,
+        'hotelper': event.hotelper,
+        'childper': event.childper,
+        'booking': event.booking,
+        'additional': event.additional,
+        'days': event.days,
+        'night': event.night,
+        'country': event.country,
+        'city': event.city,
+        'packageamount': event.packageamount,
+        'companycharge': event.companycharge,
+        'startDate': event.startDate,
+        'endDate': event.endDate,
+      });
+      emit(PackageUpdateSuccess());
+    } catch (e) {
+      emit(PackageError(errorMessage: e.toString()));
     }
   }
 }

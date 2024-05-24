@@ -8,10 +8,7 @@ class AddImagesEvent extends AddpackageEvent {
 
   AddImagesEvent(this.imagePaths);
 }
-class Updatepackagedetails extends AddImagesEvent{
-  Updatepackagedetails(super.imagePaths);
-  
-}
+
 class UploadimageEvent extends AddpackageEvent {
   final BuildContext context;
   final List<XFile> images;
@@ -26,10 +23,11 @@ final class Startdatepressed extends AddpackageEvent {
 }
 
 final class EndDatePressed extends AddpackageEvent {
-   final BuildContext context;
+  final BuildContext context;
 
   EndDatePressed(this.context);
 }
+
 final class Multipleimageselected extends AddpackageEvent {
   final List<XFile>? images;
 
@@ -39,3 +37,49 @@ final class Multipleimageselected extends AddpackageEvent {
 final class UnMultipleimageselected extends AddpackageEvent {}
 
 final class PackageDetailsSaved extends AddpackageEvent {}
+
+class Updatepackagedetails extends AddpackageEvent {
+  final QueryDocumentSnapshot<Object?> itemslists;
+  final String packagename;
+  final String placenames;
+  final String transportation;
+  final String accodamotion;
+  final String meals;
+  final String activity;
+  final String adult;
+  final String hotelper;
+  final String childper;
+  final String booking;
+  final String additional;
+  final String days;
+  final String night;
+  final String country;
+  final String city;
+  final String packageamount;
+  final String companycharge;
+  final String startDate;
+  final String endDate;
+
+  Updatepackagedetails({
+    required this.itemslists,
+    required this.packagename,
+    required this.placenames,
+    required this.transportation,
+    required this.accodamotion,
+    required this.meals,
+    required this.activity,
+    required this.adult,
+    required this.hotelper,
+    required this.childper,
+    required this.booking,
+    required this.additional,
+    required this.days,
+    required this.night,
+    required this.country,
+    required this.city,
+    required this.packageamount,
+    required this.companycharge,
+    required this.startDate,
+    required this.endDate,
+  });
+}

@@ -75,7 +75,7 @@ class PackageSuccess extends AddpackageState {
       {List<XFile>? images, DateTime? startDate, DateTime? endDate})
       : super(images: images, startDate: startDate, endDate: endDate);
 }
-
+class PackageUpdateSuccess extends AddpackageState {}
 class PackageError extends AddpackageState {
   final String errorMessage;
 
@@ -120,19 +120,5 @@ class StartDateChanged extends AddpackageState {
       {List<XFile>? images, DateTime? startDate, DateTime? endDate})
       : super(images: images, startDate: startDate, endDate: endDate);
 }
-class PackageUpdateSuccess extends AddpackageState{}
 
-//  class FetchingPackageLoading extends AddpackageState{
 
-// }
-
-//  class FetchingPackageDetailsSucess extends AddpackageState{
-//   final List<PackageDetailsModel> packageDetails;
-
-//   FetchingPackageDetailsSucess(this.packageDetails);
-// }
-//   class FetchPackageDetailsFailure extends AddpackageState {
-//  final String errorMessage;
-
-//  const FetchPackageDetailsFailure(this.errorMessage);
-// }
