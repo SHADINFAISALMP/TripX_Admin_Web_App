@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/screens/packagedetails/edit_package.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_detIails_image_carosel.dart';
-import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
@@ -31,6 +31,9 @@ class PackageDetails extends StatelessWidget {
                     Icons.edit,
                     color: whitecolor,
                   )),
+
+
+                  
             )
           ],
           leading: GestureDetector(
@@ -145,8 +148,29 @@ class PackageDetails extends StatelessWidget {
                             height: mediaqueryheight(0.01, context),
                           ),
                           PackageDetailsContainers(
-                            text: itemslists['price'],
-                            topname: 'PRICE DETAILS',
+                            text: itemslists['adult'],
+                            topname: 'PER ADULT',
+                          ),
+                          SizedBox(
+                            height: mediaqueryheight(0.01, context),
+                          ),
+                          PackageDetailsContainers(
+                            text: itemslists['hotelper'],
+                            topname: 'PER HOTEL NIGHT',
+                          ),
+                          SizedBox(
+                            height: mediaqueryheight(0.01, context),
+                          ),
+                          PackageDetailsContainers(
+                            text: itemslists['childper'],
+                            topname: 'PER CHILD',
+                          ),
+                          SizedBox(
+                            height: mediaqueryheight(0.01, context),
+                          ),
+                          PackageDetailsContainers(
+                            text: itemslists['packageamount'],
+                            topname: 'PACKAGE AMOUNT',
                           ),
                           SizedBox(
                             height: mediaqueryheight(0.01, context),
@@ -176,7 +200,3 @@ class PackageDetails extends StatelessWidget {
         ));
   }
 }
-
-
-
-

@@ -21,6 +21,7 @@ class Editprofile extends StatefulWidget {
       required this.phoneNumber,
       required this.place,
       required this.imagePath});
+      
 
   @override
   State<Editprofile> createState() => _EditprofileState();

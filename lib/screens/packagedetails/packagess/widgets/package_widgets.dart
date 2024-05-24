@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tripx_admin_application/screens/packagess/packageimages.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/packageimages.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';

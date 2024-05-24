@@ -29,11 +29,13 @@ class PackagedetailsData {
       accomodation: accomodationcontroller.text.trim(),
       meals: mealscontroller.text.trim(),
       activities: activitescontroller.text.trim(),
-      pricedetails: pricecontroller.text.trim(),
+      adultper: adultcontroller.text.trim(),
       bookingdetails: bookingcontroller.text.trim(),
       additionaldetails: additionalinforamtioncontroller.text.trim(),
+      hotelper: hotelpricecontroller.text.trim(),
+      childper: childrencontroller.text.trim(),
+      packageamount: packageamountcontroller.text.trim(), companycharge: companaychargecontroller.text.trim(),
     ).toMap();
     return data;
   }
 }
-

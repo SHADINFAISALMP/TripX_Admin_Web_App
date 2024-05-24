@@ -8,7 +8,9 @@ class PackageDetailsModel {
   final String transportation;
   final String meals;
   final String activities;
-  final String pricedetails;
+  final String adultper;
+  final String hotelper;
+  final String childper;
   final String bookingdetails;
   final String additionaldetails;
   final String day;
@@ -17,25 +19,30 @@ class PackageDetailsModel {
   final String city;
   final String startdate;
   final String enddate;
+  final String packageamount;
+  final String companycharge;
 
-  PackageDetailsModel({
-    required this.imagepath,
-    required this.accomodation,
-    required this.meals,
-    required this.activities,
-    required this.pricedetails,
-    required this.bookingdetails,
-    required this.additionaldetails,
-    required this.packagename,
-    required this.placenames,
-    required this.transportation,
-    required this.day,
-    required this.night,
-    required this.country,
-    required this.city,
-    required this.startdate,
-    required this.enddate,
-  });
+  PackageDetailsModel(
+      {required this.packageamount,
+      required this.imagepath,
+      required this.accomodation,
+      required this.meals,
+      required this.activities,
+      required this.adultper,
+      required this.hotelper,
+      required this.childper,
+      required this.bookingdetails,
+      required this.additionaldetails,
+      required this.packagename,
+      required this.placenames,
+      required this.transportation,
+      required this.day,
+      required this.night,
+      required this.country,
+      required this.city,
+      required this.startdate,
+      required this.enddate,
+      required this.companycharge});
 
   Map<String, dynamic> toMap() {
     return {
@@ -52,9 +59,13 @@ class PackageDetailsModel {
       "accodamotion": accomodation,
       "meals": meals,
       "activity": activities,
-      "price": pricedetails,
+      "adult": adultper,
+      "hotelper": hotelper,
+      "childper": childper,
       "booking": bookingdetails,
       "additional": additionaldetails,
+      "packageamount": packageamount,
+      "companycharge": companycharge
     };
   }
 
@@ -66,7 +77,7 @@ class PackageDetailsModel {
       accomodation: snapshot['accodamotion'],
       meals: snapshot['meals'],
       activities: snapshot['activity'],
-      pricedetails: snapshot['price'],
+      adultper: snapshot['adult'],
       bookingdetails: snapshot['booking'],
       additionaldetails: snapshot['additional'],
       transportation: snapshot['transportation'],
@@ -75,7 +86,9 @@ class PackageDetailsModel {
       country: snapshot['country'],
       city: snapshot['city'],
       startdate: snapshot['startdate'],
-      enddate: snapshot['enddate'],
+      enddate: snapshot['enddate'], hotelper: snapshot['hotelper'],
+      childper: snapshot['childper'], packageamount: snapshot['packageamount'],
+      companycharge: snapshot['companycharge'],
       // Initialize other fields from the snapshot
     );
   }

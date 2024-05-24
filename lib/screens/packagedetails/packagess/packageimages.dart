@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 
-import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
@@ -250,9 +250,9 @@ class _PackageImageState extends State<PackageImage> {
                       SizedBox(
                         height: mediaqueryheight(0.02, context),
                       ),
-                      const TopName(text: "PRICE DETAILS"),
+                      const TopName(text: "PER ADULT"),
                       Container(
-                        height: mediaqueryheight(0.1, context),
+                        height: mediaqueryheight(0.08, context),
                         width: mediaquerywidht(0.83, context),
                         decoration: BoxDecoration(
                           color: whitecolor,
@@ -267,12 +267,132 @@ class _PackageImageState extends State<PackageImage> {
                           ],
                         ),
                         child: TextField(
-                          controller: pricecontroller,
+                          keyboardType: TextInputType.number,
+                          controller: adultcontroller,
                           maxLines: 5,
                           decoration: const InputDecoration(
                             contentPadding: EdgeInsets.all(15),
-                            hintText:
-                                'Write the cost of this package including any inclusions and exclusions as well as cancellation polices......',
+                            hintText: 'Write the cost of the per adult ',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      const TopName(text: "PER NIGHT HOTEL"),
+                      Container(
+                        height: mediaqueryheight(0.08, context),
+                        width: mediaquerywidht(0.83, context),
+                        decoration: BoxDecoration(
+                          color: whitecolor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: blackcolor.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(2, 5),
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: hotelpricecontroller,
+                          maxLines: 5,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(15),
+                            hintText: 'Write the cost of Per night hotel',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      const TopName(text: "PER CHILD"),
+                      Container(
+                        height: mediaqueryheight(0.08, context),
+                        width: mediaquerywidht(0.83, context),
+                        decoration: BoxDecoration(
+                          color: whitecolor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: blackcolor.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(2, 5),
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: childrencontroller,
+                          maxLines: 5,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(15),
+                            hintText: 'Write the cost of the per child ',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      const TopName(text: "COMPANY CHARGE"),
+                      Container(
+                        height: mediaqueryheight(0.08, context),
+                        width: mediaquerywidht(0.83, context),
+                        decoration: BoxDecoration(
+                          color: whitecolor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: blackcolor.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(2, 5),
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: companaychargecontroller,
+                          maxLines: 5,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(15),
+                            hintText: 'Write the cost of the company charge ',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      const TopName(text: "PACKAGE AMOUNT"),
+                      Container(
+                        height: mediaqueryheight(0.08, context),
+                        width: mediaquerywidht(0.83, context),
+                        decoration: BoxDecoration(
+                          color: whitecolor,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: blackcolor.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 10,
+                              offset: const Offset(2, 5),
+                            ),
+                          ],
+                        ),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: packageamountcontroller,
+                          maxLines: 5,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(15),
+                            hintText: 'Write the cost of the package ',
                             border: InputBorder.none,
                           ),
                         ),
@@ -348,7 +468,7 @@ class _PackageImageState extends State<PackageImage> {
                             if (images != null) {
                               context
                                   .read<AddpackageBloc>()
-                                  .add(UploadimageEvent(images,context));
+                                  .add(UploadimageEvent(images, context));
                             }
                           },
                           child: Container(
@@ -399,4 +519,67 @@ class _PackageImageState extends State<PackageImage> {
       ),
     );
   }
+}
+
+void _showPriceBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    builder: (BuildContext context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Enter Price Details',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: colorteal,
+                ),
+              ),
+              SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 3, // You can adjust this count based on requirements
+                itemBuilder: (context, index) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Price ${index + 1}',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          contentPadding: EdgeInsets.all(15),
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      SizedBox(height: 10),
+                    ],
+                  );
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Submit'),
+                style: ElevatedButton.styleFrom(
+                  primary: colorteal,
+                  onPrimary: whitecolor,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

@@ -20,13 +20,17 @@ TextEditingController transportationcontroller = TextEditingController();
 TextEditingController accomodationcontroller = TextEditingController();
 TextEditingController mealscontroller = TextEditingController();
 TextEditingController activitescontroller = TextEditingController();
-TextEditingController pricecontroller = TextEditingController();
+TextEditingController adultcontroller = TextEditingController();
+TextEditingController hotelpricecontroller = TextEditingController();
+TextEditingController childrencontroller = TextEditingController();
 TextEditingController bookingcontroller = TextEditingController();
 TextEditingController additionalinforamtioncontroller = TextEditingController();
 TextEditingController dayscontroller = TextEditingController();
 TextEditingController nightscontroller = TextEditingController();
 TextEditingController countrycontroller = TextEditingController();
 TextEditingController citycontroller = TextEditingController();
+TextEditingController packageamountcontroller = TextEditingController();
+TextEditingController companaychargecontroller = TextEditingController();
 
 String? confirmPasswordValidator(String? value) {
   if (value == null || value.isEmpty) {

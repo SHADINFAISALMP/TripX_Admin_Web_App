@@ -5,6 +5,7 @@ import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.d
 import 'package:tripx_admin_application/blocs/bottomnavigation/bottomnavigation_bloc.dart';
 import 'package:tripx_admin_application/blocs/google_sign/google_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
+import 'package:tripx_admin_application/blocs/profile/profile_bloc.dart';
 import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupadmin/signup_bloc.dart';
 import 'package:tripx_admin_application/blocs/signupimage/profileimage_bloc.dart';
@@ -16,6 +17,9 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(
+        create: (context) => ProfileBloc(),
+      ),
       BlocProvider(
         create: (context) => SignupBloc(),
       ),

@@ -8,7 +8,10 @@ class AddImagesEvent extends AddpackageEvent {
 
   AddImagesEvent(this.imagePaths);
 }
-
+class Updatepackagedetails extends AddImagesEvent{
+  Updatepackagedetails(super.imagePaths);
+  
+}
 class UploadimageEvent extends AddpackageEvent {
   final BuildContext context;
   final List<XFile> images;

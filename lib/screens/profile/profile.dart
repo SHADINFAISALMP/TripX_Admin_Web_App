@@ -12,7 +12,9 @@ class Profile extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Login()));
     } catch (e) {
       print("Error signing out: $e");
     }
@@ -85,7 +87,7 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                         mytext(
-                          name,
+                          name.toUpperCase(),
                           fontFamily: sedan,
                           fontSize: mediaqueryheight(0.03, context),
                           color: colorteal,

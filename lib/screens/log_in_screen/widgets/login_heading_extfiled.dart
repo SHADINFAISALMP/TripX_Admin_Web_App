@@ -16,7 +16,7 @@ class LoginheadingandTextfiled extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-            top: mediaqueryheight(0.3, context),
+            top: mediaqueryheight(0.2, context),
           ),
           child: mytext(
             "TRIPX",
@@ -49,7 +49,6 @@ class LoginheadingandTextfiled extends StatelessWidget {
           height: mediaqueryheight(.05, context),
         ),
         const LoginButtonGoogle(),
-     
       ],
     );
   }

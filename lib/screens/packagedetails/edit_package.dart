@@ -1,8 +1,10 @@
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 
-import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
@@ -14,6 +16,7 @@ class EditPackage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<dynamic> imagepaths = itemslists['imagepath'];
     return Scaffold(
       backgroundColor: colorteal,
       appBar: AppBar(
@@ -43,8 +46,8 @@ class EditPackage extends StatelessWidget {
                 ),
                 const TopName(text: "PACKAGE PHOTOS"),
                 GestureDetector(
-                    onTap: () {},
-                    child: Container(
+                  onTap: () {},
+                  child: Container(
                       decoration: BoxDecoration(
                           color: whitecolor,
                           boxShadow: [
@@ -60,28 +63,55 @@ class EditPackage extends StatelessWidget {
                       height: mediaqueryheight(0.2, context),
                       width: mediaquerywidht(0.84, context),
                       //change to blo
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.photo_library_sharp,
-                              color: colorteal,
-                              size: 35,
-                            ),
-                            SizedBox(
-                              width: mediaquerywidht(0.03, context),
-                            ),
-                            mytext(
-                              itemslists[''],
-                              fontFamily: sedan,
-                              fontSize: 25,
-                              color: colorteal,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )),
+                      child: imagepaths.isEmpty
+                          ? Center(
+                              child: Text(
+                              'no images available',
+                              style: TextStyle(
+                                fontFamily: sedan,
+                                fontSize: 20,
+                                color: colorteal,
+                              ),
+                            ))
+                          : CarouselSlider.builder(
+                              itemCount: imagepaths.length,
+                              itemBuilder: (context, index, realIndex) {
+                                return GridView.builder(
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 8,
+                                      mainAxisSpacing: 8,
+                                    ),
+                                    itemCount: imagepaths.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                    imagepaths[index]))),
+                                      );
+                                    });
+                              },
+                              options: CarouselOptions(
+                                aspectRatio: 16 / 9,
+                                viewportFraction: 1,
+                                initialPage: 0,
+                                enableInfiniteScroll: false,
+                                reverse: false,
+                                autoPlay: false,
+                                autoPlayInterval: const Duration(seconds: 4),
+                                autoPlayAnimationDuration:
+                                    const Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                enlargeCenterPage: false,
+                                scrollDirection: Axis.horizontal,
+                              ),
+                            )),
+                ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),
                 ),
@@ -155,8 +185,36 @@ class EditPackage extends StatelessWidget {
                   height: mediaqueryheight(0.01, context),
                 ),
                 PackageDetailsContainers(
-                  text: itemslists['price'],
-                  topname: 'PRICE DETAILS',
+                  text: itemslists['adult'],
+                  topname: 'PER ADULT',
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                PackageDetailsContainers(
+                  text: itemslists['childper'],
+                  topname: 'PER CHILDREN',
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                PackageDetailsContainers(
+                  text: itemslists['hotelper'],
+                  topname: 'PER NIGHT HOTEL',
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                PackageDetailsContainers(
+                  text: itemslists['companycharge'],
+                  topname: 'COMPANY CHARGE',
+                ),
+                SizedBox(
+                  height: mediaqueryheight(0.01, context),
+                ),
+                PackageDetailsContainers(
+                  text: itemslists['packageamount'],
+                  topname: 'PACKAGE AMOUNT',
                 ),
                 SizedBox(
                   height: mediaqueryheight(0.01, context),

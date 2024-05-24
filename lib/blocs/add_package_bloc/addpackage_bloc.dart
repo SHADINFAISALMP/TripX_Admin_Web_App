@@ -1,4 +1,3 @@
-
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/data_provider/package_data.dart';
 import 'package:tripx_admin_application/firebase_collection_refernce/package_information.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
-
+import 'package:intl/intl.dart';
 part 'addpackage_event.dart';
 part 'addpackage_state.dart';
 
@@ -120,7 +119,9 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
       },
     );
     if (picked != null && picked != state.startDate) {
-      emit(state.copywith(startDate: picked));
+      final formattedDate = DateFormat('dd-MM-yyyy').format(picked);
+      emit(
+          state.copywith(startDate: picked, formattedStartDate: formattedDate));
     }
   }
 
@@ -149,7 +150,8 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
       },
     );
     if (picked != null && picked != state.endDate) {
-      emit(state.copywith(endDate: picked));
+      final formattedDate = DateFormat('dd-MM-yyyy').format(picked);
+      emit(state.copywith(endDate: picked, formattedEndDate: formattedDate));
     }
   }
 

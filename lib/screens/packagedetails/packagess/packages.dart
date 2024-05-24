@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 
-import 'package:tripx_admin_application/screens/packagess/widgets/package_widgets.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
@@ -234,8 +234,12 @@ class _SearchpageState extends State<Packages> {
     accomodationcontroller.clear();
     mealscontroller.clear();
     activitescontroller.clear();
-    pricecontroller.clear();
+    adultcontroller.clear();
+    hotelpricecontroller.clear();
+    childrencontroller.clear();
     bookingcontroller.clear();
+    packageamountcontroller.clear();
+    companaychargecontroller.clear();
     additionalinforamtioncontroller.clear();
   }
 }

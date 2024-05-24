@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/screens/homescreen/home_screen.dart';
 import 'package:tripx_admin_application/screens/profile/profile.dart';
-import 'package:tripx_admin_application/screens/packagess/packages.dart';
+import 'package:tripx_admin_application/screens/packagedetails/packagess/packages.dart';
 
 List<Widget> pages = [
   const Homescreen(),
