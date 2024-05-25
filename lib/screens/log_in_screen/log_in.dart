@@ -9,7 +9,7 @@ import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/loadingindicator.dart';
 
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -19,6 +19,15 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   emailcontrollerlog.clear();
+  //   passwordcontrollerlog.clear();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +42,8 @@ class _LoginState extends State<Login> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => const Bottomnavigation()));
+                emailcontrollerlog.clear();
+                passwordcontrollerlog.clear();
               }
               if (state is IncorrectDetails) {
                 emailcontrollerlog.clear();

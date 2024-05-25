@@ -222,6 +222,14 @@ class _EditPackageState extends State<EditPackage> {
                                 imagepaths: List<String>.from(imagepaths),
                                 newImages: newImages)),
                   ),
+                  GestureDetector(
+                    onTap: _pickNewImages,
+                    child: Text(
+                      "Add more images if you need",
+                      style: TextStyle(
+                          fontFamily: bodoni, fontSize: 16, color: colorteal),
+                    ),
+                  ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),

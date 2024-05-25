@@ -2,12 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/firebase_auth/firebase_services.dart';
-import 'package:tripx_admin_application/screens/log_in_screen/log_in.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
-
 
 part 'login_event.dart';
 part 'login_state.dart';
+
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitial()) {
