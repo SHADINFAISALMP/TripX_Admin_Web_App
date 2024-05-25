@@ -34,7 +34,7 @@ class _SplashscreenState extends State<Splashscreen> {
             left: mediaquerywidht(.35, context),
             child: mytext(
               "TRIPX",
-              color: colortealaccent,
+              color: whitecolor,
               fontSize: mediaqueryheight(.04, context),
               fontWeight: FontWeight.bold,
               fontFamily: sedan,

@@ -112,6 +112,7 @@ class _EditPackageState extends State<EditPackage> {
       newImages: newImages,
       allImagePaths: allImagePaths,
     ));
+    Navigator.pop(context, true);
   }
 
   Widget buildTextField(String labelText, TextEditingController controller) {

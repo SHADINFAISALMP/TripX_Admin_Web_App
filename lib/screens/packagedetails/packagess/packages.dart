@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
+import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 
 import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
@@ -33,193 +35,36 @@ class _SearchpageState extends State<Packages> {
                 bottomRight: Radius.circular(30))),
       ),
       body: SingleChildScrollView(
-          child: BlocListener<AddpackageBloc, AddpackageState>(
-        listener: (context, state) {
-          if (state is ImageUploadSuccess) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("SUCCESSFULLY UPLOADED")));
-            clearAllControllers();
-          }
-          if (state is ImageUploadError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text("ERROR UPLOADED")));
-          }
-        },
-        child: Column(children: [
-          SizedBox(
-            height: mediaqueryheight(0.01, context),
-          ),
-          Center(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: colorteal, borderRadius: BorderRadius.circular(20)),
-              height: mediaqueryheight(0.76, context),
-              width: mediaquerywidht(0.95, context),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: mediaqueryheight(0.02, context),
-                  ),
-                  const TopName(
-                    text: "PACKAGE NAME",
-                  ),
-                  PackageFields(
-                    controller: packagenamecontroller,
-                    hinttext: "Package Name",
-                    prefixicon: const Icon(Icons.abc),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  const TopName(
-                    text: "DESTINATION",
-                  ),
-                  PackageFields(
-                    controller: placenamecontroller,
-                    hinttext: "Destination",
-                    prefixicon: const Icon(Icons.place),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  const TopnameTitles(),
-                  const Fourcontainerdays(),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  const TopName(
-                    text: "START DATE",
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<AddpackageBloc>(context)
-                          .add(Startdatepressed(context));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Container(
-                        height: mediaqueryheight(0.065, context),
-                        width: mediaquerywidht(0.89, context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: whitecolor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: blackcolor.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(2, 5),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_month,
-                                color: colorteal,
-                              ),
-                              const SizedBox(width: 10),
-                              BlocBuilder<AddpackageBloc, AddpackageState>(
-                                builder: (context, state) {
-                                  return Text(
-                                    state.startDate != null
-                                        ? DateFormat('dd-MM-yyyy')
-                                            .format(state.startDate!)
-                                        : "Start Date",
-                                    style: const TextStyle(
-                                        color: colorteal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.02, context),
-                  ),
-                  const TopName(
-                    text: "END DATE",
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<AddpackageBloc>(context)
-                          .add(EndDatePressed(context));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Container(
-                        height: mediaqueryheight(0.065, context),
-                        width: mediaquerywidht(0.89, context),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: whitecolor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: blackcolor.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              offset: const Offset(2, 5),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.calendar_month,
-                                color: colorteal,
-                              ),
-                              const SizedBox(width: 10),
-                              BlocBuilder<AddpackageBloc, AddpackageState>(
-                                builder: (context, state) {
-                                  return Text(
-                                    state.endDate != null
-                                        ? DateFormat('dd-MM-yyyy')
-                                            .format(state.endDate!)
-                                        : "End Date",
-                                    style: const TextStyle(
-                                        color: colorteal,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
-                                  );
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.02, context),
-                  ),
-                  const TopName(
-                    text: "TRANSPORTATION",
-                  ),
-                  PackageFields(
-                    controller: transportationcontroller,
-                    hinttext: "ADD TRANSPORT DETAILS",
-                    prefixicon: const Icon(Icons.abc),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  const NextButton()
-                ],
-              ),
-            ),
-          ),
-        ]),
-      )),
+        child: BlocConsumer<AddpackageBloc, AddpackageState>(
+          listener: (context, state) {
+            if (state is PackageUpdateSuccess) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Bottomnavigation()),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("SUCCESSFULLY UPLOADED")),
+              );
+              clearAllControllers();
+            } else if (state is PackageError || state is ImageUploadError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("ERROR UPLOADED")),
+              );
+            }
+          },
+          builder: (context, state) {
+            if (state is Packageloading) {
+              return Center(
+                child: LoadingAnimationWidget.threeArchedCircle(
+                  color: colorteal,
+                  size: 60,
+                ),
+              );
+            }
+            return const buildcontent(); // Your main content UI here
+          },
+        ),
+      ),
     );
   }
 
@@ -241,5 +86,189 @@ class _SearchpageState extends State<Packages> {
     packageamountcontroller.clear();
     companaychargecontroller.clear();
     additionalinforamtioncontroller.clear();
+  }
+}
+
+class buildcontent extends StatelessWidget {
+  const buildcontent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      SizedBox(
+        height: mediaqueryheight(0.01, context),
+      ),
+      Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: colorteal, borderRadius: BorderRadius.circular(20)),
+          height: mediaqueryheight(0.76, context),
+          width: mediaquerywidht(0.95, context),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: mediaqueryheight(0.02, context),
+              ),
+              const TopName(
+                text: "PACKAGE NAME",
+              ),
+              PackageFields(
+                controller: packagenamecontroller,
+                hinttext: "Package Name",
+                prefixicon: const Icon(Icons.abc),
+              ),
+              SizedBox(
+                height: mediaqueryheight(0.01, context),
+              ),
+              const TopName(
+                text: "DESTINATION",
+              ),
+              PackageFields(
+                controller: placenamecontroller,
+                hinttext: "Destination",
+                prefixicon: const Icon(Icons.place),
+              ),
+              SizedBox(
+                height: mediaqueryheight(0.01, context),
+              ),
+              const TopnameTitles(),
+              const Fourcontainerdays(),
+              SizedBox(
+                height: mediaqueryheight(0.01, context),
+              ),
+              const TopName(
+                text: "START DATE",
+              ),
+              GestureDetector(
+                onTap: () {
+                  BlocProvider.of<AddpackageBloc>(context)
+                      .add(Startdatepressed(context));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                    height: mediaqueryheight(0.065, context),
+                    width: mediaquerywidht(0.89, context),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: whitecolor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: blackcolor.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: const Offset(2, 5),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_month,
+                            color: colorteal,
+                          ),
+                          const SizedBox(width: 10),
+                          BlocBuilder<AddpackageBloc, AddpackageState>(
+                            builder: (context, state) {
+                              return Text(
+                                state.startDate != null
+                                    ? DateFormat('dd-MM-yyyy')
+                                        .format(state.startDate!)
+                                    : "Start Date",
+                                style: const TextStyle(
+                                    color: colorteal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: mediaqueryheight(0.02, context),
+              ),
+              const TopName(
+                text: "END DATE",
+              ),
+              GestureDetector(
+                onTap: () {
+                  BlocProvider.of<AddpackageBloc>(context)
+                      .add(EndDatePressed(context));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Container(
+                    height: mediaqueryheight(0.065, context),
+                    width: mediaquerywidht(0.89, context),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: whitecolor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: blackcolor.withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: const Offset(2, 5),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.calendar_month,
+                            color: colorteal,
+                          ),
+                          const SizedBox(width: 10),
+                          BlocBuilder<AddpackageBloc, AddpackageState>(
+                            builder: (context, state) {
+                              return Text(
+                                state.endDate != null
+                                    ? DateFormat('dd-MM-yyyy')
+                                        .format(state.endDate!)
+                                    : "End Date",
+                                style: const TextStyle(
+                                    color: colorteal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: mediaqueryheight(0.02, context),
+              ),
+              const TopName(
+                text: "TRANSPORTATION",
+              ),
+              PackageFields(
+                controller: transportationcontroller,
+                hinttext: "ADD TRANSPORT DETAILS",
+                prefixicon: const Icon(Icons.abc),
+              ),
+              SizedBox(
+                height: mediaqueryheight(0.01, context),
+              ),
+              const NextButton()
+            ],
+          ),
+        ),
+      ),
+    ]);
   }
 }

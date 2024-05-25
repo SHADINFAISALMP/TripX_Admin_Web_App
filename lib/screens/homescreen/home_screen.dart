@@ -49,8 +49,11 @@ class _HomescreenState extends State<Homescreen> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: LoadingAnimationWidget.threeArchedCircle(
+                      color: colorteal,
+                      size: 60,
+                    ),
                   );
                 }
                 var userData = snapshot.data!.data() as Map<String, dynamic>;
@@ -95,9 +98,6 @@ class _HomescreenState extends State<Homescreen> {
                   fontFamily: sedan,
                   fontSize: mediaqueryheight(0.025, context),
                   color: colorteal),
-              SizedBox(
-                height: mediaqueryheight(0.1, context),
-              ),
               StreamBuilder<QuerySnapshot>(
                   stream: packageDetails.snapshots(),
                   builder: (context, snapshot) {
@@ -271,15 +271,24 @@ class _HomescreenState extends State<Homescreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text("Delete Package"),
+                          backgroundColor: whitecolor,
+                          title: const Text(
+                            "Delete Package",
+                            style: TextStyle(color: colorteal),
+                          ),
                           content: const Text(
-                              "Are you sure you want to delete this package?"),
+                            "Are you sure you want to delete this package?",
+                            style: TextStyle(color: colorteal),
+                          ),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text("Cancel"),
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(color: colorteal),
+                              ),
                             ),
                             TextButton(
                               onPressed: () async {
@@ -302,7 +311,10 @@ class _HomescreenState extends State<Homescreen> {
 
                                 Navigator.of(context).pop();
                               },
-                              child: const Text("Delete"),
+                              child: const Text(
+                                "Delete",
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ),
                           ],
                         );

@@ -33,6 +33,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
 
   Future<void> _uploadImages(
       UploadimageEvent event, Emitter<AddpackageState> emit) async {
+        emit(const Packageloading());
     Map<String, String> packageImages = {};
     for (var image in event.images) {
       try {

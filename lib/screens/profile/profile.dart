@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/screens/edit_profile/edit_profile.dart';
 import 'package:tripx_admin_application/screens/log_in_screen/log_in.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
@@ -10,14 +11,38 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
   Future<void> _logout(BuildContext context) async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const Login()));
-    } catch (e) {
-      print("Error signing out: $e");
-    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm Logout"),
+          content: const Text("Are you sure you want to log out?"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop();
+                try {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
+                } catch (e) {
+                  print("Error signing out: $e");
+                }
+              },
+              child: const Text("Yes"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              child: const Text("No"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -31,9 +56,11 @@ class Profile extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child:
-                  CircularProgressIndicator(), // Show loading indicator while fetching data
+            return Center(
+              child: LoadingAnimationWidget.threeArchedCircle(
+                color: whitecolor,
+                size: 60,
+              ),
             );
           }
 

@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/screens/log_in_screen/widgets/login_heading_extfiled.dart';
-import 'package:tripx_admin_application/screens/otp_verificaation/otp_verification.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/loadingindicator.dart';
-
-
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -19,14 +16,16 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   emailcontrollerlog.clear();
-  //   passwordcontrollerlog.clear();
-  // }
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      emailcontrollerlog.clear();
+      passwordcontrollerlog.clear();
+    });
+  }
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +37,10 @@ class _LoginState extends State<Login> {
               if (state is LoginSuccess) {
                 Navigator.pop(context);
 
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const Bottomnavigation()));
-                emailcontrollerlog.clear();
-                passwordcontrollerlog.clear();
               }
               if (state is IncorrectDetails) {
                 emailcontrollerlog.clear();
@@ -68,35 +65,6 @@ class _LoginState extends State<Login> {
                   ),
                 );
                 Navigator.pop(context);
-              }
-              if (state is EmailNotVerified) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Center(
-                      child: Text(
-                        "PLease Verify Your Email",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: sedan,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ),
-                    backgroundColor: colorteal,
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
-              }
-              if (state is NavigateToOtpPage) {
-                Navigator.pop(context);
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const OtpVerification(
-                          // fromlogin: true,
-                          verificationId: '',
-                        )));
               }
               if (state is AuthenicatingUser) {
                 DialogUtils.showLoadingDialog(context);

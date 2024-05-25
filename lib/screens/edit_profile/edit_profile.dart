@@ -2,10 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/blocs/signupimage/profileimage_bloc.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
-import 'package:tripx_admin_application/utils/loadingindicator.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 class Editprofile extends StatefulWidget {
@@ -21,7 +21,6 @@ class Editprofile extends StatefulWidget {
       required this.phoneNumber,
       required this.place,
       required this.imagePath});
-      
 
   @override
   State<Editprofile> createState() => _EditprofileState();
@@ -32,7 +31,7 @@ class _EditprofileState extends State<Editprofile> {
   late TextEditingController _emailController;
   late TextEditingController _phoneNumberController;
   late TextEditingController _placeController;
-  XFile? imageFile; // Initialize with null
+  XFile? imageFile;
   @override
   void initState() {
     super.initState();
@@ -180,7 +179,12 @@ class _EditprofileState extends State<Editprofile> {
   }
 
   void _saveChanges() async {
-    DialogUtils.showLoadingDialog(context);
+    Center(
+      child: LoadingAnimationWidget.threeArchedCircle(
+        color: colorteal,
+        size: 60,
+      ),
+    );
     final newName = _nameController.text;
     final newEmail = _emailController.text;
     final newPhoneNumber = _phoneNumberController.text;
@@ -197,8 +201,6 @@ class _EditprofileState extends State<Editprofile> {
         .collection('admindetails')
         .doc('admin')
         .update(updatedData);
-    Navigator.pop(context);
-
     Navigator.pop(context);
   }
 

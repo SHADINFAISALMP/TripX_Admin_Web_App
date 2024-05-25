@@ -34,7 +34,7 @@ class LoginheadingandTextfiled extends StatelessWidget {
         SizedBox(
           height: mediaqueryheight(.16, context),
         ),
-        customtextformfieild("Enter Adminname", Icons.email, context,
+        customtextformfieild("Enter Admin Name", Icons.person, context,
             controller: emailcontrollerlog,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: emailValidator),
