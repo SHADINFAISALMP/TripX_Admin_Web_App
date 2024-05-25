@@ -19,7 +19,6 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
     on<Startdatepressed>(_startdatepressed);
     on<EndDatePressed>(_enddatepressed);
     on<Updatepackagedetails>(_updatePackageDetails);
-
   }
 
   Future<void> _multipleimageselection(
@@ -156,9 +155,17 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
       emit(state.copywith(endDate: picked, formattedEndDate: formattedDate));
     }
   }
-   Future<void> _updatePackageDetails(
+
+  Future<void> _updatePackageDetails(
       Updatepackagedetails event, Emitter<AddpackageState> emit) async {
     try {
+      List<String> newImageUrls = await _uploadNewImages(event.newImages);
+      print(newImageUrls);
+
+      List<String> allImagePaths = List.from(event.allImagePaths);
+      print(allImagePaths);
+      allImagePaths.addAll(newImageUrls);
+
       await FirebaseFirestore.instance
           .collection('packagedetails')
           .doc(event.itemslists.id)
@@ -180,12 +187,32 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
         'city': event.city,
         'packageamount': event.packageamount,
         'companycharge': event.companycharge,
-        'startDate': event.startDate,
-        'endDate': event.endDate,
+        'startdate': event.startDate,
+        'enddate': event.endDate,
+        'imagepath': allImagePaths
       });
+      emit(state.copywith(newImages: []));
       emit(PackageUpdateSuccess());
     } catch (e) {
       emit(PackageError(errorMessage: e.toString()));
     }
+  }
+
+  Future<List<String>> _uploadNewImages(List<XFile> newImages) async {
+    List<String> newimagepaths = [];
+    for (var image in newImages) {
+      try {
+        final bytes = await image.readAsBytes();
+        final fileName =
+            'packageimages/${DateTime.now().millisecondsSinceEpoch}.jpg';
+        final ref = FirebaseStorage.instance.ref().child(fileName);
+        await ref.putData(bytes);
+        final url = await ref.getDownloadURL();
+        newimagepaths.add(url);
+      } catch (e) {
+        print('Error uploading image: $e');
+      }
+    }
+    return newimagepaths;
   }
 }

@@ -468,7 +468,7 @@ class _PackageImageState extends State<PackageImage> {
                             if (images != null) {
                               context
                                   .read<AddpackageBloc>()
-                                  .add(UploadimageEvent(images, context));
+                                  .add(UploadimageEvent(images: images, context: context));
                             }
                           },
                           child: Container(

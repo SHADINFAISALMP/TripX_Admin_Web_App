@@ -3,27 +3,28 @@ part of 'addpackage_bloc.dart';
 @immutable
 class AddpackageState {
   final List<XFile>? images;
+  final List<XFile>? newImages;
   final DateTime? startDate;
   final DateTime? endDate;
   final String? formattedStartDate; // Add formatted start date
   final String? formattedEndDate;
 
-  const AddpackageState(
+  const AddpackageState( 
       {this.formattedStartDate,
       this.formattedEndDate,
       this.startDate,
       this.endDate,
-      this.images});
+      this.images,this.newImages});
 
   AddpackageState copywith({
-    List<XFile>? images,
+    List<XFile>? images, List<XFile>? newImages,
     DateTime? startDate,
     DateTime? endDate,
     String? formattedStartDate,
     String? formattedEndDate,
   }) =>
       AddpackageState(
-        images: images ?? this.images,
+        images: images ?? this.images, newImages: newImages ?? this.newImages,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
         formattedStartDate: formattedStartDate ?? this.formattedStartDate,
@@ -75,7 +76,9 @@ class PackageSuccess extends AddpackageState {
       {List<XFile>? images, DateTime? startDate, DateTime? endDate})
       : super(images: images, startDate: startDate, endDate: endDate);
 }
+
 class PackageUpdateSuccess extends AddpackageState {}
+
 class PackageError extends AddpackageState {
   final String errorMessage;
 
@@ -120,5 +123,3 @@ class StartDateChanged extends AddpackageState {
       {List<XFile>? images, DateTime? startDate, DateTime? endDate})
       : super(images: images, startDate: startDate, endDate: endDate);
 }
-
-

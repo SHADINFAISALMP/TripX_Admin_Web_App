@@ -1,7 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
 
@@ -46,6 +47,8 @@ class _EditPackageState extends State<EditPackage> {
   TextEditingController companaychargecontroller = TextEditingController();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  List<XFile> newImages = [];
   @override
   void initState() {
     super.initState();
@@ -71,7 +74,20 @@ class _EditPackageState extends State<EditPackage> {
     endDateController.text = widget.enddate;
   }
 
-  void _saveChanges() async {
+  Future<void> _pickNewImages() async {
+    final pickedImages = await _picker.pickMultiImage();
+    if (pickedImages.isNotEmpty) {
+      setState(() {
+        newImages.addAll(pickedImages);
+      });
+    }
+  }
+
+  void _saveChanges(List<String> imagePaths) async {
+    List<String> imagePaths =
+        List<String>.from(widget.itemslists['imagepath'] ?? []);
+    List<String> newimagepaths = [];
+    List<String> allImagePaths = [...imagePaths, ...newimagepaths];
     BlocProvider.of<AddpackageBloc>(context).add(Updatepackagedetails(
       itemslists: widget.itemslists,
       packagename: packagenamecontroller.text,
@@ -93,6 +109,8 @@ class _EditPackageState extends State<EditPackage> {
       companycharge: companaychargecontroller.text,
       startDate: startDateController.text,
       endDate: endDateController.text,
+      newImages: newImages,
+      allImagePaths: allImagePaths,
     ));
   }
 
@@ -145,22 +163,22 @@ class _EditPackageState extends State<EditPackage> {
       ),
       body: BlocListener<AddpackageBloc, AddpackageState>(
         listener: (context, state) {
-       if (state is PackageUpdateSuccess) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PackageDetails(
-                    itemslists: widget.itemslists,
-                  ),
+          if (state is PackageUpdateSuccess) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PackageDetails(
+                  itemslists: widget.itemslists,
                 ),
-                (route) => false,
-              );
-            } else if (state is PackageError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage)),
-              );
-            }
-          },
+              ),
+              (route) => false,
+            );
+          } else if (state is PackageError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage)),
+            );
+          }
+        },
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -173,7 +191,7 @@ class _EditPackageState extends State<EditPackage> {
                   ),
                   const TopName(text: "PACKAGE PHOTOS"),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: _pickNewImages,
                     child: Container(
                         decoration: BoxDecoration(
                             color: whitecolor,
@@ -190,7 +208,7 @@ class _EditPackageState extends State<EditPackage> {
                         height: mediaqueryheight(0.2, context),
                         width: mediaquerywidht(0.84, context),
                         //change to blo
-                        child: imagepaths.isEmpty
+                        child: imagepaths.isEmpty && newImages.isEmpty
                             ? Center(
                                 child: Text(
                                 'no images available',
@@ -200,44 +218,9 @@ class _EditPackageState extends State<EditPackage> {
                                   color: colorteal,
                                 ),
                               ))
-                            : CarouselSlider.builder(
-                                itemCount: imagepaths.length,
-                                itemBuilder: (context, index, realIndex) {
-                                  return GridView.builder(
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 3,
-                                        crossAxisSpacing: 8,
-                                        mainAxisSpacing: 8,
-                                      ),
-                                      itemCount: imagepaths.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      imagepaths[index]))),
-                                        );
-                                      });
-                                },
-                                options: CarouselOptions(
-                                  aspectRatio: 16 / 9,
-                                  viewportFraction: 1,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: false,
-                                  reverse: false,
-                                  autoPlay: false,
-                                  autoPlayInterval: const Duration(seconds: 4),
-                                  autoPlayAnimationDuration:
-                                      const Duration(milliseconds: 800),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  enlargeCenterPage: false,
-                                  scrollDirection: Axis.horizontal,
-                                ),
-                              )),
+                            : ImageCarouselWithGrid(
+                                imagepaths: List<String>.from(imagepaths),
+                                newImages: newImages)),
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
@@ -297,7 +280,7 @@ class _EditPackageState extends State<EditPackage> {
                     padding: const EdgeInsets.only(left: 25),
                     child: GestureDetector(
                       onTap: () {
-                        _saveChanges();
+                        _saveChanges(imagepaths.cast<String>());
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -342,6 +325,55 @@ class _EditPackageState extends State<EditPackage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ImageCarouselWithGrid extends StatelessWidget {
+  final List<String> imagepaths;
+  final List<XFile> newImages;
+
+  const ImageCarouselWithGrid(
+      {super.key, required this.imagepaths, required this.newImages});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 400, // Adjust height as needed
+      child: GridView.builder(
+        scrollDirection: Axis.vertical,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+        ),
+        itemCount: imagepaths.length + newImages.length,
+        itemBuilder: (context, index) {
+          if (index < imagepaths.length) {
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(imagepaths[index]),
+                ),
+              ),
+            );
+          } else {
+            final imagePath = newImages[index - imagepaths.length].path;
+            print('Image path: $imagePath');
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: FileImage(File(imagePath)),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

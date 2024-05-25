@@ -13,7 +13,7 @@ class UploadimageEvent extends AddpackageEvent {
   final BuildContext context;
   final List<XFile> images;
 
-  UploadimageEvent(this.images, this.context);
+  UploadimageEvent({required this.context, required this.images});
 }
 
 final class Startdatepressed extends AddpackageEvent {
@@ -59,8 +59,9 @@ class Updatepackagedetails extends AddpackageEvent {
   final String companycharge;
   final String startDate;
   final String endDate;
+  final List<XFile> newImages;final List<String> allImagePaths;
 
-  Updatepackagedetails({
+  Updatepackagedetails( {
     required this.itemslists,
     required this.packagename,
     required this.placenames,
@@ -80,6 +81,6 @@ class Updatepackagedetails extends AddpackageEvent {
     required this.packageamount,
     required this.companycharge,
     required this.startDate,
-    required this.endDate,
+    required this.endDate,required this.newImages,required this.allImagePaths
   });
 }
