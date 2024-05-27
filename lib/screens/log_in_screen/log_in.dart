@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/loginadmin/login_bloc.dart';
 import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
-import 'package:tripx_admin_application/screens/log_in_screen/widgets/login_heading_extfiled.dart';
+import 'package:tripx_admin_application/widgets/login_widgets/login_heading_extfiled.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';

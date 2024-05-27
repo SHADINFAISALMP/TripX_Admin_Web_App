@@ -1,12 +1,13 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
 import 'package:tripx_admin_application/screens/packagedetails/package_details.dart';
+import 'package:tripx_admin_application/widgets/package_widgets/imagecaroseul_grid.dart';
 
-import 'package:tripx_admin_application/screens/packagedetails/packagess/widgets/package_widgets.dart';
+import 'package:tripx_admin_application/widgets/package_widgets/package_widgets.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
@@ -72,6 +73,17 @@ class _EditPackageState extends State<EditPackage> {
     companaychargecontroller.text = widget.itemslists['companycharge'];
     startDateController.text = widget.startdate;
     endDateController.text = widget.enddate;
+
+    try {
+      startDateController.text = DateFormat('dd-MM-yyyy')
+          .format(DateFormat('dd-MM-yyyy').parse(widget.startdate));
+      endDateController.text = DateFormat('dd-MM-yyyy')
+          .format(DateFormat('dd-MM-yyyy').parse(widget.enddate));
+    } catch (e) {
+      startDateController.text =
+          DateFormat('dd-MM-yyyy').format(DateTime.now());
+      endDateController.text = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    }
   }
 
   Future<void> _pickNewImages() async {
@@ -115,7 +127,33 @@ class _EditPackageState extends State<EditPackage> {
     Navigator.pop(context, true);
   }
 
-  Widget buildTextField(String labelText, TextEditingController controller) {
+  Future<void> _selectDate(BuildContext context,
+      TextEditingController controller, DateTime? startDate) async {
+    DateTime initialDate = DateTime.now();
+    try {
+      initialDate = DateFormat('dd-MM-yyyy').parse(controller.text);
+      if (initialDate.isBefore(DateTime(2000))) {
+        initialDate = DateTime(2000);
+      }
+    } catch (e) {
+      initialDate = DateTime.now();
+    }
+
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        controller.text = DateFormat('dd-MM-yyyy').format(picked);
+      });
+    }
+  }
+
+  Widget buildTextField(String labelText, TextEditingController controller,
+      {required bool readOnly, required Future<void> Function()? onTap}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -126,6 +164,8 @@ class _EditPackageState extends State<EditPackage> {
         SizedBox(
           width: mediaquerywidht(0.84, context),
           child: TextField(
+            readOnly: readOnly,
+            onTap: readOnly ? onTap : null,
             controller: controller,
             decoration: InputDecoration(
               filled: true,
@@ -206,7 +246,7 @@ class _EditPackageState extends State<EditPackage> {
                               ),
                             ],
                             borderRadius: BorderRadius.circular(15)),
-                        height: mediaqueryheight(0.2, context),
+                        height: mediaqueryheight(0.23, context),
                         width: mediaquerywidht(0.84, context),
                         //change to blo
                         child: imagepaths.isEmpty && newImages.isEmpty
@@ -223,45 +263,83 @@ class _EditPackageState extends State<EditPackage> {
                                 imagepaths: List<String>.from(imagepaths),
                                 newImages: newImages)),
                   ),
-                  GestureDetector(
-                    onTap: _pickNewImages,
-                    child: Text(
-                      "Add more images if you need",
-                      style: TextStyle(
-                          fontFamily: bodoni, fontSize: 16, color: colorteal),
+                  SizedBox(
+                    height: mediaqueryheight(0.02, context),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: GestureDetector(
+                      onTap: _pickNewImages,
+                      child: Container(
+                        height: mediaqueryheight(0.03, context),
+                        width: mediaquerywidht(0.7, context),
+                        decoration: BoxDecoration(
+                            color: orangecolor,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                          child: Text(
+                            "Click for more images if you need only",
+                            style: TextStyle(
+                                fontFamily: bodoni,
+                                fontSize: 16,
+                                color: whitecolor),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
-                  buildTextField('PACKAGE NAME', packagenamecontroller),
+                  buildTextField('PACKAGE NAME', packagenamecontroller,
+                      readOnly: false, onTap: null),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
-                  buildTextField('DESTINATION NAMES', placenamecontroller),
+                  buildTextField('DESTINATION NAMES', placenamecontroller,
+                      readOnly: false, onTap: null),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
-                  buildTextField('START DATE', startDateController),
+                  BlocBuilder<AddpackageBloc, AddpackageState>(
+                    builder: (context, state) {
+                      return buildTextField('START DATE', startDateController,
+                          readOnly: true,
+                          onTap: () => _selectDate(
+                              context, startDateController, state.startDate));
+                    },
+                  ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
-                  buildTextField('END DATE', endDateController),
+                  BlocBuilder<AddpackageBloc, AddpackageState>(
+                    builder: (context, state) {
+                      return buildTextField('END DATE', endDateController,
+                          readOnly: true,
+                          onTap: () => _selectDate(
+                              context, endDateController, state.endDate));
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(right: 40),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(child: buildTextField('DAYS', dayscontroller)),
+                        Expanded(
+                            child: buildTextField('DAYS', dayscontroller,
+                                readOnly: false, onTap: null)),
                         SizedBox(width: mediaquerywidht(0.02, context)),
                         Expanded(
-                            child: buildTextField('NIGHTS', nightscontroller)),
+                            child: buildTextField('NIGHTS', nightscontroller,
+                                readOnly: false, onTap: null)),
                         SizedBox(width: mediaquerywidht(0.02, context)),
                         Expanded(
-                            child:
-                                buildTextField('COUNTRY', countrycontroller)),
+                            child: buildTextField('COUNTRY', countrycontroller,
+                                readOnly: false, onTap: null)),
                         SizedBox(width: mediaquerywidht(0.02, context)),
-                        Expanded(child: buildTextField('CITY', citycontroller)),
+                        Expanded(
+                            child: buildTextField('CITY', citycontroller,
+                                readOnly: false, onTap: null)),
                       ],
                     ),
                   ),
@@ -269,19 +347,30 @@ class _EditPackageState extends State<EditPackage> {
                     height: mediaqueryheight(0.01, context),
                   ),
                   buildTextField(
-                      'TRANSPORTATION TYPES', transportationcontroller),
-                  buildTextField('ACCOMODATION', accomodationcontroller),
-                  buildTextField('MEALS', mealscontroller),
-                  buildTextField('ACTIVITIES', activitescontroller),
-                  buildTextField('PER ADULT', adultcontroller),
-                  buildTextField('PER CHILDREN', childrencontroller),
-                  buildTextField('PER NIGHT HOTEL', hotelpricecontroller),
-                  buildTextField('COMPANY CHARGE', companaychargecontroller),
-                  buildTextField('PACKAGE AMOUNT', packageamountcontroller),
+                      'TRANSPORTATION TYPES', transportationcontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('ACCOMODATION', accomodationcontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('MEALS', mealscontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('ACTIVITIES', activitescontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('PER ADULT', adultcontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('PER CHILDREN', childrencontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('PER NIGHT HOTEL', hotelpricecontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('COMPANY CHARGE', companaychargecontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField('PACKAGE AMOUNT', packageamountcontroller,
+                      readOnly: false, onTap: null),
                   buildTextField(
-                      'BOOKING INFORMATION & POLICIES', bookingcontroller),
-                  buildTextField('ADDITIONAL INFORMATION',
-                      additionalinforamtioncontroller),
+                      'BOOKING INFORMATION & POLICIES', bookingcontroller,
+                      readOnly: false, onTap: null),
+                  buildTextField(
+                      'ADDITIONAL INFORMATION', additionalinforamtioncontroller,
+                      readOnly: false, onTap: null),
                   SizedBox(
                     height: mediaqueryheight(0.03, context),
                   ),
@@ -334,55 +423,6 @@ class _EditPackageState extends State<EditPackage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ImageCarouselWithGrid extends StatelessWidget {
-  final List<String> imagepaths;
-  final List<XFile> newImages;
-
-  const ImageCarouselWithGrid(
-      {super.key, required this.imagepaths, required this.newImages});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400, // Adjust height as needed
-      child: GridView.builder(
-        scrollDirection: Axis.vertical,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-        ),
-        itemCount: imagepaths.length + newImages.length,
-        itemBuilder: (context, index) {
-          if (index < imagepaths.length) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(imagepaths[index]),
-                ),
-              ),
-            );
-          } else {
-            final imagePath = newImages[index - imagepaths.length].path;
-            print('Image path: $imagePath');
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: FileImage(File(imagePath)),
-                ),
-              ),
-            );
-          }
-        },
       ),
     );
   }

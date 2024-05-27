@@ -11,7 +11,7 @@ TextEditingController emailcontrollerlog = TextEditingController();
 TextEditingController passwordcontrollerlog = TextEditingController();
 
 //package controllers
-
+TextEditingController packagediscriptioncontrollercontroller = TextEditingController();
 TextEditingController packagenamecontroller = TextEditingController();
 TextEditingController placenamecontroller = TextEditingController();
 TextEditingController startdatecontroller = TextEditingController();

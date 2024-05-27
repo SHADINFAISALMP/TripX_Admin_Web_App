@@ -15,8 +15,15 @@ class Profile extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Confirm Logout"),
-          content: const Text("Are you sure you want to log out?"),
+          backgroundColor: whitecolor,
+          title: const Text(
+            "Confirm Logout",
+            style: TextStyle(color: colorteal),
+          ),
+          content: const Text(
+            "Are you sure you want to log out?",
+            style: TextStyle(color: colorteal),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () async {
@@ -31,13 +38,19 @@ class Profile extends StatelessWidget {
                   print("Error signing out: $e");
                 }
               },
-              child: const Text("Yes"),
+              child: const Text(
+                "Yes",
+                style: TextStyle(color: Colors.red),
+              ),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); 
+                Navigator.of(context).pop();
               },
-              child: const Text("No"),
+              child: const Text(
+                "No",
+                style: TextStyle(color: colorteal),
+              ),
             ),
           ],
         );

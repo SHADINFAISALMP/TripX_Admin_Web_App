@@ -15,7 +15,7 @@ class PackagedetailsData {
     final formattedStartDate = startDate.toString();
     final formattedEndDate = endDate.toString();
 
-    final data = PackageDetailsModel(
+    final data = PackageDetailsModel(packagediscription:packagediscriptioncontrollercontroller.text.trim() ,
       packagename: packagenamecontroller.text.trim(),
       placenames: placenamecontroller.text.trim(),
       day: dayscontroller.text.trim(),

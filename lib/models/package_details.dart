@@ -21,9 +21,10 @@ class PackageDetailsModel {
   final String enddate;
   final String packageamount;
   final String companycharge;
+  final String packagediscription;
 
   PackageDetailsModel(
-      {required this.packageamount,
+      {required this.packageamount, required this.packagediscription, 
       required this.imagepath,
       required this.accomodation,
       required this.meals,
@@ -65,7 +66,8 @@ class PackageDetailsModel {
       "booking": bookingdetails,
       "additional": additionaldetails,
       "packageamount": packageamount,
-      "companycharge": companycharge
+      "companycharge": companycharge,
+      "packagediscription":packagediscription,
     };
   }
 
@@ -89,6 +91,7 @@ class PackageDetailsModel {
       enddate: snapshot['enddate'], hotelper: snapshot['hotelper'],
       childper: snapshot['childper'], packageamount: snapshot['packageamount'],
       companycharge: snapshot['companycharge'],
+      packagediscription:snapshot['packagediscription']
       // Initialize other fields from the snapshot
     );
   }

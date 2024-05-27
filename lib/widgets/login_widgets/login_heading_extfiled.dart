@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tripx_admin_application/screens/log_in_screen/widgets/loginbutton_google.dart';
+import 'package:tripx_admin_application/widgets/login_widgets/loginbutton_google.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';

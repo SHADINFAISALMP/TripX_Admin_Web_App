@@ -57,7 +57,7 @@ class _SignupState extends State<Signup> {
         }
         if (state is NavigateToprofile) {
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("succesfully added profile")));
+              const SnackBar(content: Text("succesfully added profile")));
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const Bottomnavigation()),
