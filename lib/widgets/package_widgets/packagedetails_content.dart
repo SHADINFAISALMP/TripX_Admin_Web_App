@@ -12,6 +12,22 @@ class Packagedetailscontent extends StatelessWidget {
   });
 
   final QueryDocumentSnapshot<Object?> itemslists;
+  String _checkNullOrEmpty(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Not Available';
+    }
+    return value;
+  }
+
+  String _checkDate(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Not Available';
+    }
+    if (!RegExp(r'\d{4}-\d{2}-\d{2}').hasMatch(value)) {
+      return 'Not Available';
+    }
+    return value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,18 +54,19 @@ class Packagedetailscontent extends StatelessWidget {
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['packagename'],
+                    text: _checkNullOrEmpty(itemslists['packagename']),
                     topname: 'PACKAGE NAME',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['placenames'],
+                    text: _checkNullOrEmpty(
+                        itemslists['placenames']),
                     topname: 'DESTINATION NAMES',
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['packagediscription'],
+                    text: _checkNullOrEmpty(itemslists['packagediscription']),
                     topname: 'PACKAGE DISCRIPTION',
                   ),
                   SizedBox(
@@ -62,11 +79,11 @@ class Packagedetailscontent extends StatelessWidget {
                       children: [
                         Startdateandenddate(
                           topname: 'START DATE',
-                          text: itemslists['startdate'],
+                          text: _checkDate(itemslists['startdate']),
                         ),
                         Startdateandenddate(
                           topname: 'END DATE',
-                          text: itemslists['enddate'],
+                          text: _checkDate(itemslists['enddate']),
                         ),
                       ],
                     ),
@@ -80,19 +97,19 @@ class Packagedetailscontent extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Daysnightsrow(
-                          text: itemslists['days'],
+                          text: _checkNullOrEmpty(itemslists['days']),
                           topname: "DAYS",
                         ),
                         Daysnightsrow(
-                          text: itemslists['night'],
+                          text: _checkNullOrEmpty(itemslists['night']),
                           topname: "NIGHTS",
                         ),
                         Daysnightsrow(
-                          text: itemslists['country'],
+                          text: _checkNullOrEmpty(itemslists['country']),
                           topname: "COUNTRIES",
                         ),
                         Daysnightsrow(
-                          text: itemslists['city'],
+                          text: _checkNullOrEmpty(itemslists['city']),
                           topname: "CITIES",
                         ),
                       ],
@@ -102,70 +119,70 @@ class Packagedetailscontent extends StatelessWidget {
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['transportation'],
+                    text: _checkNullOrEmpty(itemslists['transportation']),
                     topname: 'TRANSPORTAION TYPES',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['accodamotion'],
+                    text: _checkNullOrEmpty(itemslists['accodamotion']),
                     topname: 'ACCOMODATION',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['meals'],
+                    text: _checkNullOrEmpty(itemslists['meals']),
                     topname: 'MEALS ',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['activity'],
+                    text: _checkNullOrEmpty(itemslists['activity']),
                     topname: 'ACTIVITIES',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['adult'],
+                    text: _checkNullOrEmpty(itemslists['adult']),
                     topname: 'PER ADULT',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['hotelper'],
+                    text: _checkNullOrEmpty(itemslists['hotelper']),
                     topname: 'PER HOTEL NIGHT',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['childper'],
+                    text: _checkNullOrEmpty(itemslists['childper']),
                     topname: 'PER CHILD',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['packageamount'],
+                    text: _checkNullOrEmpty(itemslists['packageamount']),
                     topname: 'PACKAGE AMOUNT',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['booking'],
+                    text: _checkNullOrEmpty(itemslists['booking']),
                     topname: 'BOOKING INFORMATION & POLICIES',
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.01, context),
                   ),
                   PackageDetailsContainers(
-                    text: itemslists['additional'],
+                    text: _checkNullOrEmpty(itemslists['additional']),
                     topname: 'ADDITIONAL INFORMATIONS',
                   ),
                   SizedBox(
