@@ -21,9 +21,9 @@ class Travelpackage {
       children: (json['children'] as List<dynamic>?)
           ?.map((e) => Traveler.fromJson(e as Map<String, dynamic>))
           .toList(),
-      adultcount: json['adultcount'] as int?,
-      childrencount: json['childrencount'] as int?,
-      roomscount: json['roomscount'] as int?,
+      adultcount: json['adultsCount'] as int?,
+      childrencount: json['childrenCount'] as int?,
+      roomscount: json['roomsCount'] as int?,
     );
   }
 }
