@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:tripx_admin_application/data_provider/add_image_to_firebase.dart';
 import 'package:tripx_admin_application/data_provider/user_data.dart';
 import 'package:tripx_admin_application/firebase_collection_refernce/user_information.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 part of 'register_bloc.dart';
 
 @immutable

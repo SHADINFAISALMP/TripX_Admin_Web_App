@@ -1,4 +1,6 @@
 
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';

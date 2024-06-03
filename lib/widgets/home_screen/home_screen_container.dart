@@ -24,7 +24,6 @@ class HomePackagecontainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: mediaqueryheight(0.52, context),
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -73,6 +72,7 @@ class HomePackagecontainer extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 8),
           Padding(
             padding: const EdgeInsets.only(left: 30),
             child: Column(
@@ -87,6 +87,7 @@ class HomePackagecontainer extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -117,6 +118,7 @@ class HomePackagecontainer extends StatelessWidget {
               Deletebutton(item: item),
             ],
           ),
+          const SizedBox(height: 8),
         ],
       ),
     );

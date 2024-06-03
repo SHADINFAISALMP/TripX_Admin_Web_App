@@ -27,7 +27,7 @@ class Editprofiletextformfields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _buildTextField({
+    Widget buildTextField({
       required TextEditingController controller,
       required String hintText,
       required IconData icon,
@@ -111,28 +111,28 @@ class Editprofiletextformfields extends StatelessWidget {
         SizedBox(
           height: mediaqueryheight(0.05, context),
         ),
-        _buildTextField(
+        buildTextField(
             controller: _nameController,
             hintText: 'Enter Your Name',
             icon: Icons.person),
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        _buildTextField(
+        buildTextField(
             controller: _emailController,
             hintText: 'Enter Your Email',
             icon: Icons.mail),
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        _buildTextField(
+        buildTextField(
             controller: _phoneNumberController,
             hintText: 'Enter Your Phone number',
             icon: Icons.phone),
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        _buildTextField(
+        buildTextField(
             controller: _placeController,
             hintText: 'Enter Your Place',
             icon: Icons.place),

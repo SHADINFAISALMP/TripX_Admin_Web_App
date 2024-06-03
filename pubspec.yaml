@@ -82,6 +82,7 @@ flutter:
     - assets/image/circle.gif
     - assets/image/spalsh3.jpeg
     - assets/image/travel.png
+    - assets/image/time.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

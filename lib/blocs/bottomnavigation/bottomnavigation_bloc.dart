@@ -10,7 +10,7 @@ class BottomnavigationBloc
     on<ChangeTabEvent>(ontabchanged);
   }
   ontabchanged(ChangeTabEvent event, Emitter<BottomnavigationState> emit) {
-    print("adnan");
+    debugPrint("adnan");
     emit(BottomnavigationInitial(currentpageindex: event.pageIndex));
   }
 }

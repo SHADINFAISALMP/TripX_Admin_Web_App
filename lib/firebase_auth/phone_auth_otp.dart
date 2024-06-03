@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tripx_admin_application/data_provider/add_image_to_firebase.dart';
@@ -6,9 +8,9 @@ import 'package:tripx_admin_application/utils/controllers.dart';
 
 class phoneOtpAuthentication {
   sendOtp(context) async {
-    print("scene error vannikinn 1");
+    debugPrint("scene error vannikinn 1");
     final String phoneNummber = "+91${phonecontroller.text.toString()}";
-    print("scene error vannikinn 1");
+    debugPrint("scene error vannikinn 1");
     await FirebaseAuth.instance.verifyPhoneNumber(
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException ex) {
@@ -23,13 +25,13 @@ class phoneOtpAuthentication {
         },
         codeAutoRetrievalTimeout: (String verificationId) {},
         phoneNumber: phoneNummber);
-    print("scene error vannikinn 1");
+    debugPrint("scene error vannikinn 1");
   }
 
   otpverifactionanddataaddingtofirebase(String verificationId, context) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: otpcontroller.text.toString());
-    print("scene error vannikinn 2");
+    debugPrint("scene error vannikinn 2");
     await FirebaseAuth.instance
         .signInWithCredential(credential)
         .whenComplete(() async {

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,7 +35,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
 
   Future<void> _uploadImages(
       UploadimageEvent event, Emitter<AddpackageState> emit) async {
-        emit(const Packageloading());
+    emit(const Packageloading());
     Map<String, String> packageImages = {};
     for (var image in event.images) {
       try {
@@ -56,13 +58,13 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
         final url = await ref.getDownloadURL();
 
         packageImages[fileName] = url;
-        print(" urls $url");
+        debugPrint(" urls $url");
       } catch (e) {
         emit(ImageUploadError(e.toString(), errorMessage: ''));
         return;
       }
     }
-    print("package $packageImages");
+    debugPrint("package $packageImages");
     List<String> img = [];
     packageImages.forEach(
       (key, value) {
@@ -84,8 +86,9 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
       Map<String, dynamic> packageDetailsMap = packagedetailsData.userData(img,
           getStartDate: getStartDate, getEndDate: getEndDate);
       await packageDetails.add(packageDetailsMap);
+      emit(const PackageSuccess());
     } catch (e) {
-      print("error on full details");
+      debugPrint("error on full details");
       emit(PackageError(
           errorMessage:
               e.toString())); // Emit an error state if there's an error
@@ -193,7 +196,7 @@ class AddpackageBloc extends Bloc<AddpackageEvent, AddpackageState> {
         'imagepath': allImagePaths
       });
       emit(state.copywith(newImages: []));
-      emit(PackageUpdateSuccess());
+      emit(const PackageUpdateSuccess());
     } catch (e) {
       emit(PackageError(errorMessage: e.toString()));
     }

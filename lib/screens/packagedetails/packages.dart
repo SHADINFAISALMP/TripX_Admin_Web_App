@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
-import 'package:tripx_admin_application/screens/bottom_navigation/bottomnavigation.dart';
 import 'package:tripx_admin_application/widgets/package_widgets/package_adding.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
@@ -34,11 +33,8 @@ class _SearchpageState extends State<Packages> {
       body: SingleChildScrollView(
         child: BlocConsumer<AddpackageBloc, AddpackageState>(
           listener: (context, state) {
-            if (state is PackageUpdateSuccess) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const Bottomnavigation()),
-              );
+            if (state is PackageSuccess) {
+              Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("SUCCESSFULLY UPLOADED")),
               );
@@ -85,4 +81,3 @@ class _SearchpageState extends State<Packages> {
     additionalinforamtioncontroller.clear();
   }
 }
-

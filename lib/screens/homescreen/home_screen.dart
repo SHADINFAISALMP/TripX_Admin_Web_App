@@ -106,6 +106,9 @@ class _HomescreenState extends State<Homescreen> {
               mytext("Popular Destinations",
                   fontFamily: sedan,
                   fontSize: mediaqueryheight(0.025, context),
+                  fontWeight: FontWeight.bold
+                  
+                  ,
                   color: colorteal),
               StreamBuilder<QuerySnapshot>(
                   stream: packageDetails.snapshots(),

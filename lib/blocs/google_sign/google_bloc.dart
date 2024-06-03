@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -33,7 +35,7 @@ class GoogleBloc extends Bloc<GoogleEvent, GoogleState> {
       }
     } catch (e) {
       emit(GoogleFailureState());
-      print("error occured while google sign in $e");
+      debugPrint("error occured while google sign in $e");
     }
   }
 }

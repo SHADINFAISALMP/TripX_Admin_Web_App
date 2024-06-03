@@ -10,8 +10,8 @@ class AddpackageState {
   final String? formattedEndDate;
 
   const AddpackageState( 
-      {this.formattedStartDate,
-      this.formattedEndDate,
+      {this.formattedStartDate = '',
+      this.formattedEndDate = '',
       this.startDate,
       this.endDate,
       this.images,this.newImages});
@@ -77,7 +77,11 @@ class PackageSuccess extends AddpackageState {
       : super(images: images, startDate: startDate, endDate: endDate);
 }
 
-class PackageUpdateSuccess extends AddpackageState {}
+class PackageUpdateSuccess extends AddpackageState {
+  const PackageUpdateSuccess(
+      {List<XFile>? images, DateTime? startDate, DateTime? endDate})
+      : super(images: images, startDate: startDate, endDate: endDate);
+}
 
 class PackageError extends AddpackageState {
   final String errorMessage;

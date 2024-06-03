@@ -26,7 +26,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       emit(NavigateToprofile(buttonpressed: state.buttonpressed));
       // add(Otpvalidation(context: event.context));
     } else {
-      print("Profile failure");
+      debugPrint("Profile failure");
       return;
     }
   }

@@ -130,6 +130,14 @@ class _EditPackageState extends State<EditPackage> {
   Future<void> _selectDate(BuildContext context,
       TextEditingController controller, DateTime? startDate) async {
     DateTime initialDate = DateTime.now();
+    ThemeData themeData = ThemeData(
+      primaryColor: colorteal,
+      colorScheme: const ColorScheme.light(
+        primary: colorteal,
+        onPrimary: whitecolor,
+        onSurface: colorteal,
+      ),
+    );
     try {
       initialDate = DateFormat('dd-MM-yyyy').parse(controller.text);
       if (initialDate.isBefore(DateTime(2000))) {
@@ -144,11 +152,25 @@ class _EditPackageState extends State<EditPackage> {
       initialDate: initialDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: themeData.copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: colorteal,
+              onPrimary: whitecolor,
+              onSurface: colorteal,
+            ),
+            buttonTheme: const ButtonThemeData(
+              textTheme: ButtonTextTheme.primary,
+            ),
+            dialogBackgroundColor: whitecolor,
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
-      setState(() {
-        controller.text = DateFormat('dd-MM-yyyy').format(picked);
-      });
+      controller.text = DateFormat('dd-MM-yyyy').format(picked);
     }
   }
 
