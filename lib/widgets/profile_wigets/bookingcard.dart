@@ -21,43 +21,45 @@ class BookingCard extends StatelessWidget {
     }
     travelerInfo = travelerInfo.substring(0, travelerInfo.length - 2);
 
-    return Card(
-      shadowColor: colorteal,
-      color: colorteal,
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
-      ),
-      child: ListTile(
-        title: const Text(
-          "Booking",
-          style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 18.0, color: whitecolor),
+    return GestureDetector(onTap: (){},
+      child: Card(
+        shadowColor: colorteal,
+        color: colorteal,
+        margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+        elevation: 4.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
         ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 8.0),
-            const Text(
-              "Traveler Information:",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                  color: whitecolor),
-            ),
-            const SizedBox(height: 4.0),
-            Text(
-              travelerInfo,
-              style: const TextStyle(fontSize: 14.0),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              "Adults: ${package.adultcount}, Children: ${package.childrencount}, Rooms: ${package.roomscount}",
-              style: const TextStyle(fontSize: 14.0, color: whitecolor),
-            ),
-            const SizedBox(height: 8.0),
-          ],
+        child: ListTile(
+          title: const Text(
+            "Booking",
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 18.0, color: whitecolor),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 8.0),
+              const Text(
+                "Traveler Information:",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
+                    color: whitecolor),
+              ),
+              const SizedBox(height: 4.0),
+              Text(
+                travelerInfo,
+                style: const TextStyle(fontSize: 14.0),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                "Adults: ${package.adultcount}, Children: ${package.childrencount}, Rooms: ${package.roomscount}",
+                style: const TextStyle(fontSize: 14.0, color: whitecolor),
+              ),
+              const SizedBox(height: 8.0),
+            ],
+          ),
         ),
       ),
     );

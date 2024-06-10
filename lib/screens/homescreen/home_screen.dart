@@ -41,6 +41,18 @@ class _HomescreenState extends State<Homescreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
         child: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.only(
+              left: 15,
+              bottom: 15,
+            ), // Adjust padding as needed
+            child: Image.asset(
+              'assets/image/logo1.png',
+              color: whitecolor,
+              fit: BoxFit.cover,
+            ),
+          ),
+          centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.only(
               bottom: 20,
@@ -62,7 +74,8 @@ class _HomescreenState extends State<Homescreen> {
                   var userData = snapshot.data!.data() as Map<String, dynamic>;
                   return Text(
                     "WELCOME AGAIN \n  ${userData['name'].toString().toUpperCase()}",
-                    style: const TextStyle(color: whitecolor),
+                    style: const TextStyle(
+                        color: white70, fontWeight: FontWeight.bold),
                   );
                 }),
           ),
@@ -106,9 +119,7 @@ class _HomescreenState extends State<Homescreen> {
               mytext("Popular Destinations",
                   fontFamily: sedan,
                   fontSize: mediaqueryheight(0.025, context),
-                  fontWeight: FontWeight.bold
-                  
-                  ,
+                  fontWeight: FontWeight.bold,
                   color: colorteal),
               StreamBuilder<QuerySnapshot>(
                   stream: packageDetails.snapshots(),

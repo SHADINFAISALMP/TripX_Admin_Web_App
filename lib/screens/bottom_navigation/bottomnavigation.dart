@@ -51,6 +51,17 @@ class _BottomnavigationState extends State<Bottomnavigation> {
                 ),
                 BottomBarItem(
                   inActiveItem: Icon(
+                    Icons.chat,
+                    color: whitecolor,
+                  ),
+                  activeItem: Icon(
+                    Icons.chat,
+                    color: colorteal,
+                  ),
+                  itemLabel: 'CHAT',
+                ),
+                BottomBarItem(
+                  inActiveItem: Icon(
                     Icons.add,
                     color: whitecolor,
                   ),
