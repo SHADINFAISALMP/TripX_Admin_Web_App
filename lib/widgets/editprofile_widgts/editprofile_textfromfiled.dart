@@ -24,50 +24,10 @@ class Editprofiletextformfields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buildTextField({
-      required TextEditingController controller,
-      required String hintText,
-      required IconData icon,
-    }) {
-      return Container(
-        width: mediaquerywidht(0.9, context),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
-              spreadRadius: 4,
-              blurRadius: 5,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
-          child: TextFormField(
-            controller: controller,
-            style: TextStyle(
-              height: mediaqueryheight(0.003, context),
-              color: colorteal,
-              backgroundColor: whitecolor,
-            ),
-            decoration: InputDecoration(
-              hintText: hintText,
-              prefixIcon: Icon(icon),
-              prefixIconColor: colorteal,
-              fillColor: whitecolor,
-              filled: true,
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-      );
-    }
-
     return Column(
       children: [
         SizedBox(
-          height: mediaqueryheight(0.02, context),
+          height: mediaqueryheight(0.04, context),
         ),
         BlocBuilder<ProfileimageBloc, ProfileimageState>(
           builder: (context, state) {
@@ -95,7 +55,7 @@ class Editprofiletextformfields extends StatelessWidget {
                       },
                       child: const Icon(
                         Icons.photo_camera,
-                        color: whitecolor,
+                        color: orangecolor,
                         size: 40.0,
                       ),
                     ),
@@ -108,26 +68,125 @@ class Editprofiletextformfields extends StatelessWidget {
         SizedBox(
           height: mediaqueryheight(0.05, context),
         ),
-        buildTextField(
+        SizedBox(
+          width: mediaquerywidht(0.9, context),
+          child: TextFormField(
+            keyboardType: TextInputType.name,
             controller: _nameController,
-            hintText: 'Enter Your Name',
-            icon: Icons.person),
+            style: const TextStyle(
+              fontSize: 20,
+              color: colorteal,
+              backgroundColor: whitecolor,
+            ),
+            decoration: InputDecoration(
+              hintText: 'Enter Your Name',
+              prefixIcon: const Icon(Icons.person),
+              prefixIconColor: colorteal,
+              fillColor: whitecolor,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(color: orangecolor),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when enabled
+                  width: 1.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when focused
+                  width: 1.0,
+                ),
+              ),
+            ),
+          ),
+        ),
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        buildTextField(
+        SizedBox(
+          width: mediaquerywidht(0.9, context),
+          child: TextFormField(
+            keyboardType: TextInputType.name,
             controller: _phoneNumberController,
-            hintText: 'Enter Your Phone number',
-            icon: Icons.phone),
+            style: const TextStyle(
+              fontSize: 20,
+              color: colorteal,
+              backgroundColor: whitecolor,
+            ),
+            decoration: InputDecoration(
+              hintText: 'Enter Your Phone number',
+              prefixIcon: const Icon(Icons.phone),
+              prefixIconColor: colorteal,
+              fillColor: whitecolor,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(color: orangecolor),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when enabled
+                  width: 1.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when focused
+                  width: 1.0,
+                ),
+              ),
+            ),
+          ),
+        ),
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        buildTextField(
-            controller: _placeController,
-            hintText: 'Enter Your Place',
-            icon: Icons.place),
         SizedBox(
-          height: mediaqueryheight(0.03, context),
+          width: mediaquerywidht(0.9, context),
+          child: TextFormField(
+            keyboardType: TextInputType.name,
+            controller: _placeController,
+            style: const TextStyle(
+              fontSize: 20,
+              color: colorteal,
+              backgroundColor: whitecolor,
+            ),
+            decoration: InputDecoration(
+              hintText: 'Enter Your Place',
+              prefixIcon: const Icon(Icons.place),
+              prefixIconColor: colorteal,
+              fillColor: whitecolor,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(color: orangecolor),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when enabled
+                  width: 1.0,
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: const BorderSide(
+                  color: orangecolor, // Border color when focused
+                  width: 1.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: mediaqueryheight(0.05, context),
         ),
         Savechanges(
             nameController: _nameController,

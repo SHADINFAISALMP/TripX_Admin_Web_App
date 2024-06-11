@@ -174,11 +174,11 @@ class _ChatScreennState extends State<ChatScreenn> {
           context: context,
           builder: (context) => AlertDialog(
             backgroundColor: whitecolor,
-            title: Text(
+            title: const Text(
               'Delete Message',
               style: TextStyle(color: colorteal),
             ),
-            content: Text(
+            content: const Text(
               'Are you sure you want to delete this message?',
               style: TextStyle(color: colorteal),
             ),
@@ -187,7 +187,7 @@ class _ChatScreennState extends State<ChatScreenn> {
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
-                child: Text(
+                child: const Text(
                   'Cancel',
                   style: TextStyle(color: colorteal),
                 ),
@@ -197,7 +197,7 @@ class _ChatScreennState extends State<ChatScreenn> {
                   _deleteMessage(widget.chatroomId, messageId);
                   Navigator.of(context).pop(true);
                 },
-                child: Text(
+                child: const Text(
                   'Delete',
                   style: TextStyle(color: Colors.red),
                 ),
@@ -208,9 +208,9 @@ class _ChatScreennState extends State<ChatScreenn> {
       },
       background: Container(
         color: Colors.red,
-        padding: EdgeInsets.only(right: 20),
+        padding: const EdgeInsets.only(right: 20),
         alignment: Alignment.centerRight,
-        child: Icon(
+        child: const Icon(
           Icons.delete,
           color: Colors.white,
         ),

@@ -52,16 +52,21 @@ class _EditprofileState extends State<Editprofile> {
     return Scaffold(
       backgroundColor: colorteal,
       appBar: AppBar(
-        leading: const Icon(
-          Icons.arrow_back_ios_new,
-          color: whitecolor,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_ios_new,
+            color: colorteal,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: colorteal,
+        backgroundColor: whitecolor,
         title: mytext("Edit Profile",
             fontFamily: sedan,
             fontSize: mediaqueryheight(0.029, context),
-            color: whitecolor),
+            color: colorteal),
       ),
       body: SingleChildScrollView(
         child: Center(

@@ -26,6 +26,7 @@ class HomePackagecontainer extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
       decoration: BoxDecoration(
+        border: Border.all(color: orangecolor),
         borderRadius: BorderRadius.circular(15),
         color: colorteal,
       ),

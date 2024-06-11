@@ -98,19 +98,19 @@ class Profile extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 50),
-                    child: mytext(
-                      "My Profile",
-                      fontFamily: sedan,
-                      fontSize: 22,
-                      color: whitecolor,
-                    ),
+                    child: mytext("MY PROFILE",
+                        fontFamily: bodoni,
+                        fontSize: 22,
+                        color: whitecolor,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: mediaqueryheight(0.04, context),
                   ),
                   Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: orangecolor),
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(80),
                         bottomRight: Radius.circular(0),
                       ),
@@ -122,11 +122,20 @@ class Profile extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 30),
-                          child: CircleAvatar(
-                            backgroundColor: colorteal,
-                            backgroundImage: NetworkImage(imagePath),
-                            radius: 70,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(75),
+                                border:
+                                    Border.all(color: orangecolor, width: 3)),
+                            child: CircleAvatar(
+                              backgroundColor: colorteal,
+                              backgroundImage: NetworkImage(imagePath),
+                              radius: 70,
+                            ),
                           ),
+                        ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         mytext(
                           name.toUpperCase(),
@@ -221,7 +230,7 @@ class Profile extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: mediaqueryheight(0.02, context),
+                                height: mediaqueryheight(0.03, context),
                               ),
                               Row(
                                 children: [
@@ -242,7 +251,7 @@ class Profile extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(
-                                height: mediaqueryheight(0.02, context),
+                                height: mediaqueryheight(0.03, context),
                               ),
                               GestureDetector(
                                 onTap: () {

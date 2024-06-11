@@ -84,8 +84,9 @@ class _HomescreenState extends State<Homescreen> {
           backgroundColor: colorteal,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50))),
+            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(50),
+          )),
           actions: [
             Padding(
               padding: const EdgeInsets.only(bottom: 50, right: 20),
