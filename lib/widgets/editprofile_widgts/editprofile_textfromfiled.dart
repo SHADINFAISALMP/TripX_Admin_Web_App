@@ -11,17 +11,14 @@ class Editprofiletextformfields extends StatelessWidget {
     super.key,
     required this.widget,
     required TextEditingController nameController,
-    required TextEditingController emailController,
     required TextEditingController phoneNumberController,
     required TextEditingController placeController,
   })  : _nameController = nameController,
-        _emailController = emailController,
         _phoneNumberController = phoneNumberController,
         _placeController = placeController;
 
   final Editprofile widget;
   final TextEditingController _nameController;
-  final TextEditingController _emailController;
   final TextEditingController _phoneNumberController;
   final TextEditingController _placeController;
 
@@ -119,13 +116,6 @@ class Editprofiletextformfields extends StatelessWidget {
           height: mediaqueryheight(0.03, context),
         ),
         buildTextField(
-            controller: _emailController,
-            hintText: 'Enter Your Email',
-            icon: Icons.mail),
-        SizedBox(
-          height: mediaqueryheight(0.03, context),
-        ),
-        buildTextField(
             controller: _phoneNumberController,
             hintText: 'Enter Your Phone number',
             icon: Icons.phone),
@@ -141,7 +131,6 @@ class Editprofiletextformfields extends StatelessWidget {
         ),
         Savechanges(
             nameController: _nameController,
-            emailController: _emailController,
             phoneNumberController: _phoneNumberController,
             placeController: _placeController),
       ],

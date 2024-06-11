@@ -2,7 +2,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:tripx_admin_application/blocs/signupimage/profileimage_bloc.dart';
+import 'package:tripx_admin_application/data_provider/add_image_to_firebase.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
@@ -11,16 +14,13 @@ class Savechanges extends StatelessWidget {
   const Savechanges({
     super.key,
     required TextEditingController nameController,
-    required TextEditingController emailController,
     required TextEditingController phoneNumberController,
     required TextEditingController placeController,
   })  : _nameController = nameController,
-        _emailController = emailController,
         _phoneNumberController = phoneNumberController,
         _placeController = placeController;
 
   final TextEditingController _nameController;
-  final TextEditingController _emailController;
   final TextEditingController _phoneNumberController;
   final TextEditingController _placeController;
 
@@ -34,21 +34,25 @@ class Savechanges extends StatelessWidget {
         ),
       );
       final newName = _nameController.text;
-      final newEmail = _emailController.text;
       final newPhoneNumber = _phoneNumberController.text;
       final newPlace = _placeController.text;
 
       final Map<String, dynamic> updatedData = {
         'name': newName,
-        'email': newEmail,
         'phonenumber': newPhoneNumber,
         'place': newPlace,
       };
 
-      await FirebaseFirestore.instance
-          .collection('admindetails')
-          .doc('admin')
-          .update(updatedData);
+      final userdoc =
+          FirebaseFirestore.instance.collection('admindetails').doc('admin');
+      userdoc.update(updatedData);
+
+      if (BlocProvider.of<ProfileimageBloc>(context).state.imageInBytes !=
+          null) {
+        final url =
+            await Addimagetofirebase().addprofileimagetofirebase(context);
+        await userdoc.update({"imagepath": url});
+      }
       Navigator.pop(context);
     }
 

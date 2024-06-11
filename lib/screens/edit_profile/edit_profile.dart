@@ -68,7 +68,6 @@ class _EditprofileState extends State<Editprofile> {
           child: Editprofiletextformfields(
               widget: widget,
               nameController: _nameController,
-              emailController: _emailController,
               phoneNumberController: _phoneNumberController,
               placeController: _placeController),
         ),
@@ -76,4 +75,3 @@ class _EditprofileState extends State<Editprofile> {
     );
   }
 }
-
