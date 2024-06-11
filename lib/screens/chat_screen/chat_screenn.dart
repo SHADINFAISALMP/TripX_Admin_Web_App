@@ -1,4 +1,4 @@
-
+// ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +41,15 @@ class _ChatScreennState extends State<ChatScreenn> {
     }
   }
 
+  void _deleteMessage(String chatRoomId, String messageId) async {
+    try {
+      await _chatService.deleteMessage(chatRoomId, messageId);
+      print("Message deleted successfully.");
+    } catch (e) {
+      print("Failed to delete message: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +58,7 @@ class _ChatScreennState extends State<ChatScreenn> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: whitecolor,
             )),
@@ -59,29 +68,9 @@ class _ChatScreennState extends State<ChatScreenn> {
         automaticallyImplyLeading: false,
         title: Text(
           widget.senderemail,
-          style: TextStyle(color: whitecolor, fontWeight: FontWeight.bold),
+          style:
+              const TextStyle(color: whitecolor, fontWeight: FontWeight.bold),
         ),
-        actions: [
-          PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert_outlined,
-              color: Colors.white,
-            ),
-            onSelected: (value) {
-              if (value == 'clear') {
-                // Add logic to clear messages if needed
-              }
-            },
-            itemBuilder: (BuildContext context) {
-              return [
-                const PopupMenuItem<String>(
-                  value: 'clear',
-                  child: Text('Clear Messages'),
-                ),
-              ];
-            },
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -102,9 +91,13 @@ class _ChatScreennState extends State<ChatScreenn> {
           return Text("Error ${snapshot.error}");
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text("loading....");
+          return const Text("loading....");
         }
-
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text("No messages yet"),
+          );
+        }
         return ListView(
           children: snapshot.data!.docs
               .map((document) => _buildMessageItem(document))
@@ -123,7 +116,7 @@ class _ChatScreennState extends State<ChatScreenn> {
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                  prefixIcon: Icon(
+                  prefixIcon: const Icon(
                     Icons.message,
                     color: colorteal,
                     size: 30,
@@ -134,14 +127,14 @@ class _ChatScreennState extends State<ChatScreenn> {
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: colorteal,
                       width: 2.0,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: colorteal,
                       width: 2.0,
                     ),
@@ -165,17 +158,70 @@ class _ChatScreennState extends State<ChatScreenn> {
   }
 
   String? adminId;
+
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-    final String currentUserId = 'admin';
+    const String currentUserId = 'admin';
     bool isSentByMe = data['senderid'] == currentUserId;
+    String messageId = document.id;
 
-    return Align(
-      alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: ChatBubble(
-        message: data['message'],
-        timestamp: data['timestamp'],
-        isSentByMe: isSentByMe,
+    return Dismissible(
+      key: Key(messageId),
+      direction:
+          isSentByMe ? DismissDirection.endToStart : DismissDirection.none,
+      confirmDismiss: (direction) async {
+        return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            backgroundColor: whitecolor,
+            title: Text(
+              'Delete Message',
+              style: TextStyle(color: colorteal),
+            ),
+            content: Text(
+              'Are you sure you want to delete this message?',
+              style: TextStyle(color: colorteal),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: colorteal),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  _deleteMessage(widget.chatroomId, messageId);
+                  Navigator.of(context).pop(true);
+                },
+                child: Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      background: Container(
+        color: Colors.red,
+        padding: EdgeInsets.only(right: 20),
+        alignment: Alignment.centerRight,
+        child: Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      ),
+      child: Align(
+        alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+        child: ChatBubble(
+          message: data['message'],
+          timestamp: data['timestamp'],
+          isSentByMe: isSentByMe,
+        ),
       ),
     );
   }
@@ -201,6 +247,15 @@ class ChatService {
         .doc(chatRoomId)
         .collection("messages")
         .add(newMessage.toMap());
+  }
+
+  Future<void> deleteMessage(String chatRoomId, String messageId) async {
+    await _firestore
+        .collection("chatroom")
+        .doc(chatRoomId)
+        .collection("messages")
+        .doc(messageId)
+        .delete();
   }
 
   Stream<QuerySnapshot> getMessages(String chatRoomId) {
@@ -261,9 +316,9 @@ class ChatBubble extends StatelessWidget {
 
     return Container(
       margin: isSentByMe
-          ? EdgeInsets.only(left: 50, top: 10, bottom: 10, right: 10)
-          : EdgeInsets.only(right: 50, top: 10, bottom: 10, left: 10),
-      padding: EdgeInsets.all(12),
+          ? const EdgeInsets.only(left: 50, top: 10, bottom: 10, right: 10)
+          : const EdgeInsets.only(right: 50, top: 10, bottom: 10, left: 10),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         gradient: isSentByMe
             ? LinearGradient(
@@ -280,17 +335,17 @@ class ChatBubble extends StatelessWidget {
                 end: Alignment.bottomRight,
               ),
         borderRadius: isSentByMe
-            ? BorderRadius.only(
+            ? const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
                 bottomLeft: Radius.circular(20),
               )
-            : BorderRadius.only(
+            : const BorderRadius.only(
                 topLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4,
@@ -309,7 +364,7 @@ class ChatBubble extends StatelessWidget {
               color: isSentByMe ? Colors.white : Colors.white,
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(
             formattedTime,
             style: TextStyle(

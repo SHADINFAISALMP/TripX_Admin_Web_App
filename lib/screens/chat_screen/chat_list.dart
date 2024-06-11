@@ -20,7 +20,7 @@ class _ChatLitsshowState extends State<ChatLitsshow> {
     return Scaffold(
       backgroundColor: whitecolor,
       appBar: AppBar(
-        leading: Icon(
+        leading: const Icon(
           Icons.chat,
           color: whitecolor,
         ),
@@ -78,7 +78,7 @@ class _ChatLitsshowState extends State<ChatLitsshow> {
 
                 if (!messageSnapshot.hasData ||
                     messageSnapshot.data!.docs.isEmpty) {
-                  return ListTile(
+                  return const ListTile(
                     title: Text('No messages'),
                   );
                 }
@@ -96,20 +96,20 @@ class _ChatLitsshowState extends State<ChatLitsshow> {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: ListTile(
-                      leading: CircleAvatar(
+                      leading: const CircleAvatar(
                         backgroundColor: whitecolor,
                         child: Icon(Icons.person, color: colorteal),
                       ),
                       title: Text(
                         data['senderemail'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, color: whitecolor),
                       ),
                       subtitle: Text(
                         data['message'],
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
-                        style: TextStyle(color: black54),
+                        style: const TextStyle(color: black54),
                       ),
                       trailing: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class _ChatLitsshowState extends State<ChatLitsshow> {
                             DateFormat('hh:mm a').format(
                               (data['timestamp'] as Timestamp).toDate(),
                             ),
-                            style: TextStyle(color: black54),
+                            style: const TextStyle(color: black54),
                           ),
                         ],
                       ),

@@ -246,37 +246,11 @@ class Profile extends StatelessWidget {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  // Add navigation logic for settings
+                                  _logout(context);
                                 },
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.settings,
-                                      color: colorteal,
-                                      size: 30,
-                                    ),
-                                    SizedBox(
-                                      width: mediaquerywidht(0.05, context),
-                                    ),
-                                    mytext(
-                                      "Settings",
-                                      fontFamily: sedan,
-                                      fontSize: 22,
-                                      color: colorteal,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: mediaqueryheight(0.05, context),
-                              ),
-                              Center(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _logout(context);
-                                  },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 5),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Icon(
                                         Icons.logout,
