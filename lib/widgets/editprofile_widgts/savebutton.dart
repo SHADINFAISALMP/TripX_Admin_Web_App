@@ -27,33 +27,61 @@ class Savechanges extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void saveChanges() async {
-      Center(
-        child: LoadingAnimationWidget.threeArchedCircle(
-          color: colorteal,
-          size: 60,
-        ),
-      );
-      final newName = _nameController.text;
-      final newPhoneNumber = _phoneNumberController.text;
-      final newPlace = _placeController.text;
+      try {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Center(
+              child: LoadingAnimationWidget.threeArchedCircle(
+                color: whitecolor,
+                size: 60,
+              ),
+            );
+          },
+        );
+        final newName = _nameController.text;
+        final newPhoneNumber = _phoneNumberController.text;
+        final newPlace = _placeController.text;
 
-      final Map<String, dynamic> updatedData = {
-        'name': newName,
-        'phonenumber': newPhoneNumber,
-        'place': newPlace,
-      };
+        final Map<String, dynamic> updatedData = {
+          'name': newName,
+          'phonenumber': newPhoneNumber,
+          'place': newPlace,
+        };
 
-      final userdoc =
-          FirebaseFirestore.instance.collection('admindetails').doc('admin');
-      userdoc.update(updatedData);
+        final userdoc =
+            FirebaseFirestore.instance.collection('admindetails').doc('admin');
+        userdoc.update(updatedData);
 
-      if (BlocProvider.of<ProfileimageBloc>(context).state.imageInBytes !=
-          null) {
-        final url =
-            await Addimagetofirebase().addprofileimagetofirebase(context);
-        await userdoc.update({"imagepath": url});
+        if (BlocProvider.of<ProfileimageBloc>(context).state.imageInBytes !=
+            null) {
+          final url =
+              await Addimagetofirebase().addprofileimagetofirebase(context);
+          await userdoc.update({"imagepath": url});
+        }
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              backgroundColor: orangecolor,
+              content: Center(
+                child: Text(
+                  'Profile updated successfully',
+                  style: TextStyle(color: whitecolor),
+                ),
+              )),
+        );
+        Navigator.pop(context);
+      } catch (e) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              backgroundColor: orangecolor,
+              content: Text(
+                'Failed to update profile: $e',
+                style: const TextStyle(color: whitecolor),
+              )),
+        );
       }
-      Navigator.pop(context);
     }
 
     return InkWell(

@@ -204,7 +204,21 @@ class _ChatScreennState extends State<ChatScreenn> {
               ),
             ],
           ),
-        );
+        ).then((value) {
+          if (value) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  backgroundColor: orangecolor,
+                  content: Center(
+                      child: Text(
+                    'Message deleted',
+                    style: TextStyle(
+                        color: whitecolor, fontWeight: FontWeight.bold),
+                  ))),
+            );
+          }
+          return value;
+        });
       },
       background: Container(
         color: Colors.red,
