@@ -164,7 +164,20 @@ class _ChatScreennState extends State<ChatScreenn> {
     const String currentUserId = 'admin';
     bool isSentByMe = data['senderid'] == currentUserId;
     String messageId = document.id;
-
+    bool isDeletded = data['isdeleted'] ?? false;
+    if (isDeletded) {
+      return Container(
+        alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        child: Text(
+          'This message was deleted',
+          style: TextStyle(
+            fontStyle: FontStyle.italic,
+            color: Colors.grey[400],
+          ),
+        ),
+      );
+    }
     return Dismissible(
       key: Key(messageId),
       direction:
@@ -252,7 +265,8 @@ class ChatService {
         senderId: senderId,
         senderemail: senderEmail,
         message: message,
-        timestamp: timestamp);
+        timestamp: timestamp,
+        isDeleted: false);
 
     // String chatRoomId = senderId;
 
@@ -294,12 +308,14 @@ class Message {
   final String senderemail;
   final String message;
   final Timestamp timestamp;
+  final bool isDeleted;
 
   Message({
     required this.senderId,
     required this.senderemail,
     required this.message,
     required this.timestamp,
+    required this.isDeleted
   });
 
   Map<String, dynamic> toMap() {
@@ -308,6 +324,7 @@ class Message {
       'senderemail': senderemail,
       'message': message,
       'timestamp': timestamp,
+      'isdeleted':isDeleted
     };
   }
 }
@@ -326,7 +343,8 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String formattedTime = DateFormat('hh:mm a').format(timestamp.toDate());
+    DateTime date = timestamp.toDate();
+    String formattedDate = DateFormat('dd MMM yyyy, hh:mm a').format(date);
 
     return Container(
       margin: isSentByMe
@@ -380,7 +398,7 @@ class ChatBubble extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           Text(
-            formattedTime,
+            formattedDate,
             style: TextStyle(
               fontSize: 12,
               color: isSentByMe ? Colors.white70 : Colors.white70,
