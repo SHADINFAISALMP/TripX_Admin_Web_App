@@ -3,7 +3,7 @@
     <application
         android:label="tripx_admin_application"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/tripx">
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tripx_admin_application/models/userpackagemodel.dart';
+import 'package:tripx_admin_application/models/traveller_model.dart';
+
 import 'package:tripx_admin_application/utils/colors.dart';
 
 class BookingCard extends StatelessWidget {
