@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tripx_admin_application/screens/privacy_policy.dart';
 import 'package:tripx_admin_application/widgets/login_widgets/loginbutton_google.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/controllers.dart';
@@ -49,6 +50,22 @@ class LoginheadingandTextfiled extends StatelessWidget {
           height: mediaqueryheight(.05, context),
         ),
         const LoginButtonGoogle(),
+        SizedBox(
+          height: mediaqueryheight(.18, context),
+        ),
+        Center(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => PrivacyPolicy()));
+            },
+            child: Text(
+              'Click here to read privacy policy',
+              style: TextStyle(
+                  color: whitecolor, fontWeight: FontWeight.bold, fontSize: 18),
+            ),
+          ),
+        )
       ],
     );
   }

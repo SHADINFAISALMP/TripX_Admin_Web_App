@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:tripx_admin_application/screens/edit_profile/edit_profile.dart';
 import 'package:tripx_admin_application/screens/log_in_screen/log_in.dart';
+import 'package:tripx_admin_application/screens/privacy_policy.dart';
 import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
@@ -249,6 +250,36 @@ class Profile extends StatelessWidget {
                                     color: colorteal,
                                   ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: mediaqueryheight(0.03, context),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PrivacyPolicy()));
+                                },
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.privacy_tip,
+                                      color: colorteal,
+                                      size: 30,
+                                    ),
+                                    SizedBox(
+                                      width: mediaquerywidht(0.05, context),
+                                    ),
+                                    mytext(
+                                      "Privacy policy",
+                                      fontFamily: sedan,
+                                      fontSize: 22,
+                                      color: colorteal,
+                                    ),
+                                  ],
+                                ),
                               ),
                               SizedBox(
                                 height: mediaqueryheight(0.03, context),
