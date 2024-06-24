@@ -89,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'tripxtravelagencyuserapp.appspot.com',
     measurementId: 'G-58107RHMKE',
   );
+
 }

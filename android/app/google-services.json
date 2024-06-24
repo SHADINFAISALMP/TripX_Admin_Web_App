@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "104318694544-n759aoj13kvkjg6oado0lkhqv0lqthjj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripx_admin_application",
+            "certificate_hash": "61cb14c37595846aceae51b07b99ec75884b0549"
+          }
+        },
+        {
+          "client_id": "104318694544-tnpottt2pf12g1tticuen7rksh5v39q3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripx_admin_application",
+            "certificate_hash": "45797479fd3ec6668d0fc93e7de2d8c5608a0de1"
+          }
+        },
+        {
           "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -54,6 +70,102 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.tripx_user_application",
+            "certificate_hash": "61cb14c37595846aceae51b07b99ec75884b0549"
+          }
+        },
+        {
+          "client_id": "104318694544-f3q13933uc42tc6etdsehnhio8onlval.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripx_user_application",
+            "certificate_hash": "45797479fd3ec6668d0fc93e7de2d8c5608a0de1"
+          }
+        },
+        {
+          "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ0LyymwIRIm7wCCkd_tjeQkKF7wnGxa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104318694544-8e9vm06r4ohpvga4h3fhmmg5lhpvbrmd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tripxUserApplication"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104318694544:android:277f3e3e833a8d35271415",
+        "android_client_info": {
+          "package_name": "in.tripx_explore_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104318694544-52c9836sr1fqk7n5qlpm4qumtpkv7sod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tripx_explore_application",
+            "certificate_hash": "61cb14c37595846aceae51b07b99ec75884b0549"
+          }
+        },
+        {
+          "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ0LyymwIRIm7wCCkd_tjeQkKF7wnGxa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104318694544-cjb7r3n2753uvvft1hmkd5j4o4valrgb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "104318694544-8e9vm06r4ohpvga4h3fhmmg5lhpvbrmd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.tripxUserApplication"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104318694544:android:b277992a5ec5addb271415",
+        "android_client_info": {
+          "package_name": "in.tripx_user_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104318694544-gr2h2mf4g3rnrrjqlr8vounlsqtqvlo0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.tripx_user_application",
             "certificate_hash": "61cb14c37595846aceae51b07b99ec75884b0549"
           }
         },
