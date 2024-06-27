@@ -15,34 +15,54 @@ class PackageDetailsImageCarosel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 300,
-      decoration: const BoxDecoration(
-        color: whitecolor,
-      ),
-      child: CarouselSlider.builder(
-        itemCount: itemslists['imagepath'].length,
-        itemBuilder: (context, index, realIndex) {
-    
-          List<String> imagess =
-              (itemslists['imagepath'] as List<dynamic>).cast<String>();
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              imagess[index],
-              width: double.infinity,
-              fit: BoxFit.cover,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double height;
+        double viewportFraction;
+        bool autoPlay;
+        bool enlargeCenterPage;
+
+        if (constraints.maxWidth > 600) {
+          height = 300;
+          viewportFraction = 0.3;
+          autoPlay = true;
+          enlargeCenterPage = true;
+        } else {
+          height = 300;
+          viewportFraction = 0.6;
+          autoPlay = true;
+          enlargeCenterPage = true;
+        }
+
+        return Container(
+          width: double.infinity,
+          height: height,
+          decoration: const BoxDecoration(
+            color: whitecolor,
+          ),
+          child: CarouselSlider.builder(
+            itemCount: itemslists['imagepath'].length,
+            itemBuilder: (context, index, realIndex) {
+              List<String> imagess =
+                  (itemslists['imagepath'] as List<dynamic>).cast<String>();
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.network(
+                  imagess[index],
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+            options: CarouselOptions(
+              height: height,
+              autoPlay: autoPlay,
+              viewportFraction: viewportFraction,
+              enlargeCenterPage: enlargeCenterPage,
             ),
-          );
-        },
-        options: CarouselOptions(
-          height: 300,
-          autoPlay: true,
-          viewportFraction: 0.4,
-          enlargeCenterPage: true,
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -175,7 +175,9 @@ class _EditPackageState extends State<EditPackage> {
   }
 
   Widget buildTextField(String labelText, TextEditingController controller,
-      {required bool readOnly, required Future<void> Function()? onTap}) {
+      {required bool readOnly,
+      required Future<void> Function()? onTap,
+      required double widthFactor}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -184,7 +186,7 @@ class _EditPackageState extends State<EditPackage> {
                 TextStyle(color: whitecolor, fontFamily: bodoni, fontSize: 16)),
         const SizedBox(height: 8),
         SizedBox(
-          width: mediaquerywidht(0.84, context),
+          width: mediaquerywidht(widthFactor, context),
           child: TextField(
             readOnly: readOnly,
             onTap: readOnly ? onTap : null,
@@ -243,206 +245,371 @@ class _EditPackageState extends State<EditPackage> {
           }
         },
         child: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 30),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: mediaqueryheight(0.02, context),
-                  ),
-                  const TopName(text: "PACKAGE PHOTOS"),
-                  GestureDetector(
-                    onTap: _pickNewImages,
-                    child: Container(
-                        decoration: BoxDecoration(
+          child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+              // bool widthFactor = constraints.maxWidth > 600;
+              double widthFactor = constraints.maxWidth > 600 ? 0.5 : 0.84;
+              bool isWideScreen = constraints.maxWidth > 600;
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      const TopName(text: "PACKAGE PHOTOS"),
+                      GestureDetector(
+                        onTap: _pickNewImages,
+                        child: Container(
+                          decoration: BoxDecoration(
                             color: whitecolor,
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    blackcolor.withOpacity(0.5), // Shadow color
+                                color: blackcolor.withOpacity(0.5),
                                 spreadRadius: 2,
                                 blurRadius: 10,
                                 offset: const Offset(2, 5),
                               ),
                             ],
-                            borderRadius: BorderRadius.circular(15)),
-                        height: mediaqueryheight(0.23, context),
-                        width: mediaquerywidht(0.84, context),
-                        //change to blo
-                        child: imagepaths.isEmpty && newImages.isEmpty
-                            ? Center(
-                                child: Text(
-                                'no images available',
-                                style: TextStyle(
-                                  fontFamily: sedan,
-                                  fontSize: 20,
-                                  color: colorteal,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: constraints.maxWidth > 600
+                              ? mediaqueryheight(0.4, context)
+                              : mediaqueryheight(0.23, context),
+                          width: constraints.maxWidth > 600
+                              ? mediaquerywidht(0.5, context)
+                              : mediaquerywidht(0.84, context),
+                          child: imagepaths.isEmpty && newImages.isEmpty
+                              ? Center(
+                                  child: Text(
+                                    'No images available',
+                                    style: TextStyle(
+                                      fontFamily: sedan,
+                                      fontSize: 20,
+                                      color: colorteal,
+                                    ),
+                                  ),
+                                )
+                              : ImageCarouselWithGrid(
+                                  imagepaths: List<String>.from(imagepaths),
+                                  newImages: newImages,
                                 ),
-                              ))
-                            : ImageCarouselWithGrid(
-                                imagepaths: List<String>.from(imagepaths),
-                                newImages: newImages)),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.02, context),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: GestureDetector(
-                      onTap: _pickNewImages,
-                      child: Container(
-                        height: mediaqueryheight(0.03, context),
-                        width: mediaquerywidht(0.7, context),
-                        decoration: BoxDecoration(
-                            color: orangecolor,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Center(
-                          child: Text(
-                            "Click for more images if you need only",
-                            style: TextStyle(
-                                fontFamily: bodoni,
-                                fontSize: 16,
-                                color: whitecolor),
+                        ),
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.02, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: GestureDetector(
+                          onTap: _pickNewImages,
+                          child: Container(
+                            height: mediaqueryheight(0.04, context),
+                            width: constraints.maxWidth > 600
+                                ? mediaquerywidht(0.45, context)
+                                : mediaquerywidht(0.7, context),
+                            decoration: BoxDecoration(
+                              color: orangecolor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Click for more images if you need only",
+                                style: TextStyle(
+                                  fontFamily: bodoni,
+                                  fontSize: 16,
+                                  color: whitecolor,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  buildTextField('PACKAGE NAME', packagenamecontroller,
-                      readOnly: false, onTap: null),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  buildTextField('DESTINATION NAMES', placenamecontroller,
-                      readOnly: false, onTap: null),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  BlocBuilder<AddpackageBloc, AddpackageState>(
-                    builder: (context, state) {
-                      return buildTextField('START DATE', startDateController,
-                          readOnly: true,
-                          onTap: () => _selectDate(
-                              context, startDateController, state.startDate));
-                    },
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  BlocBuilder<AddpackageBloc, AddpackageState>(
-                    builder: (context, state) {
-                      return buildTextField('END DATE', endDateController,
-                          readOnly: true,
-                          onTap: () => _selectDate(
-                              context, endDateController, state.endDate));
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 40),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                            child: buildTextField('DAYS', dayscontroller,
-                                readOnly: false, onTap: null)),
-                        SizedBox(width: mediaquerywidht(0.02, context)),
-                        Expanded(
-                            child: buildTextField('NIGHTS', nightscontroller,
-                                readOnly: false, onTap: null)),
-                        SizedBox(width: mediaquerywidht(0.02, context)),
-                        Expanded(
-                            child: buildTextField('COUNTRY', countrycontroller,
-                                readOnly: false, onTap: null)),
-                        SizedBox(width: mediaquerywidht(0.02, context)),
-                        Expanded(
-                            child: buildTextField('CITY', citycontroller,
-                                readOnly: false, onTap: null)),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: mediaqueryheight(0.01, context),
-                  ),
-                  buildTextField(
-                      'TRANSPORTATION TYPES', transportationcontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('ACCOMODATION', accomodationcontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('MEALS', mealscontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('ACTIVITIES', activitescontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('PER ADULT', adultcontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('PER CHILDREN', childrencontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('PER NIGHT HOTEL', hotelpricecontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('COMPANY CHARGE', companaychargecontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField('PACKAGE AMOUNT', packageamountcontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField(
-                      'BOOKING INFORMATION & POLICIES', bookingcontroller,
-                      readOnly: false, onTap: null),
-                  buildTextField(
-                      'ADDITIONAL INFORMATION', additionalinforamtioncontroller,
-                      readOnly: false, onTap: null),
-                  SizedBox(
-                    height: mediaqueryheight(0.03, context),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 25),
-                    child: GestureDetector(
-                      onTap: () {
-                        _saveChanges(imagepaths.cast<String>());
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: orangecolor,
-                            boxShadow: [
-                              BoxShadow(
-                                color:
-                                    blackcolor.withOpacity(0.5), // Shadow color
-                                spreadRadius: 2,
-                                blurRadius: 10,
-                                offset: const Offset(2, 5),
+                      SizedBox(
+                        height: mediaqueryheight(0.01, context),
+                      ),
+                      buildTextField(
+                        'PACKAGE NAME',
+                        packagenamecontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.01, context),
+                      ),
+                      buildTextField(
+                        'DESTINATION NAMES',
+                        placenamecontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.01, context),
+                      ),
+                      BlocBuilder<AddpackageBloc, AddpackageState>(
+                        builder: (context, state) {
+                          return buildTextField(
+                            'START DATE',
+                            startDateController,
+                            readOnly: true,
+                            onTap: () => _selectDate(
+                              context,
+                              startDateController,
+                              state.startDate,
+                            ),
+                            widthFactor: widthFactor,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.01, context),
+                      ),
+                      BlocBuilder<AddpackageBloc, AddpackageState>(
+                        builder: (context, state) {
+                          return buildTextField(
+                            'END DATE',
+                            endDateController,
+                            readOnly: true,
+                            onTap: () => _selectDate(
+                              context,
+                              endDateController,
+                              state.endDate,
+                            ),
+                            widthFactor: widthFactor,
+                          );
+                        },
+                      ),
+                      isWideScreen
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 370),
+                              child: Row(
+                                children: [
+                                  buildTextField(
+                                    'DAYS',
+                                    dayscontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.11,
+                                  ),
+                                  SizedBox(
+                                    width: mediaquerywidht(0.02, context),
+                                  ),
+                                  buildTextField(
+                                    'NIGHTS',
+                                    nightscontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.11,
+                                  ),
+                                  SizedBox(
+                                    width: mediaquerywidht(0.02, context),
+                                  ),
+                                  buildTextField(
+                                    'COUNTRY',
+                                    countrycontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.11,
+                                  ),
+                                  SizedBox(
+                                    width: mediaquerywidht(0.02, context),
+                                  ),
+                                  buildTextField(
+                                    'CITY',
+                                    citycontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.11,
+                                  ),
+                                ],
                               ),
-                            ],
-                            borderRadius: BorderRadius.circular(10)),
-                        height: mediaqueryheight(0.05, context),
-                        width: mediaquerywidht(0.7, context),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.save,
-                              color: whitecolor,
-                              size: 25,
+                            )
+                          : Row(
+                              children: [
+                                Expanded(
+                                  child: buildTextField(
+                                    'DAYS',
+                                    dayscontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.5,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: mediaquerywidht(0.02, context),
+                                ),
+                                Expanded(
+                                  child: buildTextField(
+                                    'NIGHTS',
+                                    nightscontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.5,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: mediaquerywidht(0.02, context),
+                                ),
+                                Expanded(
+                                  child: buildTextField(
+                                    'COUNTRY',
+                                    countrycontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.5,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: mediaquerywidht(0.02, context),
+                                ),
+                                Expanded(
+                                  child: buildTextField(
+                                    'CITY',
+                                    citycontroller,
+                                    readOnly: false,
+                                    onTap: null,
+                                    widthFactor: 0.5,
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                              width: mediaquerywidht(0.02, context),
+                      buildTextField(
+                        'TRANSPORTATION TYPES',
+                        transportationcontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'ACCOMMODATION',
+                        accomodationcontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'MEALS',
+                        mealscontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'ACTIVITIES',
+                        activitescontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'PER ADULT',
+                        adultcontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'PER CHILDREN',
+                        childrencontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'PER NIGHT HOTEL',
+                        hotelpricecontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'COMPANY CHARGE',
+                        companaychargecontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'PACKAGE AMOUNT',
+                        packageamountcontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'BOOKING INFORMATION & POLICIES',
+                        bookingcontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      buildTextField(
+                        'ADDITIONAL INFORMATION',
+                        additionalinforamtioncontroller,
+                        readOnly: false,
+                        onTap: null,
+                        widthFactor: widthFactor,
+                      ),
+                      SizedBox(
+                        height: mediaqueryheight(0.03, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: GestureDetector(
+                          onTap: () {
+                            _saveChanges(imagepaths.cast<String>());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: orangecolor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: blackcolor.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  offset: const Offset(2, 5),
+                                ),
+                              ],
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            mytext("SAVE CHANGES",
-                                fontFamily: sedan,
-                                fontSize: 20,
-                                color: whitecolor)
-                          ],
+                            height: mediaqueryheight(0.05, context),
+                            width: constraints.maxWidth > 600
+                                ? mediaquerywidht(0.45, context)
+                                : mediaquerywidht(0.7, context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.save,
+                                  color: whitecolor,
+                                  size: 25,
+                                ),
+                                SizedBox(
+                                  width: mediaquerywidht(0.02, context),
+                                ),
+                                mytext(
+                                  "SAVE CHANGES",
+                                  fontFamily: sedan,
+                                  fontSize: 20,
+                                  color: whitecolor,
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: mediaqueryheight(0.03, context),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: mediaqueryheight(0.03, context),
-                  ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           ),
         ),
       ),

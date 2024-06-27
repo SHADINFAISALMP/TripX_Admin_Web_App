@@ -56,9 +56,14 @@ class LoginButtonGoogle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return Container(
       height: mediaqueryheight(.07, context),
-      width: mediaquerywidht(.4, context),
+      width: isMobile
+          ? mediaquerywidht(.4, context)
+          : mediaquerywidht(.2, context),
       decoration: BoxDecoration(
         color: whitecolor,
         borderRadius: BorderRadius.circular(
@@ -73,18 +78,20 @@ class LoginButtonGoogle extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: mediaquerywidht(.03, context),
+                horizontal: mediaquerywidht(.01, context),
               ),
               child: const Icon(Icons.login, color: blackcolor),
             ),
             SizedBox(
-              width: mediaquerywidht(.04, context),
+              width: mediaquerywidht(.035, context),
             ),
-            mytext('Log in',
-                color: black54,
-                fontSize: mediaqueryheight(.029, context),
-                fontWeight: FontWeight.w300,
-                fontFamily: sedan),
+            mytext(
+              'Log in',
+              color: black54,
+              fontSize: mediaqueryheight(.029, context),
+              fontWeight: FontWeight.w300,
+              fontFamily: sedan,
+            ),
           ],
         ),
       ),

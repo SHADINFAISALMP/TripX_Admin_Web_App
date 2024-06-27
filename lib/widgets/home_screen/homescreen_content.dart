@@ -8,8 +8,11 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 import 'package:tripx_admin_application/widgets/home_screen/home_screen_container.dart';
 
 class Homescreencontent extends StatelessWidget {
+  final bool isMobile;
+
   const Homescreencontent({
     super.key,
+    required this.isMobile,
   });
 
   @override
@@ -29,29 +32,61 @@ class Homescreencontent extends StatelessWidget {
               );
             }
             final querySnapshot = snapshot.data as QuerySnapshot;
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: querySnapshot.docs.length,
-              itemBuilder: (context, index) {
-                final item = querySnapshot.docs[index];
-                List<String> images =
-                    (item['imagepath'] as List<dynamic>).cast<String>();
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PackageDetails(
-                          itemslists: item,
+            if (isMobile) {
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: querySnapshot.docs.length,
+                itemBuilder: (context, index) {
+                  final item = querySnapshot.docs[index];
+                  List<String> images =
+                      (item['imagepath'] as List<dynamic>).cast<String>();
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PackageDetails(
+                            itemslists: item,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  child: HomePackagecontainer(images: images, item: item),
-                );
-              },
-            );
+                      );
+                    },
+                    child: HomePackagecontainer(images: images, item: item),
+                  );
+                },
+              );
+            } else {
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: mediaqueryheight(0.02, context),
+                  crossAxisSpacing: mediaquerywidht(0.02, context),
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: querySnapshot.docs.length,
+                itemBuilder: (context, index) {
+                  final item = querySnapshot.docs[index];
+                  List<String> images =
+                      (item['imagepath'] as List<dynamic>).cast<String>();
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PackageDetails(
+                            itemslists: item,
+                          ),
+                        ),
+                      );
+                    },
+                    child: HomePackagecontainer(images: images, item: item),
+                  );
+                },
+              );
+            }
           },
         ),
         SizedBox(

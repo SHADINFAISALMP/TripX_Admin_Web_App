@@ -15,7 +15,7 @@ class ImageCarouselWithGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400, // Adjust height as needed
+      height: 200,
       child: GridView.builder(
         scrollDirection: Axis.vertical,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

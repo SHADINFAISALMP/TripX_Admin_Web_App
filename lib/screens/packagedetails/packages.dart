@@ -11,10 +11,10 @@ class Packages extends StatefulWidget {
   const Packages({super.key});
 
   @override
-  State<Packages> createState() => _SearchpageState();
+  State<Packages> createState() => _PackagesState();
 }
 
-class _SearchpageState extends State<Packages> {
+class _PackagesState extends State<Packages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,33 +30,82 @@ class _SearchpageState extends State<Packages> {
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30))),
       ),
-      body: SingleChildScrollView(
-        child: BlocConsumer<AddpackageBloc, AddpackageState>(
-          listener: (context, state) {
-            if (state is PackageSuccess) {
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("SUCCESSFULLY UPLOADED")),
-              );
-              clearAllControllers();
-            } else if (state is PackageError || state is ImageUploadError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("ERROR UPLOADED")),
-              );
-            }
-          },
-          builder: (context, state) {
-            if (state is Packageloading) {
-              return Center(
-                child: LoadingAnimationWidget.threeArchedCircle(
-                  color: colorteal,
-                  size: 60,
-                ),
-              );
-            }
-            return const buildcontent(); // Your main content UI here
-          },
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 600) {
+            return _buildWideContainers();
+          } else {
+            return _buildNarrowContainers();
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildWideContainers() {
+    return SingleChildScrollView(
+      child: Center(
+        child: Container(
+          padding: EdgeInsets.all(16.0),
+          width: 800, // Fixed width for web/desktop
+          child: BlocConsumer<AddpackageBloc, AddpackageState>(
+            listener: (context, state) {
+              if (state is PackageSuccess) {
+                Navigator.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("SUCCESSFULLY UPLOADED")),
+                );
+                clearAllControllers();
+              } else if (state is PackageError || state is ImageUploadError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("ERROR UPLOADED")),
+                );
+              }
+            },
+            builder: (context, state) {
+              if (state is Packageloading) {
+                return Center(
+                  child: LoadingAnimationWidget.threeArchedCircle(
+                    color: colorteal,
+                    size: 60,
+                  ),
+                );
+              }
+              return const BuildContent();
+            },
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildNarrowContainers() {
+    return SingleChildScrollView(
+      child: BlocConsumer<AddpackageBloc, AddpackageState>(
+        listener: (context, state) {
+          if (state is PackageSuccess) {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("SUCCESSFULLY UPLOADED")),
+            );
+            clearAllControllers();
+          } else if (state is PackageError || state is ImageUploadError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("ERROR UPLOADED")),
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state is Packageloading) {
+            return Center(
+              child: LoadingAnimationWidget.threeArchedCircle(
+                color: colorteal,
+                size: 60,
+              ),
+            );
+          }
+          return const BuildContent();
+        },
       ),
     );
   }

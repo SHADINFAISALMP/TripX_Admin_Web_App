@@ -113,7 +113,7 @@ class HomePackagecontainer extends StatelessWidget {
                 item['packageamount'],
                 fontFamily: bodoni,
                 fontSize: 18,
-                color: whitecolor,
+                color: whitecolor,overflow: TextOverflow.ellipsis
               ),
               const SizedBox(width: 5),
               Deletebutton(item: item),

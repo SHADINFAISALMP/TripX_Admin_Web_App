@@ -8,14 +8,15 @@ import 'package:tripx_admin_application/widgets/editprofile_widgts/savebutton.da
 
 class Editprofiletextformfields extends StatelessWidget {
   const Editprofiletextformfields({
-    super.key,
+    Key? key,
     required this.widget,
     required TextEditingController nameController,
     required TextEditingController phoneNumberController,
     required TextEditingController placeController,
   })  : _nameController = nameController,
         _phoneNumberController = phoneNumberController,
-        _placeController = placeController;
+        _placeController = placeController,
+        super(key: key);
 
   final Editprofile widget;
   final TextEditingController _nameController;
@@ -69,7 +70,9 @@ class Editprofiletextformfields extends StatelessWidget {
           height: mediaqueryheight(0.05, context),
         ),
         SizedBox(
-          width: mediaquerywidht(0.9, context),
+          width: MediaQuery.of(context).size.width > 600
+              ? mediaquerywidht(0.5, context)
+              : mediaquerywidht(0.9, context),
           child: TextFormField(
             keyboardType: TextInputType.name,
             controller: _nameController,
@@ -109,7 +112,9 @@ class Editprofiletextformfields extends StatelessWidget {
           height: mediaqueryheight(0.03, context),
         ),
         SizedBox(
-          width: mediaquerywidht(0.9, context),
+          width: MediaQuery.of(context).size.width > 600
+              ? mediaquerywidht(0.5, context)
+              : mediaquerywidht(0.9, context),
           child: TextFormField(
             keyboardType: TextInputType.name,
             controller: _phoneNumberController,
@@ -149,7 +154,9 @@ class Editprofiletextformfields extends StatelessWidget {
           height: mediaqueryheight(0.03, context),
         ),
         SizedBox(
-          width: mediaquerywidht(0.9, context),
+          width: MediaQuery.of(context).size.width > 600
+              ? mediaquerywidht(0.5, context)
+              : mediaquerywidht(0.9, context),
           child: TextFormField(
             keyboardType: TextInputType.name,
             controller: _placeController,
@@ -189,9 +196,10 @@ class Editprofiletextformfields extends StatelessWidget {
           height: mediaqueryheight(0.05, context),
         ),
         Savechanges(
-            nameController: _nameController,
-            phoneNumberController: _phoneNumberController,
-            placeController: _placeController),
+          nameController: _nameController,
+          phoneNumberController: _phoneNumberController,
+          placeController: _placeController,
+        ),
       ],
     );
   }

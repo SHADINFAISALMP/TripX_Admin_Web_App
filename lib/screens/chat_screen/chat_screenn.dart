@@ -52,16 +52,21 @@ class _ChatScreennState extends State<ChatScreenn> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool showBackIcon = screenWidth < 600;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: whitecolor,
-            )),
+        leading: showBackIcon
+            ? IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: whitecolor,
+                ),
+              )
+            : null,
         backgroundColor: colorteal,
         toolbarHeight: 80,
         titleSpacing: 20,
@@ -310,13 +315,12 @@ class Message {
   final Timestamp timestamp;
   final bool isDeleted;
 
-  Message({
-    required this.senderId,
-    required this.senderemail,
-    required this.message,
-    required this.timestamp,
-    required this.isDeleted
-  });
+  Message(
+      {required this.senderId,
+      required this.senderemail,
+      required this.message,
+      required this.timestamp,
+      required this.isDeleted});
 
   Map<String, dynamic> toMap() {
     return {
@@ -324,7 +328,7 @@ class Message {
       'senderemail': senderemail,
       'message': message,
       'timestamp': timestamp,
-      'isdeleted':isDeleted
+      'isdeleted': isDeleted
     };
   }
 }

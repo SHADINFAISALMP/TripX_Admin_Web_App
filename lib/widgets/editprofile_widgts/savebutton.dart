@@ -90,7 +90,9 @@ class Savechanges extends StatelessWidget {
       },
       child: Container(
         height: mediaqueryheight(0.07, context),
-        width: mediaquerywidht(0.5, context),
+        width: MediaQuery.of(context).size.width > 600
+            ? mediaquerywidht(0.3, context)
+            : mediaquerywidht(0.9, context),
         decoration: BoxDecoration(boxShadow: [
           BoxShadow(
             color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),

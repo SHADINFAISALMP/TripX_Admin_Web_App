@@ -15,26 +15,74 @@ class ChatLitsshow extends StatefulWidget {
 }
 
 class _ChatLitsshowState extends State<ChatLitsshow> {
+  String? selectedChatRoomId;
+  String? selectedSenderEmail;
+  String? selectedSenderId;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: whitecolor,
-      appBar: AppBar(
-        leading: const Icon(
-          Icons.chat,
-          color: whitecolor,
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: colorteal,
-        title: Text(
-          'CHATS',
-          style: TextStyle(
-              color: whitecolor,
-              fontWeight: FontWeight.bold,
-              fontFamily: bodoni),
-        ),
-      ),
-      body: buildChatRoomList(),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 600) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: const Icon(
+                Icons.chat,
+                color: whitecolor,
+              ),
+              automaticallyImplyLeading: false,
+              backgroundColor: colorteal,
+              title: Text(
+                'CHATS',
+                style: TextStyle(
+                    color: whitecolor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: bodoni),
+              ),
+            ),
+            body: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: buildChatRoomList(),
+                ),
+                const VerticalDivider(width: 1),
+                Expanded(
+                  flex: 2,
+                  child: selectedChatRoomId != null
+                      ? ChatScreenn(
+                          chatroomId: selectedChatRoomId!,
+                          senderemail: selectedSenderEmail!,
+                          senderid: selectedSenderId!,
+                        )
+                      : const Center(child: Text('Select a chat to view messages')),
+                ),
+              ],
+            ),
+          );
+        } else {
+          // Mobile View
+          return Scaffold(
+            backgroundColor: whitecolor,
+            appBar: AppBar(
+              leading: const Icon(
+                Icons.chat,
+                color: whitecolor,
+              ),
+              automaticallyImplyLeading: false,
+              backgroundColor: colorteal,
+              title: Text(
+                'CHATS',
+                style: TextStyle(
+                    color: whitecolor,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: bodoni),
+              ),
+            ),
+            body: buildChatRoomList(),
+          );
+        }
+      },
     );
   }
 
@@ -123,13 +171,22 @@ class _ChatLitsshowState extends State<ChatLitsshow> {
                         ],
                       ),
                       onTap: () {
-                        Navigator.of(context).push(FadeTransitionPageRoute(
-                          child: ChatScreenn(
-                            chatroomId: chatRoom.id,
-                            senderemail: data['senderemail'],
-                            senderid: data['senderid'],
-                          ),
-                        ));
+                        if (MediaQuery.of(context).size.width > 600) {
+                          setState(() {
+                            selectedChatRoomId = chatRoom.id;
+                            selectedSenderEmail = data['senderemail'];
+                            selectedSenderId = data['senderid'];
+                          });
+                        } else {
+                         
+                          Navigator.of(context).push(FadeTransitionPageRoute(
+                            child: ChatScreenn(
+                              chatroomId: chatRoom.id,
+                              senderemail: data['senderemail'],
+                              senderid: data['senderid'],
+                            ),
+                          ));
+                        }
                       },
                     ),
                   ),

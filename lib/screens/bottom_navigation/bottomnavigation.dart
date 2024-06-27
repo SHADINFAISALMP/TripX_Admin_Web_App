@@ -1,3 +1,4 @@
+
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class Bottomnavigation extends StatefulWidget {
 
 class _BottomnavigationState extends State<Bottomnavigation> {
   late NotchBottomBarController _pageController;
+
   @override
   void initState() {
     super.initState();
@@ -28,74 +30,76 @@ class _BottomnavigationState extends State<Bottomnavigation> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return BlocBuilder<BottomnavigationBloc, BottomnavigationState>(
       builder: (context, state) {
         return Scaffold(
-            // backgroundColor: colorteal,
-            body: pages[state.currentpageindex],
-            bottomNavigationBar: AnimatedNotchBottomBar(
-              bottomBarItems: const [
-                BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.home_filled,
-                    color: whitecolor,
-                  ),
-                  activeItem: Icon(
-                    Icons.home_filled,
-                    color: colorteal,
-                  ),
-                  itemLabel: 'HOME',
+          body: pages[state.currentpageindex],
+          bottomNavigationBar: AnimatedNotchBottomBar(
+            bottomBarItems: const [
+              BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.home_filled,
+                  color: whitecolor,
                 ),
-                BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.chat,
-                    color: whitecolor,
-                  ),
-                  activeItem: Icon(
-                    Icons.chat,
-                    color: colorteal,
-                  ),
-                  itemLabel: 'CHAT',
+                activeItem: Icon(
+                  Icons.home_filled,
+                  color: colorteal,
                 ),
-                BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.add,
-                    color: whitecolor,
-                  ),
-                  activeItem: Icon(
-                    Icons.add,
-                    color: colorteal,
-                  ),
-                  itemLabel: 'ADD PACKAGES',
+                itemLabel: 'HOME',
+              ),
+              BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.chat,
+                  color: whitecolor,
                 ),
-                BottomBarItem(
-                  inActiveItem: Icon(
-                    Icons.person,
-                    color: whitecolor,
-                  ),
-                  activeItem: Icon(
-                    Icons.person_2_sharp,
-                    color: colorteal,
-                  ),
-                  itemLabel: 'PROFILE',
+                activeItem: Icon(
+                  Icons.chat,
+                  color: colorteal,
                 ),
-              ],
-              notchBottomBarController: _pageController,
-              onTap: (int value) {
-                context
-                    .read<BottomnavigationBloc>()
-                    .add(ChangeTabEvent(pageIndex: value));
-              },
-              kIconSize: mediaqueryheight(.029, context),
-              kBottomRadius: mediaqueryheight(.02, context),
-              notchColor: whitecolor,
-              color: colorteal,
-              itemLabelStyle: const TextStyle(color: whitecolor, fontSize: 9),
-              bottomBarHeight: mediaqueryheight(.04, context),
-            ));
+                itemLabel: 'CHAT',
+              ),
+              BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.add,
+                  color: whitecolor,
+                ),
+                activeItem: Icon(
+                  Icons.add,
+                  color: colorteal,
+                ),
+                itemLabel: 'ADD PACKAGES',
+              ),
+              BottomBarItem(
+                inActiveItem: Icon(
+                  Icons.person,
+                  color: whitecolor,
+                ),
+                activeItem: Icon(
+                  Icons.person_2_sharp,
+                  color: colorteal,
+                ),
+                itemLabel: 'PROFILE',
+              ),
+            ],
+            notchBottomBarController: _pageController,
+            onTap: (int value) {
+              context
+                  .read<BottomnavigationBloc>()
+                  .add(ChangeTabEvent(pageIndex: value));
+            },
+            kIconSize: mediaqueryheight(.029, context),
+            kBottomRadius: mediaqueryheight(.02, context),
+            notchColor: whitecolor,
+            color: colorteal,
+            itemLabelStyle: const TextStyle(color: whitecolor, fontSize: 9),
+            bottomBarHeight:isMobile ? mediaqueryheight(.04, context) : mediaqueryheight(.02, context),
+            bottomBarWidth: screenWidth,
+          ),
+        );
       },
     );
   }

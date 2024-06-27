@@ -29,6 +29,9 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return Scaffold(
       body: MultiBlocListener(
         listeners: [
@@ -49,7 +52,7 @@ class _LoginState extends State<Login> {
                   SnackBar(
                     content: Center(
                       child: Text(
-                        "Incorrect Email or PAssword",
+                        "Incorrect Email or Password",
                         style: TextStyle(
                             color: Colors.white,
                             fontFamily: sedan,
@@ -72,14 +75,18 @@ class _LoginState extends State<Login> {
             },
           ),
         ],
-        child: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/image/spalsh.jpeg'),
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.high,
-            ),
-          ),
+          child: Container(
+          decoration: isMobile
+              ? const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/image/spalsh.jpeg'),
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.high,
+                  ),
+                )
+              : const BoxDecoration(
+                  color: colorteal,
+                ),
           child: Center(
             child: SingleChildScrollView(
               child: Form(

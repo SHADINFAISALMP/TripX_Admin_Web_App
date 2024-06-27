@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tripx_admin_application/blocs/add_package_bloc/addpackage_bloc.dart';
@@ -17,13 +18,83 @@ class Packageaddings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return const buildcoontent();
+  }
+}
+
+class buildcoontent extends StatelessWidget {
+  const buildcoontent({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth > 600) {
+          return _buildWideContents(context);
+        } else {
+          return _buildNarrowContents(context);
+        }
+      },
+    );
+  }
+
+  Widget _buildWideContents(BuildContext context) {
     return Column(
+      children: [
+        SizedBox(
+          height: mediaqueryheight(0.01, context),
+        ),
+        Expanded(
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+              width: 800,
+              decoration: const BoxDecoration(
+                  color: colorteal,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30))),
+              child: SingleChildScrollView(
+                child: samethings(context),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNarrowContents(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: mediaqueryheight(0.01, context),
+        ),
+        Expanded(
+          child: Container(
+            decoration: const BoxDecoration(
+                color: colorteal,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30))),
+            child: SingleChildScrollView(child: samethings(context)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget samethings(BuildContext context) {
+    return Center(
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: mediaqueryheight(0.03, context),
         ),
-        const TopName(text: "PACKAGE PHOTOS"),
+        TopName(text: "PACKAGE PHOTOS"),
         GestureDetector(
           onTap: () async {
             final picker = ImagePicker();
@@ -492,6 +563,6 @@ class Packageaddings extends StatelessWidget {
           height: mediaqueryheight(0.05, context),
         )
       ],
-    );
+    ));
   }
 }

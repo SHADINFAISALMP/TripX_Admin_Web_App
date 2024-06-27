@@ -18,28 +18,40 @@ class _SplashscreenState extends State<Splashscreen> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const Login()));
     });
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return Scaffold(
       body: Stack(
         children: [
           SizedBox(
             width: double.infinity,
             height: double.infinity,
-            child: Image.asset(
-              "assets/image/spalsh.jpeg",
-              fit: BoxFit.fill,
+            child: isMobile
+                ? Image.asset(
+                    "assets/image/spalsh.jpeg",
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Black.png/220px-Black.png",
+                    fit: BoxFit.cover,
+                  ),
+          ),
+          SizedBox(
+            height: mediaqueryheight(.19, context),
+            child: Center(
+              child: Text(
+                "TRIPX ADMIN",
+                style: TextStyle(
+                  fontFamily: sedan,
+                  fontSize: mediaqueryheight(.04, context),
+                  color: whitecolor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
-          Positioned(
-            top: mediaqueryheight(.9, context),
-            left: mediaquerywidht(.35, context),
-            child: mytext(
-              "TRIPX",
-              color: whitecolor,
-              fontSize: mediaqueryheight(.04, context),
-              fontWeight: FontWeight.bold,
-              fontFamily: sedan,
-            ),
-          )
         ],
       ),
     );

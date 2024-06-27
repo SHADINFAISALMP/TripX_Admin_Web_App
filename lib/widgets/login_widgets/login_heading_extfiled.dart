@@ -8,11 +8,13 @@ import 'package:tripx_admin_application/utils/mediaquery.dart';
 import 'package:tripx_admin_application/utils/textformfields.dart';
 
 class LoginheadingandTextfiled extends StatelessWidget {
-  const LoginheadingandTextfiled({
-    super.key,
-  });
+  const LoginheadingandTextfiled({super.key});
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return Column(
       children: [
         Padding(
@@ -35,17 +37,26 @@ class LoginheadingandTextfiled extends StatelessWidget {
         SizedBox(
           height: mediaqueryheight(.16, context),
         ),
-        customtextformfieild("Enter Admin Name", Icons.person, context,
-            controller: emailcontrollerlog,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: emailValidator),
+        customtextformfieild(
+          "Enter Admin Name",
+          Icons.person,
+          context,
+          isMobile: isMobile,
+          controller: emailcontrollerlog,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: emailValidator,
+        ),
         SizedBox(
           height: mediaqueryheight(.05, context),
         ),
-        customtextformfiledpassword('Enter Password', context,
-            controller: passwordcontrollerlog,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: passwordValidator),
+        customtextformfiledpassword(
+          'Enter Password',
+          context,
+          isMobile: isMobile,
+          controller: passwordcontrollerlog,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          validator: passwordValidator,
+        ),
         SizedBox(
           height: mediaqueryheight(.05, context),
         ),
@@ -59,7 +70,7 @@ class LoginheadingandTextfiled extends StatelessWidget {
               Navigator.of(context).push(
                   MaterialPageRoute(builder: (context) => PrivacyPolicy()));
             },
-            child: Text(
+            child: const Text(
               'Click here to read privacy policy',
               style: TextStyle(
                   color: whitecolor, fontWeight: FontWeight.bold, fontSize: 18),

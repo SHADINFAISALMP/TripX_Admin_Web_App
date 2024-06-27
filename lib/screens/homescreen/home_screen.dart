@@ -1,5 +1,5 @@
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -19,9 +19,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   late NotchBottomBarController _pageController;
-  late List<Widget> pages;
-  final GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>(); // Define a GlobalKey
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(); 
 
   @override
   void initState() {
@@ -37,6 +35,9 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isMobile = screenWidth < 600;
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(100),
@@ -45,7 +46,7 @@ class _HomescreenState extends State<Homescreen> {
             padding: const EdgeInsets.only(
               left: 15,
               bottom: 15,
-            ), // Adjust padding as needed
+            ), 
             child: Image.asset(
               'assets/image/logo1.png',
               color: whitecolor,
@@ -114,9 +115,10 @@ class _HomescreenState extends State<Homescreen> {
           child: Column(
             children: [
               Padding(
-                  padding: EdgeInsets.only(
-                top: mediaqueryheight(0.02, context),
-              )),
+                padding: EdgeInsets.only(
+                  top: mediaqueryheight(0.02, context),
+                ),
+              ),
               mytext("Popular Destinations",
                   fontFamily: sedan,
                   fontSize: mediaqueryheight(0.025, context),
@@ -135,22 +137,23 @@ class _HomescreenState extends State<Homescreen> {
                     }
                     if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
                       return Center(
-                          child: Column(
-                        children: [
-                          Image.asset(
-                            "assets/image/travel.png",
-                            scale: 3,
-                          ),
-                          mytext(
-                            'BUT NOW NO PACKAGES AVAILABLE \n                        SORRY!!!!',
-                            fontFamily: sedan,
-                            fontSize: 18,
-                            color: colorteal,
-                          ),
-                        ],
-                      ));
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/image/travel.png",
+                              scale: 3,
+                            ),
+                            mytext(
+                              'BUT NOW NO PACKAGES AVAILABLE \n                        SORRY!!!!',
+                              fontFamily: sedan,
+                              fontSize: 18,
+                              color: colorteal,
+                            ),
+                          ],
+                        ),
+                      );
                     }
-                    return const Homescreencontent();
+                    return Homescreencontent(isMobile: isMobile);
                   }),
             ],
           ),

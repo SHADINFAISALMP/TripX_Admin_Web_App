@@ -24,6 +24,7 @@ class TopName extends StatelessWidget {
     );
   }
 }
+
 class Fourcontainerdays extends StatelessWidget {
   const Fourcontainerdays({
     super.key,
@@ -31,33 +32,47 @@ class Fourcontainerdays extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double containerWidth = MediaQuery.of(context).size.width > 600
+        ? mediaquerywidht(0.1, context)
+        : mediaquerywidht(0.2, context);
+
     return Row(
-     children: [
-       PackageFieldsdayandnights(controller: dayscontroller,
-         prefixicon: const Icon(Icons.sunny),
-       ),
-       PackageFieldsdayandnights(controller: nightscontroller,
-         prefixicon: const Icon(Icons.night_shelter),
-       ),
-       PackageFieldsdayandnights(controller: countrycontroller,
-         prefixicon: const Icon(Icons.location_city),
-       ),
-       PackageFieldsdayandnights(controller: citycontroller,
-         prefixicon: const Icon(Icons.location_city),
-       ),
-     ],
-                    );
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        PackageFieldsdayandnights(
+          controller: dayscontroller,
+          prefixicon: const Icon(Icons.sunny),
+          width: containerWidth,
+        ),
+        PackageFieldsdayandnights(
+          controller: nightscontroller,
+          prefixicon: const Icon(Icons.night_shelter),
+          width: containerWidth,
+        ),
+        PackageFieldsdayandnights(
+          controller: countrycontroller,
+          prefixicon: const Icon(Icons.location_city),
+          width: containerWidth,
+        ),
+        PackageFieldsdayandnights(
+          controller: citycontroller,
+          prefixicon: const Icon(Icons.location_city),
+          width: containerWidth,
+        ),
+      ],
+    );
   }
 }
+
 class PackageFields extends StatelessWidget {
   final String hinttext;
-  // ignore: prefer_typing_uninitialized_variables
   final prefixicon;
-  final  TextEditingController controller;
+  final TextEditingController controller;
   const PackageFields({
     super.key,
     required this.hinttext,
-    required this.prefixicon, required this.controller,
+    required this.prefixicon,
+    required this.controller,
   });
 
   @override
@@ -78,7 +93,8 @@ class PackageFields extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(controller: controller,
+        child: TextField(
+          controller: controller,
           cursorColor: whitecolor,
           style: const TextStyle(color: colorteal),
           decoration: InputDecoration(
@@ -105,13 +121,14 @@ class PackageFields extends StatelessWidget {
 }
 
 class PackageFieldsdayandnights extends StatelessWidget {
-  // ignore: prefer_typing_uninitialized_variables
   final prefixicon;
-  final  TextEditingController controller;
+  final TextEditingController controller;
+  final double width;
   const PackageFieldsdayandnights({
     super.key,
     required this.prefixicon,
     required this.controller,
+    required this.width,
   });
 
   @override
@@ -119,7 +136,7 @@ class PackageFieldsdayandnights extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        width: mediaquerywidht(0.197, context),
+        width: width,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: whitecolor,
@@ -132,7 +149,8 @@ class PackageFieldsdayandnights extends StatelessWidget {
             ),
           ],
         ),
-        child: TextField(controller: controller,
+        child: TextField(
+          controller: controller,
           keyboardType: TextInputType.number,
           cursorColor: whitecolor,
           style: const TextStyle(color: colorteal),
@@ -157,6 +175,7 @@ class PackageFieldsdayandnights extends StatelessWidget {
     );
   }
 }
+
 class TopnameTitles extends StatelessWidget {
   const TopnameTitles({
     super.key,
@@ -164,7 +183,7 @@ class TopnameTitles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         TopName(
@@ -182,7 +201,6 @@ class TopnameTitles extends StatelessWidget {
       ],
     );
   }
-  
 }
 
 class NextButton extends StatelessWidget {
@@ -195,15 +213,12 @@ class NextButton extends StatelessWidget {
     return Center(
       child: GestureDetector(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const PackageImage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const PackageImage()));
         },
         child: Container(
           decoration: BoxDecoration(
-              color: orangecolor,
-              borderRadius: BorderRadius.circular(10)),
+              color: orangecolor, borderRadius: BorderRadius.circular(10)),
           height: mediaqueryheight(0.05, context),
           width: mediaquerywidht(0.5, context),
           child: Center(
@@ -221,6 +236,7 @@ class NextButton extends StatelessWidget {
     );
   }
 }
+
 class Startdateandenddate extends StatelessWidget {
   final String text;
   final String topname;
@@ -236,7 +252,7 @@ class Startdateandenddate extends StatelessWidget {
       children: [
         TopName(text: topname),
         Container(
-          width: mediaquerywidht(0.38, context),
+          width: mediaquerywidht(0.25, context),
           decoration: BoxDecoration(
             color: whitecolor,
             borderRadius: BorderRadius.circular(15),
@@ -268,7 +284,6 @@ class PackageDetailsContainers extends StatelessWidget {
     super.key,
     required this.text,
     required this.topname,
-    
   });
 
   @override
@@ -301,6 +316,7 @@ class PackageDetailsContainers extends StatelessWidget {
     );
   }
 }
+
 class Daysnightsrow extends StatelessWidget {
   final String text;
   final String topname;
@@ -317,7 +333,7 @@ class Daysnightsrow extends StatelessWidget {
       children: [
         TopName(text: topname),
         Container(
-          width: mediaquerywidht(0.18, context),
+          width: mediaquerywidht(0.1, context),
           decoration: BoxDecoration(
             color: whitecolor,
             borderRadius: BorderRadius.circular(15),

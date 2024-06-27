@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tripx_admin_application/blocs/register_button/register_bloc.dart';
 
 import 'package:tripx_admin_application/utils/colors.dart';
-import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 
 class SignUpButton extends StatelessWidget {
@@ -39,13 +38,15 @@ class SignUpButton extends StatelessWidget {
             SizedBox(
               width: mediaquerywidht(.04, context),
             ),
-            mytext(
-              'Add Profile',
-              color: black54,
-              fontSize: mediaqueryheight(.021, context),
-              fontWeight: FontWeight.w400,
-              fontFamily: 'sedan',
-            ),
+            Text(
+    'Add Profile',
+    
+    style: TextStyle(
+        fontFamily: 'sedan',
+        fontSize: mediaqueryheight(.021, context),
+        color: black54,
+        fontWeight: FontWeight.w400),
+  ),
           ],
         ),
       ),

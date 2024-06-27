@@ -1,4 +1,3 @@
-
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:tripx_admin_application/utils/colors.dart';
 import 'package:tripx_admin_application/utils/fonts.dart';
 import 'package:tripx_admin_application/utils/mediaquery.dart';
 import 'package:tripx_admin_application/widgets/package_widgets/package_addingtwo.dart';
+
 
 class PackageImage extends StatefulWidget {
   const PackageImage({super.key});
@@ -30,32 +30,11 @@ class _PackageImageState extends State<PackageImage> {
           centerTitle: true,
           title: mytext("MORE DETAILS",
               fontFamily: sedan, fontSize: 24, color: whitecolor)),
-      body: Column(
-        children: [
-          SizedBox(
-            height: mediaqueryheight(0.04, context),
-          ),
-          Expanded(
-            child: Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                  color: colorteal,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30))),
-              child: const SingleChildScrollView(
-                child: Center(
-                  child: Packageaddings(),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      body:  Packageaddings(),
     );
   }
 }
+
 void _showPriceBottomSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -106,7 +85,8 @@ void _showPriceBottomSheet(BuildContext context) {
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: whitecolor, backgroundColor: colorteal,
+                  foregroundColor: whitecolor,
+                  backgroundColor: colorteal,
                 ),
                 child: const Text('Submit'),
               ),
